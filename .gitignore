@@ -3,3 +3,7 @@ dist/
 .env
 *.tsbuildinfo
 apps/desktop/src-tauri/target/
+site/.astro/
+site/dist/
+site/node_modules/
+.polyglot-cache.json
