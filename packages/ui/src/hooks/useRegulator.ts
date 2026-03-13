@@ -1,25 +1,34 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { api, type AppState, type AmbientPreset, type DeviceInfo } from "../lib/api.js";
+import {
+  api,
+  type MixerState,
+  type SoundCatalog,
+  type DeviceInfo,
+} from "../lib/api.js";
 
-const INITIAL_STATE: AppState = {
-  status: "idle",
-  currentPresetId: null,
-  currentPlaybackId: null,
-  volume: 0.5,
+const INITIAL_STATE: MixerState = {
+  layers: [],
   deviceId: null,
   error: null,
 };
 
+const EMPTY_CATALOG: SoundCatalog = {
+  categories: [],
+  sounds: [],
+  grouped: {},
+};
+
 export function useRegulator() {
-  const [state, setState] = useState<AppState>(INITIAL_STATE);
-  const [presets, setPresets] = useState<AmbientPreset[]>([]);
+  const [state, setState] = useState<MixerState>(INITIAL_STATE);
+  const [catalog, setCatalog] = useState<SoundCatalog>(EMPTY_CATALOG);
   const [devices, setDevices] = useState<DeviceInfo[]>([]);
-  const volumeTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const volumeTimers = useRef<Map<string, ReturnType<typeof setTimeout>>>(
+    new Map(),
+  );
 
   // SSE connection for real-time state
   useEffect(() => {
     const es = new EventSource("/api/events");
-
     es.onmessage = (e) => {
       try {
         setState(JSON.parse(e.data));
@@ -27,66 +36,71 @@ export function useRegulator() {
         // Ignore parse errors
       }
     };
-
-    es.onerror = () => {
-      // EventSource auto-reconnects
-    };
-
     return () => es.close();
   }, []);
 
-  // Load presets + devices on mount
+  // Load catalog + devices on mount
   useEffect(() => {
-    api.getPresets().then(setPresets).catch(() => {});
+    api.getSounds().then(setCatalog).catch(() => {});
     api.getDevices().then(setDevices).catch(() => {});
   }, []);
 
-  const play = useCallback(
-    async (presetId: string) => {
-      try {
-        await api.play(presetId, state.deviceId ?? undefined);
-      } catch {
-        // Error comes through SSE
-      }
-    },
-    [state.deviceId],
-  );
-
-  const stop = useCallback(async () => {
+  const addLayer = useCallback(async (soundId: string) => {
     try {
-      await api.stop();
+      await api.addLayer(soundId, 0.5);
     } catch {
       // Error comes through SSE
     }
   }, []);
 
-  const setVolume = useCallback((level: number) => {
-    // Optimistic local update
-    setState((s) => ({ ...s, volume: level }));
-
-    // Debounce the server call
-    clearTimeout(volumeTimer.current);
-    volumeTimer.current = setTimeout(() => {
-      api.setVolume(level).catch(() => {});
-    }, 50);
+  const removeLayer = useCallback(async (playbackId: string) => {
+    try {
+      await api.removeLayer(playbackId);
+    } catch {
+      // Error comes through SSE
+    }
   }, []);
 
-  const refreshDevices = useCallback(async () => {
+  const setLayerVolume = useCallback(
+    (playbackId: string, level: number) => {
+      // Optimistic local update
+      setState((s) => ({
+        ...s,
+        layers: s.layers.map((l) =>
+          l.playbackId === playbackId ? { ...l, volume: level } : l,
+        ),
+      }));
+
+      // Debounce the server call
+      const timers = volumeTimers.current;
+      const existing = timers.get(playbackId);
+      if (existing) clearTimeout(existing);
+      timers.set(
+        playbackId,
+        setTimeout(() => {
+          api.setLayerVolume(playbackId, level).catch(() => {});
+          timers.delete(playbackId);
+        }, 50),
+      );
+    },
+    [],
+  );
+
+  const stopAll = useCallback(async () => {
     try {
-      const d = await api.getDevices();
-      setDevices(d);
+      await api.stopAll();
     } catch {
-      // Non-critical
+      // Error comes through SSE
     }
   }, []);
 
   return {
     state,
-    presets,
+    catalog,
     devices,
-    play,
-    stop,
-    setVolume,
-    refreshDevices,
+    addLayer,
+    removeLayer,
+    setLayerVolume,
+    stopAll,
   };
 }

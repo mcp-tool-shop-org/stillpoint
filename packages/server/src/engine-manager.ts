@@ -63,7 +63,7 @@ export async function createEngineManager(
           const playbackId = sidecar!.resolveAndRemoveHandle(evt.data.handle);
           if (playbackId) {
             engine.handlePlaybackEnded(playbackId, evt.data.reason);
-            stateManager.setIdle();
+            stateManager.removeLayer(playbackId);
           }
         }
       },

@@ -2,7 +2,13 @@ import { Router, type Request, type Response } from "express";
 import type { SonicEngine } from "@sonic-core/engine";
 import type { Source } from "@sonic-core/types";
 import type { RegulatorState } from "../state.js";
-import { DEFAULT_PRESETS, findPreset, presetAssetRef } from "../presets.js";
+import {
+  SOUNDS,
+  CATEGORIES,
+  findSound,
+  soundAssetRef,
+  soundsByCategory,
+} from "../presets.js";
 
 export function apiRouter(
   engine: SonicEngine,
@@ -10,8 +16,9 @@ export function apiRouter(
 ): Router {
   const router = Router();
 
-  router.get("/presets", (_req: Request, res: Response) => {
-    res.json(DEFAULT_PRESETS);
+  /** Full sound catalog grouped by category. */
+  router.get("/sounds", (_req: Request, res: Response) => {
+    res.json({ categories: CATEGORIES, sounds: SOUNDS, grouped: soundsByCategory() });
   });
 
   router.get("/devices", async (_req: Request, res: Response) => {
@@ -27,52 +34,44 @@ export function apiRouter(
     res.json(state.current);
   });
 
-  router.post("/play", async (req: Request, res: Response) => {
-    const { presetId, deviceId } = req.body as {
-      presetId?: string;
-      deviceId?: string;
+  /** Add a sound layer to the mix. */
+  router.post("/layers/add", async (req: Request, res: Response) => {
+    const { soundId, volume } = req.body as {
+      soundId?: string;
+      volume?: number;
     };
 
-    if (!presetId) {
-      res.status(400).json({ error: "presetId is required" });
+    if (!soundId) {
+      res.status(400).json({ error: "soundId is required" });
       return;
     }
 
-    const preset = findPreset(presetId);
-    if (!preset) {
-      res.status(404).json({ error: `Unknown preset: ${presetId}` });
+    if (state.hasSound(soundId)) {
+      res.status(409).json({ error: `${soundId} is already playing` });
       return;
     }
+
+    const sound = findSound(soundId);
+    if (!sound) {
+      res.status(404).json({ error: `Unknown sound: ${soundId}` });
+      return;
+    }
+
+    const layerVolume = typeof volume === "number" ? Math.max(0, Math.min(1, volume)) : 0.5;
 
     try {
-      // Stop current playback if any
-      const { currentPlaybackId } = state.current;
-      if (currentPlaybackId) {
-        try {
-          await engine.stop(currentPlaybackId);
-        } catch {
-          // Already stopped — fine
-        }
-      }
-
       const source: Source = {
         kind: "asset",
-        asset_ref: presetAssetRef(preset),
+        asset_ref: soundAssetRef(sound),
       };
-
-      const effectiveDevice = deviceId ?? state.current.deviceId ?? undefined;
 
       const playbackId = await engine.play(source, {
         loop: true,
-        initial_volume: state.current.volume,
-        output_device_id: effectiveDevice,
+        initial_volume: layerVolume,
+        output_device_id: state.current.deviceId ?? undefined,
       });
 
-      if (deviceId) {
-        state.setDevice(deviceId);
-      }
-      state.setPlaying(presetId, playbackId);
-
+      state.addLayer(soundId, playbackId, layerVolume);
       res.json({ playbackId });
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
@@ -81,42 +80,58 @@ export function apiRouter(
     }
   });
 
-  router.post("/stop", async (_req: Request, res: Response) => {
-    const { currentPlaybackId } = state.current;
-    if (!currentPlaybackId) {
-      res.json({ ok: true });
+  /** Remove a layer by playbackId. */
+  router.post("/layers/remove", async (req: Request, res: Response) => {
+    const { playbackId } = req.body as { playbackId?: string };
+
+    if (!playbackId) {
+      res.status(400).json({ error: "playbackId is required" });
       return;
     }
 
     try {
-      await engine.stop(currentPlaybackId);
-      state.setIdle();
-      res.json({ ok: true });
-    } catch (err) {
-      const msg = err instanceof Error ? err.message : String(err);
-      state.setError("stop_failed", msg);
-      res.status(500).json({ error: msg });
+      await engine.stop(playbackId);
+    } catch {
+      // Already stopped
     }
+    state.removeLayer(playbackId);
+    res.json({ ok: true });
   });
 
-  router.post("/volume", async (req: Request, res: Response) => {
-    const { level } = req.body as { level?: number };
-    if (typeof level !== "number" || level < 0 || level > 1) {
-      res.status(400).json({ error: "level must be a number between 0 and 1" });
+  /** Set volume for a specific layer. */
+  router.post("/layers/volume", async (req: Request, res: Response) => {
+    const { playbackId, level } = req.body as {
+      playbackId?: string;
+      level?: number;
+    };
+
+    if (!playbackId || typeof level !== "number" || level < 0 || level > 1) {
+      res.status(400).json({ error: "playbackId and level (0-1) required" });
       return;
     }
 
-    state.setVolume(level);
+    state.setLayerVolume(playbackId, level);
 
-    const { currentPlaybackId } = state.current;
-    if (currentPlaybackId) {
-      try {
-        await engine.set_volume(currentPlaybackId, level);
-      } catch {
-        // Playback may have ended — volume state is still saved
-      }
+    try {
+      await engine.set_volume(playbackId, level);
+    } catch {
+      // Playback may have ended
     }
 
+    res.json({ ok: true });
+  });
+
+  /** Stop all layers. */
+  router.post("/stop-all", async (_req: Request, res: Response) => {
+    const { layers } = state.current;
+    for (const layer of layers) {
+      try {
+        await engine.stop(layer.playbackId);
+      } catch {
+        // Already stopped
+      }
+    }
+    state.clearAllLayers();
     res.json({ ok: true });
   });
 

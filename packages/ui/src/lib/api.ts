@@ -1,20 +1,27 @@
 const BASE = "/api";
 
-export interface AppState {
-  status: "idle" | "playing" | "error";
-  currentPresetId: string | null;
-  currentPlaybackId: string | null;
+export interface Layer {
+  soundId: string;
+  playbackId: string;
   volume: number;
+}
+
+export interface MixerState {
+  layers: Layer[];
   deviceId: string | null;
   error: { code: string; message: string } | null;
 }
 
-export interface AmbientPreset {
+export interface AmbientSound {
   id: string;
   name: string;
-  description: string;
   category: string;
-  icon: string;
+}
+
+export interface SoundCatalog {
+  categories: string[];
+  sounds: AmbientSound[];
+  grouped: Record<string, AmbientSound[]>;
 }
 
 export interface DeviceInfo {
@@ -43,11 +50,14 @@ async function get<T>(path: string): Promise<T> {
 }
 
 export const api = {
-  getPresets: () => get<AmbientPreset[]>("/presets"),
+  getSounds: () => get<SoundCatalog>("/sounds"),
   getDevices: () => get<DeviceInfo[]>("/devices"),
-  getState: () => get<AppState>("/state"),
-  play: (presetId: string, deviceId?: string) =>
-    post("/play", { presetId, deviceId }),
-  stop: () => post("/stop"),
-  setVolume: (level: number) => post("/volume", { level }),
+  getState: () => get<MixerState>("/state"),
+  addLayer: (soundId: string, volume?: number) =>
+    post("/layers/add", { soundId, volume }) as Promise<{ playbackId: string }>,
+  removeLayer: (playbackId: string) =>
+    post("/layers/remove", { playbackId }),
+  setLayerVolume: (playbackId: string, level: number) =>
+    post("/layers/volume", { playbackId, level }),
+  stopAll: () => post("/stop-all"),
 };
