@@ -1,0 +1,213 @@
+/* Stillpoint — ambient sound regulator */
+
+.stillpoint {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #0a0a0f 0%, #12121f 100%);
+}
+
+/* Header */
+.header {
+  padding: 24px 32px 16px;
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #888;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* Error banner */
+.error-banner {
+  margin: 0 24px;
+  padding: 10px 16px;
+  background: #2a1215;
+  border: 1px solid #5c2830;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.error-message {
+  color: #f5a0a0;
+  font-size: 0.85rem;
+}
+
+.error-code {
+  color: #7a4048;
+  font-size: 0.75rem;
+  font-family: monospace;
+}
+
+/* Main / Preset grid */
+.main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.preset-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+  max-width: 640px;
+  width: 100%;
+}
+
+.preset-card {
+  background: #1a1a28;
+  border: 1px solid #2a2a3a;
+  border-radius: 12px;
+  padding: 20px 16px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.15s ease;
+  color: #c0c0d0;
+  font-family: inherit;
+}
+
+.preset-card:hover {
+  background: #22223a;
+  border-color: #3a3a5a;
+  transform: translateY(-2px);
+}
+
+.preset-card.active {
+  background: #1a2a4a;
+  border-color: #4a6aaa;
+  box-shadow: 0 0 20px rgba(70, 100, 180, 0.2);
+}
+
+.preset-card:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.preset-icon {
+  font-size: 2rem;
+}
+
+.preset-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.preset-desc {
+  font-size: 0.7rem;
+  color: #666;
+}
+
+/* Now Playing footer */
+.footer {
+  border-top: 1px solid #1a1a2a;
+  background: #0e0e18;
+}
+
+.now-playing {
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.now-playing-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 140px;
+}
+
+.now-playing-icon {
+  font-size: 1.4rem;
+}
+
+.now-playing-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.now-playing-controls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex: 1;
+}
+
+/* Device select */
+.device-select {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+}
+
+.device-select label {
+  color: #666;
+}
+
+.device-select select {
+  background: #1a1a28;
+  color: #c0c0d0;
+  border: 1px solid #2a2a3a;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  font-family: inherit;
+  max-width: 200px;
+}
+
+/* Volume control */
+.volume-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+}
+
+.volume-control label {
+  color: #666;
+}
+
+.volume-control input[type="range"] {
+  width: 100px;
+  accent-color: #4a6aaa;
+}
+
+.volume-value {
+  color: #888;
+  font-size: 0.75rem;
+  min-width: 32px;
+  text-align: right;
+}
+
+/* Stop button */
+.stop-btn {
+  background: #2a1520;
+  color: #e08090;
+  border: 1px solid #5c2830;
+  border-radius: 8px;
+  padding: 6px 16px;
+  font-size: 0.85rem;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  margin-left: auto;
+}
+
+.stop-btn:hover {
+  background: #3a2030;
+  border-color: #8a4050;
+}

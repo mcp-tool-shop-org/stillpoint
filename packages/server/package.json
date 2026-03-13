@@ -1,0 +1,24 @@
+{
+  "name": "@stillpoint/server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/bin.ts",
+    "build": "tsc -b",
+    "test": "node --import tsx/esm --test src/**/*.test.ts"
+  },
+  "dependencies": {
+    "@sonic-core/engine": "file:../../../sonic-core/packages/engine",
+    "@sonic-core/types": "file:../../../sonic-core/packages/types",
+    "express": "^5.0.1",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/cors": "^2.8.17",
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}

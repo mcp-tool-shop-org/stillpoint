@@ -1,0 +1,17 @@
+{
+  "name": "stillpoint",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Stillpoint — ambient sound regulator powered by sonic-core",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
