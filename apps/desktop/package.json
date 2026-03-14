@@ -5,7 +5,10 @@
   "scripts": {
     "tauri": "tauri",
     "tauri:dev": "tauri dev",
-    "tauri:build": "tauri build"
+    "tauri:build": "tauri build",
+    "msix": "powershell -ExecutionPolicy Bypass -File msix/build-msix.ps1",
+    "msix:skip-build": "powershell -ExecutionPolicy Bypass -File msix/build-msix.ps1 -SkipBuild",
+    "msix:assets": "node msix/gen-assets.mjs"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^2.0.0"

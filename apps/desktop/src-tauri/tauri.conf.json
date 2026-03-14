@@ -5,7 +5,7 @@
   "identifier": "com.mcptoolshop.stillpoint",
   "build": {
     "devUrl": "http://localhost:5173",
-    "frontendDist": "../../packages/ui/dist"
+    "frontendDist": "../../../packages/ui/dist"
   },
   "app": {
     "windows": [
