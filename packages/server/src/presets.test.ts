@@ -1,12 +1,14 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import {
+
+// Dynamic import to avoid static resolution issues with tsx/esm
+const {
   SOUNDS,
   CATEGORIES,
   findSound,
   buildCatalog,
   soundAssetRef,
-} from "./presets.ts";
+} = await import("./presets.ts");
 
 describe("SOUNDS catalog", () => {
   it("has 50+ built-in sounds", () => {
