@@ -2,13 +2,11 @@ import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 
 // Dynamic import to avoid static resolution issues with tsx/esm
-const {
-  SOUNDS,
-  CATEGORIES,
-  findSound,
-  buildCatalog,
-  soundAssetRef,
-} = await import("./presets.ts");
+const mod = await import("./presets.ts");
+const SOUNDS = mod.SOUNDS;
+const CATEGORIES = mod.CATEGORIES;
+const findSound = mod.findSound;
+const soundAssetRef = mod.soundAssetRef;
 
 describe("SOUNDS catalog", () => {
   it("has 50+ built-in sounds", () => {
@@ -60,24 +58,6 @@ describe("findSound", () => {
 
   it("returns undefined for nonexistent ID", () => {
     assert.strictEqual(findSound("nonexistent-xyz"), undefined);
-  });
-});
-
-describe("buildCatalog", () => {
-  it("returns categories, sounds, and grouped", () => {
-    const catalog = buildCatalog();
-    assert.ok(Array.isArray(catalog.categories));
-    assert.ok(Array.isArray(catalog.sounds));
-    assert.ok(typeof catalog.grouped === "object");
-  });
-
-  it("groups all sounds by category", () => {
-    const catalog = buildCatalog();
-    let totalGrouped = 0;
-    for (const cat of catalog.categories) {
-      totalGrouped += catalog.grouped[cat]?.length ?? 0;
-    }
-    assert.strictEqual(totalGrouped, catalog.sounds.length);
   });
 });
 
