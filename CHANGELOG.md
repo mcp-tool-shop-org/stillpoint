@@ -1,6 +1,20 @@
 # Changelog
 
-## v0.1.0
+## [1.0.1] - 2026-03-25
+
+### Added
+- Version alignment test suite (3 tests)
+
+### Changed
+- SHA-pin CI workflow actions (checkout, setup-node, upload-pages-artifact, deploy-pages) for supply chain security
+- CHANGELOG reformatted to Keep a Changelog standard
+
+## [1.0.0] - 2026-02-27
+
+### Changed
+- Promoted to v1.0.0 — production-stable release
+
+## [0.1.0]
 
 - Initial release: ambient sound mixer powered by sonic-core
 - **Layered mixer** — add multiple sounds with independent volume control
