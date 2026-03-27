@@ -13,6 +13,7 @@ Welcome to the Stillpoint handbook. This is the complete guide to using the ambi
 - **[Usage](/stillpoint/handbook/usage/)** — Mixer UI, adding sounds, volume control, device routing
 - **[Architecture](/stillpoint/handbook/architecture/)** — Three-process model, SSE, and server design
 - **[API Reference](/stillpoint/handbook/reference/)** — REST endpoints and sound catalog
+- **[Beginner's Guide](/stillpoint/handbook/beginners/)** — New to Stillpoint? Start here
 
 ## What Stillpoint is
 

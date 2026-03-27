@@ -89,7 +89,7 @@ Stop all active layers. No request body needed.
 
 ### GET /api/events
 
-SSE endpoint. Sends `event: state` with full `MixerState` JSON on every state change. First message is the current state on connect.
+SSE endpoint. Sends `data:` messages with full `MixerState` JSON on every state change (default event type, no named `event:` field). First message is the current state on connect.
 
 ## Environment variables
 
@@ -97,6 +97,7 @@ SSE endpoint. Sends `event: state` with full `MixerState` JSON on every state ch
 |----------|---------|-------------|
 | `SONIC_RUNTIME_PATH` | (fallback paths) | Path to sonic-runtime binary |
 | `AMBIENT_WAVS_PATH` | `F:/AI/ambient-wavs/output` | Directory containing ambient WAV files |
+| `STILLPOINT_CUSTOM_PATH` | `<AMBIENT_WAVS_PATH>/../custom` | Directory for user-provided custom WAV files |
 | `PORT` | `3456` | Server port |
 
 ## Sound asset format

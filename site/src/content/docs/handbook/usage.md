@@ -38,23 +38,49 @@ When at least one layer is playing, a "Stop All" button appears in the toolbar. 
 
 ## Device routing
 
-The device dropdown (in the toolbar) shows all available audio output devices. Select a different device to route audio there.
+The device dropdown (in the toolbar) shows all available audio output devices. In the current build, device selection is display-only — audio plays through the system default device. Full device routing is planned for a future release.
 
 ## Sound catalog
 
 Stillpoint includes 50 ambient sounds across 10 categories:
 
-| Category | Sounds |
-|----------|--------|
-| Rain | Heavy Rain, Light Rain, Rain on Leaves, Rain on Tin Roof, Thunderstorm |
-| Water | Brook, River, Waterfall, Dripping, Fountain |
-| Ocean | Deep Ocean, Waves, Shore, Underwater, Harbor |
-| Wind | Gentle Breeze, Strong Wind, Wind Chimes, Rustling Leaves, Howling Wind |
-| Fire | Fireplace, Campfire, Crackling, Embers, Torch |
-| Night | Cricket Field, Frogs, Owl, Night Forest, Night Field |
-| Noise | White Noise, Pink Noise, Brown Noise, Grey Noise, Violet Noise |
-| Drone | Low Drone, Mid Drone, High Drone, Binaural, Singing Bowl |
-| Tone | Organ, Pad, Hum, Chant, Bell |
-| Mechanical | Fan, Train, Clock, Engine, Washing Machine |
+| Category | Count | Sounds |
+|----------|-------|--------|
+| Rain | 7 | Heavy Rain, Light Rain, Drizzle, Rain on Roof, Rain in Forest, Thunderstorm, Distant Thunder |
+| Water | 5 | Brook, River, Waterfall, Forest Stream, Cave Drips |
+| Ocean | 5 | Ocean, Deep Ocean, Bay, Distant Shore, Rocky Coast |
+| Wind | 4 | Gentle Wind, Cold Wind, Mountain Wind, Warm Breeze |
+| Fire | 2 | Fireplace, Campfire |
+| Night | 3 | Night Field, Still Night, Summer Night |
+| Noise | 7 | White Noise, Pink Noise, Brown Noise, Dark Brown, Brown Surge, Static, Tape Hiss |
+| Drone | 6 | Deep Drone, Warm Drone, High Drone, Fifth Drone, Deep Pad, Airy Pad |
+| Tone | 6 | Singing Bowl, Bell, Organ, Glass, Shimmer, Hollow Pipe |
+| Mechanical | 5 | Air Conditioner, Desk Fan, Floor Fan, Heartbeat, Pulse Beat |
 
 Each sound is a 60-second, 44.1kHz mono WAV file designed for seamless looping.
+
+## Custom sounds
+
+You can add your own WAV files to the mixer. Drop any `.wav` file into the custom sounds directory and it appears in a "Custom" category automatically — no server restart needed.
+
+### Custom sounds directory
+
+Set `STILLPOINT_CUSTOM_PATH` to point to your directory, or use the default location: a `custom` folder next to the ambient WAVs directory.
+
+```
+ambient-wavs/
+  output/         ← built-in sounds
+  custom/         ← your WAV files go here
+    my-rain.wav
+    office-hum.wav
+```
+
+### Naming
+
+Filenames become display names via kebab-to-title conversion:
+
+| File | Display name |
+|------|-------------|
+| `my-rain.wav` | My Rain |
+| `office-hum.wav` | Office Hum |
+| `singing-bowl-low.wav` | Singing Bowl Low |

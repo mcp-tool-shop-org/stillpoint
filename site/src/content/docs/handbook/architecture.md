@@ -72,7 +72,7 @@ All endpoints are under `/api`:
 
 ### SSE (Server-Sent Events)
 
-The `/api/events` endpoint maintains a persistent connection. On connect, it sends the current state immediately. On every state change, it pushes an `event: state` message with the full `MixerState` JSON.
+The `/api/events` endpoint maintains a persistent connection. On connect, it sends the current state immediately. On every state change, it pushes a `data:` message with the full `MixerState` JSON. Messages use the default SSE event type (no named `event:` field), so they arrive via the `onmessage` handler on the client.
 
 ## UI architecture
 
@@ -89,5 +89,5 @@ The single `useRegulator()` hook manages all state:
 
 - **SoundPicker** — two cascading dropdowns: category → sound
 - **LayerStrip** — one per active layer: name, category, volume slider, remove button
-- **DeviceSelect** — dropdown of available audio devices
-- **ErrorBanner** — displays server errors (runtime crashed, file not found, etc.)
+- **DeviceSelect** — dropdown of available audio devices (display-only in the current build; device switching is wired but not yet connected to the engine)
+- **ErrorBanner** — displays server errors with code and message (runtime crashed, file not found, etc.)

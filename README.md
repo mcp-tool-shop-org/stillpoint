@@ -1,4 +1,8 @@
 <p align="center">
+  <a href="README.ja.md">日本語</a> | <a href="README.zh.md">中文</a> | <a href="README.es.md">Español</a> | <a href="README.fr.md">Français</a> | <a href="README.hi.md">हिन्दी</a> | <a href="README.it.md">Italiano</a> | <a href="README.pt-BR.md">Português (BR)</a>
+</p>
+
+<p align="center">
   <img src="https://raw.githubusercontent.com/mcp-tool-shop-org/brand/main/logos/stillpoint/readme.png" width="400" alt="Stillpoint" />
 </p>
 
@@ -33,10 +37,11 @@ Powered by [sonic-core](https://github.com/mcp-tool-shop-org/sonic-core) and [so
 ## Features
 
 - **50 ambient sounds** across 10 categories (rain, water, ocean, wind, fire, night, noise, drone, tone, mechanical)
+- **Custom sounds** — drop your own WAV files into a folder and they appear in the mixer
 - **Layered mixer** — add multiple sounds simultaneously with independent volume
 - **Category browser** — dropdown-organized sound picker
 - **Per-layer volume** — range sliders with real-time adjustment
-- **Device routing** — select audio output device
+- **Device routing** — audio output device selector (display-only in current build)
 - **Real-time sync** — SSE-powered state updates
 - **Tauri desktop** — native window via Tauri v2
 
@@ -58,6 +63,14 @@ npm run dev --workspace=@stillpoint/ui
 ```
 
 Open `http://localhost:5177` — pick a category, add sounds, adjust volumes.
+
+## Custom Sounds
+
+Drop any `.wav` file into the custom sounds directory and it appears in a "Custom" category automatically — no server restart needed.
+
+Default location: `custom/` folder next to the ambient WAVs directory. Override with `STILLPOINT_CUSTOM_PATH`.
+
+Filenames become display names: `my-rain.wav` → **My Rain**.
 
 ## Packages
 
