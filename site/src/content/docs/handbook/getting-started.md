@@ -27,12 +27,21 @@ Stillpoint expects ambient WAV files at the path set by `AMBIENT_WAVS_PATH` (def
 
 ## Run the server
 
+On macOS / Linux:
+
 ```bash
 SONIC_RUNTIME_PATH=/path/to/SonicRuntime.exe \
   npx tsx packages/server/src/bin.ts
 ```
 
-The server starts on port 3456. You'll see:
+On Windows:
+
+```bash
+set SONIC_RUNTIME_PATH=C:\path\to\SonicRuntime.exe
+npx tsx packages/server/src/bin.ts
+```
+
+The server starts on port 3456 (override with `PORT` env var). You'll see:
 ```
 [stillpoint] runtime connected: sonic-runtime v0.5.0 (ndjson-stdio-v1)
 [stillpoint] server listening on http://localhost:3456

@@ -62,7 +62,16 @@ SONIC_RUNTIME_PATH=/path/to/SonicRuntime.exe \
 npm run dev --workspace=@stillpoint/ui
 ```
 
+On Windows, set the environment variable first:
+
+```bash
+set SONIC_RUNTIME_PATH=C:\path\to\SonicRuntime.exe
+npx tsx packages/server/src/bin.ts
+```
+
 Open `http://localhost:5177` — pick a category, add sounds, adjust volumes.
+
+The server defaults to port 3456. Override with the `PORT` environment variable.
 
 ## Custom Sounds
 
@@ -79,6 +88,15 @@ Filenames become display names: `my-rain.wav` → **My Rain**.
 | `@stillpoint/server` | Express API + sonic-core engine management |
 | `@stillpoint/ui` | React mixer UI (Vite) |
 | `@stillpoint/desktop` | Tauri v2 native window shell |
+
+## Environment Variables
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `SONIC_RUNTIME_PATH` | (fallback paths) | Path to sonic-runtime binary |
+| `AMBIENT_WAVS_PATH` | `F:/AI/ambient-wavs/output` | Directory containing ambient WAV files |
+| `STILLPOINT_CUSTOM_PATH` | `<AMBIENT_WAVS_PATH>/../custom` | Directory for user-provided custom WAV files |
+| `PORT` | `3456` | Server port |
 
 ## License
 

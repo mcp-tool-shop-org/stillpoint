@@ -7,13 +7,15 @@ sidebar:
 
 Welcome to the Stillpoint handbook. This is the complete guide to using the ambient sound mixer and understanding how it works under the hood.
 
+**New here?** Start with the [Beginner's Guide](/stillpoint/handbook/beginners/) for a step-by-step introduction.
+
 ## What's inside
 
+- **[Beginner's Guide](/stillpoint/handbook/beginners/)** — New to Stillpoint? Start here
 - **[Getting Started](/stillpoint/handbook/getting-started/)** — Install, set up, and run your first mix
 - **[Usage](/stillpoint/handbook/usage/)** — Mixer UI, adding sounds, volume control, device routing
 - **[Architecture](/stillpoint/handbook/architecture/)** — Three-process model, SSE, and server design
 - **[API Reference](/stillpoint/handbook/reference/)** — REST endpoints and sound catalog
-- **[Beginner's Guide](/stillpoint/handbook/beginners/)** — New to Stillpoint? Start here
 
 ## What Stillpoint is
 

@@ -9,6 +9,23 @@ sidebar:
 
 All endpoints are served by the Express server on port 3456. The Vite dev server proxies `/api` requests.
 
+### Error responses
+
+All endpoints return errors as JSON with an `error` field:
+
+```json
+{ "error": "description of the problem" }
+```
+
+Common HTTP status codes:
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Missing or invalid parameter (e.g., no `soundId` or `level` out of range) |
+| 404 | Sound ID not found in catalog |
+| 409 | Sound is already playing (duplicate layer) |
+| 500 | Engine or runtime error |
+
 ### GET /api/sounds
 
 Returns the full sound catalog.

@@ -55,6 +55,14 @@ State changes emit events via Node.js EventEmitter. The SSE endpoint subscribes 
 4. Create SonicEngine with the backend
 5. Fall back to NullBackend if runtime is unavailable
 
+### NullBackend fallback
+
+If the sonic-runtime binary is missing or fails to start, the engine manager falls back to `NullBackend` from sonic-core. This allows the server and UI to start normally for development and testing — the mixer interface works, but no audio is produced. An error banner in the UI indicates the runtime is unavailable.
+
+### Graceful shutdown
+
+The server process listens for `SIGINT` and `SIGTERM`. On shutdown, it closes the Express server and disposes the engine (which tears down the sonic-runtime sidecar process). This prevents orphaned runtime processes.
+
 ### REST API
 
 All endpoints are under `/api`:

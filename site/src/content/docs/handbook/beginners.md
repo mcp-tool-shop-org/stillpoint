@@ -73,6 +73,16 @@ Open `http://localhost:5177` in your browser.
 4. Drag any layer's volume slider to adjust its level
 5. Click the x button on a layer to remove it, or press Stop All to clear everything
 
+## How it works
+
+Stillpoint uses a three-process architecture:
+
+1. **React UI** (port 5177) — the mixer interface you see in the browser. It sends REST requests to add/remove sounds and receives real-time state updates via Server-Sent Events (SSE).
+2. **Node.js server** (port 3456) — the control layer. It manages the sound catalog, mixer state (which layers are playing at what volume), and communicates with the audio engine through sonic-core.
+3. **sonic-runtime** — the C# NativeAOT binary that does the actual audio playback via OpenAL Soft. It communicates with the server over stdin/stdout using the ndjson-stdio protocol.
+
+The Vite dev server proxies `/api` requests to the Express server, so the UI only talks to one origin. When you add a sound, the server tells sonic-runtime to start looping a WAV file, then pushes the updated mixer state to all connected browsers via SSE.
+
 ## Common tasks
 
 ### Adding custom sounds
@@ -122,3 +132,14 @@ The server is not running or the UI cannot reach it. Verify the server is listen
 
 **Custom sounds do not appear**
 Ensure your WAV files are in the correct directory and have the `.wav` extension (case-insensitive). Verify the path with `STILLPOINT_CUSTOM_PATH` or check that the default `custom/` folder exists next to your ambient WAVs directory.
+
+**Volume slider has no effect**
+The UI updates optimistically (the slider moves immediately), but the actual volume change requires the sonic-runtime to be connected. If you are running with NullBackend, the slider moves in the UI but no audio plays. Check the error banner at the top of the page.
+
+## Next steps
+
+Once you are comfortable with the basics:
+
+- **[Usage Guide](/stillpoint/handbook/usage/)** — full details on the mixer UI, sound catalog, and custom sounds
+- **[Architecture](/stillpoint/handbook/architecture/)** — how the three-process model works under the hood
+- **[API Reference](/stillpoint/handbook/reference/)** — REST endpoints for scripting or building integrations
