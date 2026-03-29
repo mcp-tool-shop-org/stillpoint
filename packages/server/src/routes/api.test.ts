@@ -172,6 +172,13 @@ describe("POST /api/layers/add", () => {
     assert.strictEqual(status, 409);
     assert.ok((body as Record<string, unknown>).error);
   });
+
+  it("path traversal soundId → 404", async () => {
+    // soundAssetRef is called only after findSound succeeds; findSound won't match traversal strings
+    const { status, body } = await post(`${url}/api/layers/add`, { soundId: "../etc/passwd" });
+    assert.strictEqual(status, 404);
+    assert.ok((body as Record<string, unknown>).error);
+  });
 });
 
 describe("POST /api/layers/remove", () => {
@@ -209,17 +216,19 @@ describe("POST /api/layers/remove", () => {
 describe("POST /api/layers/volume", () => {
   let url: string;
   let close: () => Promise<void>;
+  let state: RegulatorState;
+  let engine: ReturnType<typeof makeMockEngine>;
 
   before(async () => {
-    const state = new RegulatorState();
-    const engine = makeMockEngine();
+    state = new RegulatorState();
+    engine = makeMockEngine();
     ({ url, close } = await startServer(engine, state));
   });
 
   after(async () => { await close(); });
 
   it("missing level → 400", async () => {
-    const { status } = await post(`${url}/api/layers/volume`, { playbackId: "mock-pb-0" });
+    const { status } = await post(`${url}/api/layers/volume`, { playbackId: "mock-pb-vol-0" });
     assert.strictEqual(status, 400);
   });
 
@@ -228,23 +237,47 @@ describe("POST /api/layers/volume", () => {
     const res = await fetch(`${url}/api/layers/volume`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ playbackId: "mock-pb-0", level: null }),
+      body: JSON.stringify({ playbackId: "mock-pb-vol-0", level: null }),
     });
     assert.strictEqual(res.status, 400);
   });
 
   it("level > 1 → 400", async () => {
-    const { status } = await post(`${url}/api/layers/volume`, { playbackId: "mock-pb-0", level: 1.5 });
+    const { status } = await post(`${url}/api/layers/volume`, { playbackId: "mock-pb-vol-0", level: 1.5 });
     assert.strictEqual(status, 400);
   });
 
   it("level < 0 → 400", async () => {
-    const { status } = await post(`${url}/api/layers/volume`, { playbackId: "mock-pb-0", level: -0.1 });
+    const { status } = await post(`${url}/api/layers/volume`, { playbackId: "mock-pb-vol-0", level: -0.1 });
     assert.strictEqual(status, 400);
   });
 
-  it("valid playbackId + level → 200", async () => {
-    const { status, body } = await post(`${url}/api/layers/volume`, { playbackId: "mock-pb-0", level: 0.75 });
+  it("unknown playbackId → 404 (F-A-007)", async () => {
+    // engine.set_volume succeeds but the layer is not tracked in state → 404
+    const { status, body } = await post(`${url}/api/layers/volume`, { playbackId: "mock-pb-not-tracked", level: 0.5 });
+    assert.strictEqual(status, 404);
+    assert.ok((body as Record<string, unknown>).error);
+  });
+
+  it("engine.set_volume throws → 500", async () => {
+    // Override set_volume to throw for this test
+    const originalSetVolume = engine.set_volume;
+    engine.set_volume = async (_pbId: string, _vol: number) => { throw new Error("audio device lost"); };
+    state.addLayer("vol-err-sound", "mock-pb-vol-err", 0.5);
+    try {
+      const { status, body } = await post(`${url}/api/layers/volume`, { playbackId: "mock-pb-vol-err", level: 0.5 });
+      assert.strictEqual(status, 500);
+      assert.ok((body as Record<string, unknown>).error);
+    } finally {
+      engine.set_volume = originalSetVolume;
+      state.removeLayer("mock-pb-vol-err");
+    }
+  });
+
+  it("valid tracked playbackId + level → 200", async () => {
+    // Pre-populate state so the layer is tracked
+    state.addLayer("vol-test-sound", "mock-pb-vol-tracked", 0.5);
+    const { status, body } = await post(`${url}/api/layers/volume`, { playbackId: "mock-pb-vol-tracked", level: 0.75 });
     assert.strictEqual(status, 200);
     assert.deepStrictEqual((body as Record<string, unknown>).ok, true);
   });

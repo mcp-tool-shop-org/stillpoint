@@ -66,7 +66,7 @@ export async function createEngineManager(
     try {
       await sidecar.start();
       const ver = sidecar.runtimeVersion;
-      log(`runtime connected: ${ver?.name} v${ver?.version} (${ver?.protocol})`);
+      log(ver ? `runtime connected: ${ver.name} v${ver.version} (${ver.protocol})` : 'runtime connected (no version info)');
     } catch (err) {
       log(`Failed to start runtime: ${err}`);
       stateManager.setError(

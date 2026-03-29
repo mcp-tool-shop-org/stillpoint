@@ -44,7 +44,7 @@ export function apiRouter(
       const devices = await engine.get_devices();
       res.json(devices);
     } catch (err) {
-      res.status(500).json({ error: String(err) });
+      res.status(500).json({ error: err instanceof Error ? err.message : 'Failed to list devices' });
     }
   });
 
@@ -161,6 +161,11 @@ export function apiRouter(
       // Playback may have ended — log but continue
       console.error("[api] set_volume failed:", err);
       res.status(500).json({ error: "Failed to set volume" });
+      return;
+    }
+
+    if (!state.current.layers.some(l => l.playbackId === playbackId)) {
+      res.status(404).json({ error: 'Layer not found' });
       return;
     }
 

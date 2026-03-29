@@ -13,11 +13,12 @@ export function eventsRouter(state: RegulatorState): Router {
     }
     sseConnections++;
 
-    res.writeHead(200, {
-      "Content-Type": "text/event-stream",
-      "Cache-Control": "no-cache",
-      Connection: "keep-alive",
+    res.set({
+      'Content-Type': 'text/event-stream',
+      'Cache-Control': 'no-cache',
+      'Connection': 'keep-alive',
     });
+    res.status(200).flushHeaders();
 
     res.write(`data: ${JSON.stringify(state.current)}\n\n`);
 

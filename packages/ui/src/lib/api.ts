@@ -45,7 +45,7 @@ async function post(path: string, body?: object): Promise<unknown> {
 
 async function get<T>(path: string): Promise<T> {
   const res = await fetch(`${BASE}${path}`);
-  if (!res.ok) throw new Error(res.statusText);
+  if (!res.ok) throw new Error(res.statusText || `HTTP ${res.status}`);
   return res.json() as Promise<T>;
 }
 

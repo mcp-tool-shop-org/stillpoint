@@ -91,7 +91,7 @@ export function useRegulator() {
         setTimeout(() => {
           api.setLayerVolume(playbackId, level).catch(() => {});
           timers.delete(playbackId);
-        }, 50),
+        }, 100),
       );
     },
     [],
