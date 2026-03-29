@@ -1,9 +1,12 @@
 /**
  * Ambient sound catalog for Stillpoint.
  *
- * All 50 sounds from ambient-wavs, organized into categories.
- * Each sound maps to a WAV file in the ambient-wavs output directory.
+ * Built-in sounds from ambient-wavs, plus user-provided custom WAVs.
+ * Each sound maps to a WAV file — built-ins from AMBIENT_WAVS_PATH,
+ * custom sounds from STILLPOINT_CUSTOM_PATH.
  */
+
+import { readdirSync, existsSync } from "node:fs";
 
 export interface AmbientSound {
   id: string;
@@ -103,22 +106,69 @@ export function getWavsPath(): string {
   return process.env.AMBIENT_WAVS_PATH ?? "F:/AI/ambient-wavs/output";
 }
 
+/** Resolve the custom sounds directory. */
+export function getCustomPath(): string {
+  if (process.env.STILLPOINT_CUSTOM_PATH) return process.env.STILLPOINT_CUSTOM_PATH;
+  const wavsPath = getWavsPath();
+  return `${wavsPath}/../custom`.replace(/\\/g, "/");
+}
+
+/** Convert kebab-case filename to Title Case display name. */
+function kebabToTitle(kebab: string): string {
+  return kebab.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+/** Scan the custom sounds directory for WAV files. */
+export function scanCustomSounds(): AmbientSound[] {
+  const dir = getCustomPath();
+  if (!existsSync(dir)) return [];
+  try {
+    return readdirSync(dir)
+      .filter((f) => f.toLowerCase().endsWith(".wav"))
+      .sort()
+      .map((f) => {
+        const stem = f.replace(/\.wav$/i, "");
+        return { id: `custom:${stem}`, name: kebabToTitle(stem), category: "Custom" };
+      });
+  } catch {
+    return [];
+  }
+}
+
 /** Build a file:// asset_ref for a sound. */
 export function soundAssetRef(sound: AmbientSound): string {
+  if (sound.id.startsWith("custom:")) {
+    const filename = sound.id.replace("custom:", "");
+    const base = getCustomPath().replace(/\\/g, "/");
+    return `file:///${base}/${filename}.wav`;
+  }
   const base = getWavsPath().replace(/\\/g, "/");
   return `file:///${base}/${sound.id}.wav`;
 }
 
-/** Find a sound by ID. */
+/** Find a sound by ID (searches built-in and custom). */
 export function findSound(id: string): AmbientSound | undefined {
-  return SOUNDS.find((s) => s.id === id);
+  const builtin = SOUNDS.find((s) => s.id === id);
+  if (builtin) return builtin;
+  if (id.startsWith("custom:")) {
+    return scanCustomSounds().find((s) => s.id === id);
+  }
+  return undefined;
 }
 
-/** Get sounds grouped by category. */
-export function soundsByCategory(): Record<string, AmbientSound[]> {
+/** Build the full catalog (built-in + custom). */
+export function buildCatalog(): {
+  categories: string[];
+  sounds: AmbientSound[];
+  grouped: Record<string, AmbientSound[]>;
+} {
+  const custom = scanCustomSounds();
+  const allSounds = [...SOUNDS, ...custom];
+  const cats: string[] =
+    custom.length > 0 ? [...CATEGORIES, "Custom"] : [...CATEGORIES];
   const grouped: Record<string, AmbientSound[]> = {};
-  for (const cat of CATEGORIES) {
-    grouped[cat] = SOUNDS.filter((s) => s.category === cat);
+  for (const cat of cats) {
+    grouped[cat] = allSounds.filter((s) => s.category === cat);
   }
-  return grouped;
+  return { categories: cats, sounds: allSounds, grouped };
 }

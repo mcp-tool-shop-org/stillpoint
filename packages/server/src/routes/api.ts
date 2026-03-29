@@ -3,11 +3,9 @@ import type { SonicEngine } from "@sonic-core/engine";
 import type { Source } from "@sonic-core/types";
 import type { RegulatorState } from "../state.js";
 import {
-  SOUNDS,
-  CATEGORIES,
   findSound,
   soundAssetRef,
-  soundsByCategory,
+  buildCatalog,
 } from "../presets.js";
 
 export function apiRouter(
@@ -18,7 +16,7 @@ export function apiRouter(
 
   /** Full sound catalog grouped by category. */
   router.get("/sounds", (_req: Request, res: Response) => {
-    res.json({ categories: CATEGORIES, sounds: SOUNDS, grouped: soundsByCategory() });
+    res.json(buildCatalog());
   });
 
   router.get("/devices", async (_req: Request, res: Response) => {
