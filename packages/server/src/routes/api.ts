@@ -418,7 +418,7 @@ export function apiRouter(
 
   router.post("/presets/:id/load", async (req: Request, res: Response) => {
     if (!checkRateLimit(res)) return;
-    const { id } = req.params;
+    const id = req.params.id as string;
     const preset = presetStore.load(id);
     if (!preset) {
       res.status(404).json({ error: "Preset not found" });
@@ -456,7 +456,7 @@ export function apiRouter(
 
   router.delete("/presets/:id", async (req: Request, res: Response) => {
     if (!checkRateLimit(res)) return;
-    const { id } = req.params;
+    const id = req.params.id as string;
     try {
       const removed = presetStore.remove(id);
       if (!removed) {

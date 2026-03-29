@@ -54,7 +54,8 @@ export async function createEngineManager(
       },
       onSuspect: (count: number) =>
         log(`runtime suspect: ${count} consecutive timeouts`),
-      onEvent: (evt: { event: string; data: Record<string, unknown> }) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      onEvent: (evt: any) => {
         if (evt.event === "playback_ended") {
           const playbackId = sidecar?.resolveAndRemoveHandle(evt.data.handle);
           if (playbackId) {
