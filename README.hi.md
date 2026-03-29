@@ -3,11 +3,12 @@
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/mcp-tool-shop-org/brand/main/logos/stillpoint/readme.png" width="400" alt="Stillpoint" />
+  <img src="https://raw.githubusercontent.com/mcp-tool-shop-org/brand/main/logos/stillpoint/readme.png" width="500" alt="Stillpoint" />
 </p>
 
 <p align="center">
   <a href="https://github.com/mcp-tool-shop-org/stillpoint/actions/workflows/ci.yml"><img src="https://github.com/mcp-tool-shop-org/stillpoint/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
+  <a href="https://github.com/mcp-tool-shop-org/stillpoint/actions/workflows/pages.yml"><img src="https://github.com/mcp-tool-shop-org/stillpoint/actions/workflows/pages.yml/badge.svg" alt="Site" /></a>
   <a href="https://github.com/mcp-tool-shop-org/stillpoint/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT License" /></a>
   <a href="https://mcp-tool-shop-org.github.io/stillpoint/"><img src="https://img.shields.io/badge/Landing_Page-live-blue" alt="Landing Page" /></a>
 </p>
@@ -36,14 +37,20 @@
 
 ## विशेषताएं
 
-- **50 परिवेशीय ध्वनियाँ** 10 श्रेणियों में (बारिश, पानी, समुद्र, हवा, आग, रात, शोर, ड्रोन, टोन, यांत्रिक)।
-- **कस्टम ध्वनियाँ** — अपनी WAV फ़ाइलें एक फ़ोल्डर में डालें और वे मिक्सर में दिखाई देंगी।
+- **50 परिवेशीय ध्वनियाँ** 10 श्रेणियों में (बारिश, पानी, समुद्र, हवा, आग, रात, शोर, ड्रोन, टोन, यांत्रिक)
+- **कस्टम ध्वनियाँ** — अपनी WAV फाइलें एक फ़ोल्डर में डालें और वे मिक्सर में दिखाई देंगी।
 - **लेयर्ड मिक्सर** — एक साथ कई ध्वनियाँ जोड़ें, प्रत्येक की अपनी वॉल्यूम सेटिंग होगी।
 - **श्रेणी ब्राउज़र** — ड्रॉप-डाउन मेनू में व्यवस्थित ध्वनि चयनकर्ता।
-- **प्रत्येक लेयर के लिए वॉल्यूम** — वास्तविक समय में समायोजन करने के लिए रेंज स्लाइडर।
-- **डिवाइस रूटिंग** — ऑडियो आउटपुट डिवाइस का चयन करें।
-- **वास्तविक समय सिंक्रोनाइज़ेशन** — SSE तकनीक पर आधारित स्थिति अपडेट।
-- **टॉरी डेस्कटॉप** — टॉरी v2 के माध्यम से मूल विंडो।
+- **प्रत्येक लेयर के लिए वॉल्यूम** — वास्तविक समय में समायोजन के लिए रेंज स्लाइडर।
+- **प्रत्येक लेयर के लिए म्यूट** — व्यक्तिगत लेयर्स को हटाए बिना उन्हें म्यूट करें।
+- **मास्टर वॉल्यूम** — सभी लेयर्स को एक साथ नियंत्रित करने वाला वैश्विक नियंत्रण।
+- **फेड इन/आउट** — लेयर्स को जोड़ने या हटाने पर सहज बदलाव।
+- **डिवाइस रूटिंग** — ऑडियो आउटपुट डिवाइस का चयनकर्ता; यूआई के माध्यम से या `POST /device` के माध्यम से सेट करें।
+- **स्लीप टाइमर** — एक निश्चित अवधि के बाद स्वचालित रूप से प्लेबैक बंद करें।
+- **सेव किए गए प्रीसेट** — नाम वाले मिक्स (लेयर्स + वॉल्यूम) को सेव और लोड करें।
+- **सिस्टम ट्रे** — ट्रे में मिनिमाइज करें; प्लेबैक पृष्ठभूमि में जारी रहेगा।
+- **रियल-टाइम सिंक** — SSE-संचालित स्टेट अपडेट।
+- **टॉरी डेस्कटॉप** — टॉरी v2 के माध्यम से नेटिव विंडो।
 
 ## डेवलपमेंट सेटअप
 
@@ -62,7 +69,16 @@ SONIC_RUNTIME_PATH=/path/to/SonicRuntime.exe \
 npm run dev --workspace=@stillpoint/ui
 ```
 
+विंडोज पर, पहले एनवायरनमेंट वेरिएबल सेट करें:
+
+```bash
+set SONIC_RUNTIME_PATH=C:\path\to\SonicRuntime.exe
+npx tsx packages/server/src/bin.ts
+```
+
 `http://localhost:5177` खोलें — एक श्रेणी चुनें, ध्वनियाँ जोड़ें, और वॉल्यूम समायोजित करें।
+
+सर्वर डिफ़ॉल्ट रूप से पोर्ट 3456 पर चलता है। `PORT` एनवायरनमेंट वेरिएबल के साथ इसे बदलें।
 
 ## कस्टम ध्वनियाँ
 
@@ -79,6 +95,23 @@ npm run dev --workspace=@stillpoint/ui
 | `@stillpoint/server` | एक्सप्रेस एपीआई + sonic-core इंजन प्रबंधन। |
 | `@stillpoint/ui` | रिएक्ट मिक्सर यूआई (Vite)। |
 | `@stillpoint/desktop` | टॉरी v2 नेटिव विंडो शेल। |
+
+## एनवायरनमेंट वेरिएबल
+
+| वेरिएबल | डिफ़ॉल्ट | विवरण |
+|----------|---------|-------------|
+| `SONIC_RUNTIME_PATH` | (बैकअप पथ) | "sonic-runtime" बाइनरी का पथ |
+| `AMBIENT_WAVS_PATH` | `./ambient-wavs` | उन परिवेशीय WAV फाइलों वाला डायरेक्टरी |
+| `STILLPOINT_CUSTOM_PATH` | `<AMBIENT_WAVS_PATH>/../custom` | उपयोगकर्ता द्वारा प्रदान की गई कस्टम WAV फाइलों वाला डायरेक्टरी |
+| `PORT` | `3456` | सर्वर पोर्ट |
+
+## रिलीज़ प्रक्रिया
+
+1. `package.json` (रूट), `packages/server/package.json`, `packages/ui/package.json`, और `apps/desktop/package.json` में संस्करण बढ़ाएं।
+2. `CHANGELOG.md` को अपडेट करें — "Unreleased" आइटम को एक दिनांकित संस्करण हेडर में ले जाएं।
+3. सभी परीक्षणों को पास करने के लिए `npm test` चलाएं।
+4. कमिट करें, `vX.Y.Z` टैग बनाएं, और पुश करें।
+5. टैग से GitHub पर एक रिलीज़ बनाएं।
 
 ## लाइसेंस
 

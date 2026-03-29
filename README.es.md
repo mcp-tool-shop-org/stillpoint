@@ -3,11 +3,12 @@
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/mcp-tool-shop-org/brand/main/logos/stillpoint/readme.png" width="400" alt="Stillpoint" />
+  <img src="https://raw.githubusercontent.com/mcp-tool-shop-org/brand/main/logos/stillpoint/readme.png" width="500" alt="Stillpoint" />
 </p>
 
 <p align="center">
   <a href="https://github.com/mcp-tool-shop-org/stillpoint/actions/workflows/ci.yml"><img src="https://github.com/mcp-tool-shop-org/stillpoint/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
+  <a href="https://github.com/mcp-tool-shop-org/stillpoint/actions/workflows/pages.yml"><img src="https://github.com/mcp-tool-shop-org/stillpoint/actions/workflows/pages.yml/badge.svg" alt="Site" /></a>
   <a href="https://github.com/mcp-tool-shop-org/stillpoint/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT License" /></a>
   <a href="https://mcp-tool-shop-org.github.io/stillpoint/"><img src="https://img.shields.io/badge/Landing_Page-live-blue" alt="Landing Page" /></a>
 </p>
@@ -37,13 +38,19 @@ Impulsado por [sonic-core](https://github.com/mcp-tool-shop-org/sonic-core) y [s
 ## Características
 
 - **50 sonidos ambientales** en 10 categorías (lluvia, agua, océano, viento, fuego, noche, ruido, zumbido, tono, mecánico).
-- **Sonidos personalizados** — simplemente coloque sus propios archivos WAV en una carpeta y aparecerán en el mezclador.
-- **Mezclador por capas** — agregue múltiples sonidos simultáneamente con volumen independiente.
-- **Explorador de categorías** — selector de sonidos organizado en un menú desplegable.
-- **Volumen por capa** — controles deslizantes con ajuste en tiempo real.
-- **Enrutamiento de dispositivos** — seleccione el dispositivo de salida de audio.
-- **Sincronización en tiempo real** — actualizaciones de estado impulsadas por SSE.
-- **Aplicación de escritorio Tauri** — ventana nativa a través de Tauri v2.
+- **Sonidos personalizados:** puede agregar sus propios archivos WAV a una carpeta y estos aparecerán en el mezclador.
+- **Mezclador en capas:** agregue múltiples sonidos simultáneamente con volumen independiente.
+- **Explorador de categorías:** selector de sonidos organizado por categorías desplegables.
+- **Volumen por capa:** controles deslizantes con ajuste en tiempo real.
+- **Silenciar por capa:** silencie capas individuales sin eliminarlas.
+- **Volumen maestro:** control global que ajusta todas las capas a la vez.
+- **Desvanecimiento de entrada/salida:** transiciones suaves al agregar o eliminar capas.
+- **Enrutamiento de dispositivos:** selector del dispositivo de salida de audio; se configura a través de la interfaz de usuario o mediante `POST /device`.
+- **Temporizador de suspensión:** detención automática de la reproducción después de una duración configurable.
+- **Preajustes guardados:** guarde y cargue mezclas con nombre (capas + volúmenes).
+- **Bandeja del sistema:** minimice a la bandeja; la reproducción continúa en segundo plano.
+- **Sincronización en tiempo real:** actualizaciones de estado impulsadas por SSE.
+- **Escritorio Tauri:** ventana nativa a través de Tauri v2.
 
 ## Configuración del entorno de desarrollo
 
@@ -62,7 +69,16 @@ SONIC_RUNTIME_PATH=/path/to/SonicRuntime.exe \
 npm run dev --workspace=@stillpoint/ui
 ```
 
+En Windows, configure primero la variable de entorno:
+
+```bash
+set SONIC_RUNTIME_PATH=C:\path\to\SonicRuntime.exe
+npx tsx packages/server/src/bin.ts
+```
+
 Abra `http://localhost:5177` — seleccione una categoría, agregue sonidos, ajuste los volúmenes.
+
+El servidor utiliza el puerto 3456 de forma predeterminada. Puede cambiarlo con la variable de entorno `PORT`.
 
 ## Sonidos personalizados
 
@@ -79,6 +95,23 @@ Los nombres de los archivos se convierten en nombres de visualización: `my-rain
 | `@stillpoint/server` | API Express + gestión del motor sonic-core. |
 | `@stillpoint/ui` | Interfaz de usuario del mezclador React (Vite). |
 | `@stillpoint/desktop` | Capa de ventana nativa Tauri v2. |
+
+## Variables de entorno
+
+| Variable | Valor predeterminado | Descripción |
+|----------|---------|-------------|
+| `SONIC_RUNTIME_PATH` | (rutas alternativas) | Ruta al ejecutable de sonic-runtime. |
+| `AMBIENT_WAVS_PATH` | `./ambient-wavs` | Directorio que contiene archivos WAV ambientales. |
+| `STILLPOINT_CUSTOM_PATH` | `<AMBIENT_WAVS_PATH>/../custom` | Directorio para archivos WAV personalizados proporcionados por el usuario. |
+| `PORT` | `3456` | Puerto del servidor. |
+
+## Proceso de lanzamiento
+
+1. Actualice la versión en `package.json` (raíz), `packages/server/package.json`, `packages/ui/package.json` y `apps/desktop/package.json`.
+2. Actualice `CHANGELOG.md`: mueva los elementos "Sin publicar" a un encabezado de versión con fecha.
+3. Ejecute `npm test` para verificar que todas las pruebas pasen.
+4. Confirme los cambios, cree una etiqueta `vX.Y.Z`, y envíe los cambios.
+5. Cree una publicación en GitHub a partir de la etiqueta.
 
 ## Licencia
 

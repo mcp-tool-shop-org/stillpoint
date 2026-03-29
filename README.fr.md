@@ -3,11 +3,12 @@
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/mcp-tool-shop-org/brand/main/logos/stillpoint/readme.png" width="400" alt="Stillpoint" />
+  <img src="https://raw.githubusercontent.com/mcp-tool-shop-org/brand/main/logos/stillpoint/readme.png" width="500" alt="Stillpoint" />
 </p>
 
 <p align="center">
   <a href="https://github.com/mcp-tool-shop-org/stillpoint/actions/workflows/ci.yml"><img src="https://github.com/mcp-tool-shop-org/stillpoint/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
+  <a href="https://github.com/mcp-tool-shop-org/stillpoint/actions/workflows/pages.yml"><img src="https://github.com/mcp-tool-shop-org/stillpoint/actions/workflows/pages.yml/badge.svg" alt="Site" /></a>
   <a href="https://github.com/mcp-tool-shop-org/stillpoint/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT License" /></a>
   <a href="https://mcp-tool-shop-org.github.io/stillpoint/"><img src="https://img.shields.io/badge/Landing_Page-live-blue" alt="Landing Page" /></a>
 </p>
@@ -39,10 +40,16 @@ Fonctionne grâce à [sonic-core](https://github.com/mcp-tool-shop-org/sonic-cor
 - **50 sons d'ambiance** répartis dans 10 catégories (pluie, eau, océan, vent, feu, nuit, bruit, bourdonnement, tonalité, mécanique).
 - **Sons personnalisés** : ajoutez vos propres fichiers WAV dans un dossier et ils apparaîtront dans le mélangeur.
 - **Mélangeur multicouche** : ajoutez plusieurs sons simultanément avec un volume indépendant.
-- **Explorateur de catégories** : sélection de sons organisée par catégories déroulantes.
+- **Navigateur de catégories** : sélection de sons organisée par catégories déroulantes.
 - **Volume par couche** : curseurs de plage avec ajustement en temps réel.
-- **Routage des périphériques** : sélectionnez le périphérique de sortie audio.
-- **Synchronisation en temps réel** : mises à jour de l'état grâce à SSE.
+- **Mute par couche** : mettez en sourdine les couches individuelles sans les supprimer.
+- **Volume principal** : contrôle global qui ajuste toutes les couches simultanément.
+- **Fonction fondu (in/out)** : transitions douces lors de l'ajout ou de la suppression de couches.
+- **Routage des périphériques** : sélection du périphérique de sortie audio ; configuration via l'interface utilisateur ou `POST /device`.
+- **Minuteur de veille** : arrêt automatique de la lecture après une durée configurable.
+- **Présets enregistrés** : enregistrez et chargez des mélanges nommés (couches + volumes).
+- **Barre d'état système** : minimisez l'application dans la barre d'état ; la lecture continue en arrière-plan.
+- **Synchronisation en temps réel** : mises à jour de l'état basées sur SSE.
 - **Application de bureau Tauri** : fenêtre native via Tauri v2.
 
 ## Configuration du développement
@@ -62,7 +69,16 @@ SONIC_RUNTIME_PATH=/path/to/SonicRuntime.exe \
 npm run dev --workspace=@stillpoint/ui
 ```
 
+Sur Windows, configurez d'abord la variable d'environnement.
+
+```bash
+set SONIC_RUNTIME_PATH=C:\path\to\SonicRuntime.exe
+npx tsx packages/server/src/bin.ts
+```
+
 Ouvrez `http://localhost:5177` — sélectionnez une catégorie, ajoutez des sons, ajustez les volumes.
+
+Le serveur utilise par défaut le port 3456. Remplacez-le avec la variable d'environnement `PORT`.
 
 ## Sons personnalisés
 
@@ -79,6 +95,23 @@ Les noms de fichiers deviennent les noms d'affichage : `my-rain.wav` → **My Ra
 | `@stillpoint/server` | API Express + gestion du moteur sonic-core. |
 | `@stillpoint/ui` | Interface utilisateur du mixeur React (Vite). |
 | `@stillpoint/desktop` | Coquille de fenêtre native Tauri v2. |
+
+## Variables d'environnement
+
+| Variable | Valeur par défaut | Description |
+|----------|---------|-------------|
+| `SONIC_RUNTIME_PATH` | (chemins de secours) | Chemin vers le fichier binaire de sonic-runtime. |
+| `AMBIENT_WAVS_PATH` | `./ambient-wavs` | Répertoire contenant les fichiers WAV d'ambiance. |
+| `STILLPOINT_CUSTOM_PATH` | `<AMBIENT_WAVS_PATH>/../custom` | Répertoire pour les fichiers WAV personnalisés fournis par l'utilisateur. |
+| `PORT` | `3456` | Port du serveur. |
+
+## Processus de publication
+
+1. Mettez à jour la version dans `package.json` (racine), `packages/server/package.json`, `packages/ui/package.json` et `apps/desktop/package.json`.
+2. Mettez à jour `CHANGELOG.md` : déplacez les éléments "Non publiés" vers un en-tête de version daté.
+3. Exécutez `npm test` pour vérifier que tous les tests passent.
+4. Validez, ajoutez une étiquette `vX.Y.Z`, envoyez les modifications.
+5. Créez une publication GitHub à partir de l'étiquette.
 
 ## Licence
 
