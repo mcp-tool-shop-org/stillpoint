@@ -149,16 +149,75 @@ describe("GET /api/events — SSE", () => {
   });
 
   it("state change emits SSE data frame", async () => {
-    // Start collecting 2 frames (initial + one change)
-    const framesPromise = collectSseFrames(`${url}/api/events`, 2);
+    // Open an SSE connection and collect frames. After the first (initial) frame
+    // is received, trigger the state change. This removes the 50ms fixed sleep
+    // and replaces it with a connection-confirmed trigger.
+    const frames = await new Promise<unknown[]>((resolve, reject) => {
+      const controller = new AbortController();
+      const timer = setTimeout(() => {
+        controller.abort();
+        reject(new Error("SSE change test timed out after 3000ms"));
+      }, 3000);
 
-    // Give the SSE connection a moment to establish before triggering the change
-    await new Promise((r) => setTimeout(r, 50));
+      const collected: unknown[] = [];
+      let triggered = false;
+      let buf = "";
 
-    // Trigger a state change
-    state.addLayer("brook", "pb-sse-test", 0.4);
+      fetch(`${url}/api/events`, {
+        signal: controller.signal,
+        headers: { Accept: "text/event-stream" },
+      })
+        .then((res) => {
+          const reader = res.body!.getReader();
+          const decoder = new TextDecoder();
 
-    const frames = await framesPromise;
+          function pump(): void {
+            reader
+              .read()
+              .then(({ done, value }) => {
+                if (done) { clearTimeout(timer); resolve(collected); return; }
+
+                buf += decoder.decode(value, { stream: true });
+                const lines = buf.split("\n");
+                buf = lines.pop()!;
+
+                for (const line of lines) {
+                  if (line.startsWith("data: ")) {
+                    try { collected.push(JSON.parse(line.slice("data: ".length))); } catch { /* ignore */ }
+                  }
+                }
+
+                // After the first frame (initial state), trigger the state change
+                if (!triggered && collected.length >= 1) {
+                  triggered = true;
+                  state.addLayer("brook", "pb-sse-test", 0.4);
+                }
+
+                if (collected.length >= 2) {
+                  clearTimeout(timer);
+                  controller.abort();
+                  resolve(collected);
+                  return;
+                }
+
+                pump();
+              })
+              .catch((err: unknown) => {
+                clearTimeout(timer);
+                if (err instanceof Error && err.name === "AbortError") resolve(collected);
+                else reject(err);
+              });
+          }
+
+          pump();
+        })
+        .catch((err: unknown) => {
+          clearTimeout(timer);
+          if (err instanceof Error && err.name === "AbortError") resolve(collected);
+          else reject(err);
+        });
+    });
+
     assert.ok(frames.length >= 2, `Expected at least 2 frames, got ${frames.length}`);
 
     // Find the change frame — it should have the new layer

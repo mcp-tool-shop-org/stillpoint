@@ -132,13 +132,24 @@ export function scanCustomSounds(): AmbientSound[] {
   const dir = getCustomPath();
   if (!existsSync(dir)) return [];
   try {
-    return readdirSync(dir)
+    const mapped = readdirSync(dir)
       .filter((f) => f.toLowerCase().endsWith(".wav"))
       .sort()
       .map((f) => {
         const stem = f.replace(/\.wav$/i, "");
         return { id: `custom:${stem}`, name: kebabToTitle(stem), category: "Custom" };
       });
+    const seen = new Set<string>();
+    const deduped: AmbientSound[] = [];
+    for (const sound of mapped) {
+      if (seen.has(sound.id)) {
+        log(`Warning: custom sound ID collision "${sound.id}" — skipping duplicate`);
+      } else {
+        seen.add(sound.id);
+        deduped.push(sound);
+      }
+    }
+    return deduped;
   } catch (err) {
     log(`Failed to scan custom sounds directory "${dir}": ${err instanceof Error ? err.message : err}`);
     return [];

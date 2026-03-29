@@ -9,6 +9,8 @@ import {
   buildCatalog,
 } from "../presets.js";
 
+const PLAY_TIMEOUT = 10_000;
+
 export function apiRouter(
   engine: SonicEngine,
   state: RegulatorState,
@@ -97,13 +99,19 @@ export function apiRouter(
         asset_ref: soundAssetRef(sound),
       };
 
-      const playbackId = await engine.play(source, {
-        loop: true,
-        initial_volume: layerVolume,
-        output_device_id: state.current.deviceId ?? undefined,
-      });
+      const playbackId = await Promise.race([
+        engine.play(source, {
+          loop: true,
+          initial_volume: layerVolume,
+          output_device_id: state.current.deviceId ?? undefined,
+        }),
+        new Promise<never>((_, reject) =>
+          setTimeout(() => reject(new Error('play timeout')), PLAY_TIMEOUT),
+        ),
+      ]);
 
       state.addLayer(soundId, playbackId, layerVolume);
+      state.clearError();
       res.json({ playbackId });
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);

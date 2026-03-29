@@ -23,6 +23,11 @@ export const MAX_LAYERS = 8;
 export class RegulatorState extends EventEmitter {
   #state: MixerState = { layers: [], deviceId: null, error: null };
 
+  constructor() {
+    super();
+    this.setMaxListeners(20);
+  }
+
   get current(): Readonly<MixerState> {
     return { ...this.#state, layers: this.#state.layers.map(l => ({ ...l })) };
   }

@@ -1,4 +1,4 @@
-const BASE = "/api";
+const API_BASE = import.meta.env.VITE_API_BASE || "/api";
 
 export interface Layer {
   soundId: string;
@@ -31,7 +31,7 @@ export interface DeviceInfo {
 }
 
 async function post(path: string, body?: object): Promise<unknown> {
-  const res = await fetch(`${BASE}${path}`, {
+  const res = await fetch(`${API_BASE}${path}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: body ? JSON.stringify(body) : undefined,
@@ -44,14 +44,22 @@ async function post(path: string, body?: object): Promise<unknown> {
 }
 
 async function get<T>(path: string): Promise<T> {
-  const res = await fetch(`${BASE}${path}`);
+  const res = await fetch(`${API_BASE}${path}`);
   if (!res.ok) throw new Error(res.statusText || `HTTP ${res.status}`);
   return res.json() as Promise<T>;
 }
 
 export const api = {
-  getSounds: () => get<SoundCatalog>("/sounds"),
-  getDevices: () => get<DeviceInfo[]>("/devices"),
+  getSounds: async () => {
+    const data = await get<SoundCatalog>("/sounds");
+    if (!data || !Array.isArray(data.sounds)) throw new Error("Unexpected catalog shape");
+    return data;
+  },
+  getDevices: async () => {
+    const data = await get<DeviceInfo[]>("/devices");
+    if (!Array.isArray(data)) throw new Error("Unexpected devices shape");
+    return data;
+  },
   getState: () => get<MixerState>("/state"),
   addLayer: (soundId: string, volume?: number) =>
     post("/layers/add", { soundId, volume }) as Promise<{ playbackId: string }>,

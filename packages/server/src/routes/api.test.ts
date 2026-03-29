@@ -281,6 +281,20 @@ describe("POST /api/layers/volume", () => {
     assert.strictEqual(status, 200);
     assert.deepStrictEqual((body as Record<string, unknown>).ok, true);
   });
+
+  it("boundary level=0 (min) → 200 (PH-T-014)", async () => {
+    state.addLayer("vol-bound-zero", "mock-pb-vol-zero", 0.5);
+    const { status, body } = await post(`${url}/api/layers/volume`, { playbackId: "mock-pb-vol-zero", level: 0 });
+    assert.strictEqual(status, 200);
+    assert.deepStrictEqual((body as Record<string, unknown>).ok, true);
+  });
+
+  it("boundary level=1 (max) → 200 (PH-T-014)", async () => {
+    state.addLayer("vol-bound-one", "mock-pb-vol-one", 0.5);
+    const { status, body } = await post(`${url}/api/layers/volume`, { playbackId: "mock-pb-vol-one", level: 1 });
+    assert.strictEqual(status, 200);
+    assert.deepStrictEqual((body as Record<string, unknown>).ok, true);
+  });
 });
 
 describe("POST /api/stop-all", () => {

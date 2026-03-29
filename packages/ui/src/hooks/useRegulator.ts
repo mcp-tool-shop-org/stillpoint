@@ -6,6 +6,8 @@ import {
   type DeviceInfo,
 } from "../lib/api.js";
 
+const API_BASE = import.meta.env.VITE_API_BASE || "/api";
+
 const INITIAL_STATE: MixerState = {
   layers: [],
   deviceId: null,
@@ -24,13 +26,14 @@ export function useRegulator() {
   const [devices, setDevices] = useState<DeviceInfo[]>([]);
   const [catalogLoading, setCatalogLoading] = useState(true);
   const [connected, setConnected] = useState(false);
+  const [stopping, setStopping] = useState(false);
   const volumeTimers = useRef<Map<string, ReturnType<typeof setTimeout>>>(
     new Map(),
   );
 
   // SSE connection for real-time state
   useEffect(() => {
-    const es = new EventSource("/api/events");
+    const es = new EventSource(`${API_BASE}/events`);
     es.onmessage = (e) => {
       setConnected(true);
       try {
@@ -118,10 +121,13 @@ export function useRegulator() {
   );
 
   const stopAll = useCallback(async () => {
+    setStopping(true);
     try {
       await api.stopAll();
     } catch {
       // Error comes through SSE
+    } finally {
+      setStopping(false);
     }
   }, []);
 
@@ -138,6 +144,7 @@ export function useRegulator() {
     catalog,
     catalogLoading,
     connected,
+    stopping,
     devices,
     addLayer,
     removeLayer,

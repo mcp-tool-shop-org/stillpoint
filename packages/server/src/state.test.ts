@@ -47,6 +47,18 @@ describe("RegulatorState", () => {
     assert.ok(emitted);
   });
 
+  it("removeLayer on non-existent playbackId still emits change and leaves layers unchanged (PH-T-015)", () => {
+    const state = new RegulatorState();
+    state.addLayer("rain", "pb-1", 0.5);
+    state.addLayer("wind", "pb-2", 0.8);
+    const beforeLayers = state.current.layers;
+    let emitCount = 0;
+    state.on("change", () => { emitCount++; });
+    state.removeLayer("pb-unknown-xyz");
+    assert.strictEqual(emitCount, 1, "removeLayer should emit change even for unknown playbackId");
+    assert.deepStrictEqual(state.current.layers, beforeLayers, "layers should be unchanged after removing unknown playbackId");
+  });
+
   it("removeLayerBySound removes first matching sound", () => {
     const state = new RegulatorState();
     state.addLayer("rain", "pb-1", 0.5);

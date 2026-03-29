@@ -12,6 +12,7 @@ export function App() {
     catalog,
     catalogLoading,
     connected,
+    stopping,
     devices,
     addLayer,
     removeLayer,
@@ -65,8 +66,12 @@ export function App() {
                 onChange={setDevice}
               />
               {state.layers.length > 0 && (
-                <button className="stop-all-btn" onClick={stopAll}>
-                  Stop All
+                <button
+                  className="stop-all-btn"
+                  onClick={stopAll}
+                  disabled={stopping}
+                >
+                  {stopping ? "Stopping…" : "Stop All"}
                 </button>
               )}
             </div>
