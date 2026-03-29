@@ -7,6 +7,7 @@ import {
   findSound,
   soundAssetRef,
   buildCatalog,
+  invalidateCatalog,
 } from "../presets.js";
 import * as presetStore from "../preset-store.js";
 
@@ -24,7 +25,7 @@ export function apiRouter(
 
   // Simple sliding-window rate limiter for mutation endpoints (F-A-013)
   const mutationTimestamps: number[] = [];
-  const RATE_LIMIT_MAX = 30;
+  const RATE_LIMIT_MAX = 120;
   const RATE_LIMIT_WINDOW_MS = 10_000;
 
   function checkRateLimit(res: Response): boolean {
@@ -47,6 +48,15 @@ export function apiRouter(
     res.json(buildCatalog());
   });
 
+  /** FT-S-006: Hot-reload custom sounds — clears cache and re-scans. */
+  router.post("/sounds/reload", (_req: Request, res: Response) => {
+    process.stderr.write(`[stillpoint] sounds/reload: invalidating catalog cache and re-scanning\n`);
+    invalidateCatalog();
+    const catalog = buildCatalog();
+    process.stderr.write(`[stillpoint] sounds/reload: catalog rebuilt (${catalog.sounds.length} sounds)\n`);
+    res.json(catalog);
+  });
+
   router.get("/devices", async (_req: Request, res: Response) => {
     try {
       const devices = await engine.get_devices();
@@ -57,6 +67,7 @@ export function apiRouter(
   });
 
   // FT-S-001: Set audio output device
+  // FT-S-008: Re-route all active layers to the new device after switching
   router.post("/device", async (req: Request, res: Response) => {
     if (!checkRateLimit(res)) return;
     const { deviceId } = req.body as { deviceId?: unknown };
@@ -64,8 +75,39 @@ export function apiRouter(
       res.status(400).json({ error: "deviceId must be a string or null" });
       return;
     }
-    state.setDevice(typeof deviceId === "string" ? deviceId : null);
-    process.stderr.write(`[stillpoint] device: ${deviceId ?? 'default'}\n`);
+    const newDeviceId = typeof deviceId === "string" ? deviceId : null;
+    state.setDevice(newDeviceId);
+    process.stderr.write(`[stillpoint] device: ${newDeviceId ?? 'default'}\n`);
+
+    // Re-route all active layers to the new device
+    const activeLayers = [...state.current.layers];
+    for (const layer of activeLayers) {
+      try {
+        // Stop the current playback
+        await engine.stop(layer.playbackId);
+        // Re-play with the new device, preserving soundId and volume
+        const sound = findSound(layer.soundId);
+        if (!sound) {
+          process.stderr.write(`[stillpoint] device switch: sound not found for layer ${layer.soundId}, skipping\n`);
+          state.removeLayer(layer.playbackId);
+          continue;
+        }
+        const source: Source = { kind: "asset", asset_ref: soundAssetRef(sound) };
+        const newPlaybackId = await engine.play(source, {
+          loop: true,
+          initial_volume: layer.volume * state.current.masterVolume,
+          output_device_id: newDeviceId ?? undefined,
+        });
+        // Update state: remove old layer, add new one with same soundId/volume
+        state.removeLayer(layer.playbackId);
+        state.addLayer(layer.soundId, newPlaybackId, layer.volume);
+        process.stderr.write(`[stillpoint] device switch: re-routed ${layer.soundId} → ${newPlaybackId}\n`);
+      } catch (err) {
+        process.stderr.write(`[stillpoint] device switch: failed to re-route ${layer.soundId}: ${err}\n`);
+        // Continue with remaining layers
+      }
+    }
+
     res.json({ ok: true });
   });
 

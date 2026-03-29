@@ -20,7 +20,11 @@ function getAllowedOrigins(): string[] {
   return [...DEFAULT_ORIGINS, ...parsed];
 }
 
-export function createServer(engine: SonicEngine, state: RegulatorState) {
+export function createServer(
+  engine: SonicEngine,
+  state: RegulatorState,
+  backendMode: 'sidecar' | 'null' = 'null',
+) {
   const app = express();
 
   app.use(cors({ origin: getAllowedOrigins() }));
@@ -33,6 +37,7 @@ export function createServer(engine: SonicEngine, state: RegulatorState) {
       uptime: process.uptime(),
       layers: current.layers.length,
       error: current.error,
+      backendMode,
     });
   });
 

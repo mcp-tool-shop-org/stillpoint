@@ -44,7 +44,13 @@ export function LayerStrip({
   return (
     <div className="layer-strip">
       <div className="layer-info">
-        <span className="layer-name">{sound?.name ?? "…"}</span>
+        <span className="layer-name">
+          {sound?.name ?? "…"}
+          <span
+            className={`layer-playing-dot${muted ? " layer-playing-dot--muted" : ""}`}
+            aria-hidden="true"
+          />
+        </span>
         <span className="layer-category">{sound?.category ?? '—'}</span>
       </div>
 

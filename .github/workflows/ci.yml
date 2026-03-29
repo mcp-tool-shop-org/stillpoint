@@ -6,6 +6,7 @@ on:
     paths:
       - 'packages/**'
       - 'apps/**'
+      - 'site/**'
       - 'package.json'
       - 'package-lock.json'
       - '.github/workflows/ci.yml'
@@ -13,6 +14,7 @@ on:
     paths:
       - 'packages/**'
       - 'apps/**'
+      - 'site/**'
       - 'package.json'
       - 'package-lock.json'
       - '.github/workflows/ci.yml'

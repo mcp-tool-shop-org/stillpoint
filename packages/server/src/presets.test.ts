@@ -1,4 +1,4 @@
-import { describe, it, afterEach } from "node:test";
+import { describe, it, afterEach, beforeEach } from "node:test";
 import assert from "node:assert/strict";
 import { mkdtempSync, writeFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -12,6 +12,7 @@ const findSound = mod.findSound;
 const soundAssetRef = mod.soundAssetRef;
 const scanCustomSounds = mod.scanCustomSounds;
 const buildCatalog = mod.buildCatalog;
+const invalidateCatalog = mod.invalidateCatalog;
 const getWavsPath = mod.getWavsPath;
 const getCustomPath = mod.getCustomPath;
 
@@ -219,7 +220,14 @@ describe("buildCatalog", () => {
   let tmpDir: string;
   let origCustom: string | undefined;
 
+  beforeEach(() => {
+    // Ensure each test starts with a clean catalog cache
+    invalidateCatalog();
+  });
+
   afterEach(() => {
+    // Invalidate cache after each test to avoid leaking state
+    invalidateCatalog();
     if (tmpDir) {
       rmSync(tmpDir, { recursive: true, force: true });
     }

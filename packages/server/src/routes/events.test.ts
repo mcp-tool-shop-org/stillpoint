@@ -119,6 +119,55 @@ function collectSseFrames(url: string, count: number, timeoutMs = 3000): Promise
 }
 
 // ---------------------------------------------------------------------------
+// FT-T-004: SSE MAX_SSE 503 — 11th connection rejected
+// Uses a fresh server so the connection count starts at 0
+// ---------------------------------------------------------------------------
+describe("GET /api/events — MAX_SSE limit → 503 on 11th connection", () => {
+  let url: string;
+  let close: () => Promise<void>;
+  const controllers: AbortController[] = [];
+
+  before(async () => {
+    const state = new RegulatorState();
+    const engine = makeMockEngine();
+    ({ url, close } = await startServer(engine, state));
+
+    // Open 10 SSE connections and hold them open
+    for (let i = 0; i < 10; i++) {
+      const controller = new AbortController();
+      controllers.push(controller);
+      // Fire-and-forget: start the fetch but don't await it
+      // We just need the connection to be established on the server side.
+      fetch(`${url}/api/events`, {
+        signal: controller.signal,
+        headers: { Accept: "text/event-stream" },
+      }).catch(() => {/* AbortError expected on cleanup */});
+    }
+    // Give the server a moment to register all 10 connections
+    await new Promise((resolve) => setTimeout(resolve, 100));
+  });
+
+  after(async () => {
+    // Abort all held connections
+    for (const controller of controllers) {
+      controller.abort();
+    }
+    // Give the server time to process the close events before shutting down
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    await close();
+  });
+
+  it("11th SSE connection returns 503 with error body", async () => {
+    const res = await fetch(`${url}/api/events`, {
+      headers: { Accept: "text/event-stream" },
+    });
+    assert.strictEqual(res.status, 503);
+    const body = await res.json() as Record<string, unknown>;
+    assert.ok(body.error, "503 response should include error field");
+  });
+});
+
+// ---------------------------------------------------------------------------
 // Tests (F-T-002)
 // ---------------------------------------------------------------------------
 describe("GET /api/events — SSE", () => {

@@ -14,7 +14,7 @@ if (!Number.isFinite(PORT) || PORT < 1 || PORT > 65535) {
 
 const state = new RegulatorState();
 const { engine, sidecar, dispose } = await createEngineManager(state);
-const app = createServer(engine, state);
+const app = createServer(engine, state, sidecar ? 'sidecar' : 'null');
 
 const server = app.listen(PORT, () => {
   log(`server listening on http://localhost:${PORT} [backend: ${sidecar ? 'sidecar' : 'null'}]`);

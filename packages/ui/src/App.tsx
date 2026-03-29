@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import { useRegulator } from "./hooks/useRegulator.js";
 import { SoundPicker } from "./components/SoundPicker.js";
 import { LayerStrip } from "./components/LayerStrip.js";
@@ -43,6 +43,21 @@ export function App() {
     setTimer,
     cancelTimer,
   } = useRegulator();
+
+  // FT-FE-007: Keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Ignore when focus is inside an input/textarea/select/button
+      const tag = (e.target as HTMLElement).tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || tag === "BUTTON") return;
+      if ((e.key === " " || e.key === "Escape") && state.layers.length > 0) {
+        e.preventDefault();
+        stopAll();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [state.layers.length, stopAll]);
 
   const activeSoundIds = useMemo(
     () => new Set(state.layers.map((l) => l.soundId)),
@@ -171,6 +186,7 @@ export function App() {
             {state.layers.length === 0 ? (
               <div className="empty-state">
                 Pick a category, then add sounds to build your mix.
+                <div className="shortcuts-hint">Shortcuts: Space / Esc = stop all</div>
               </div>
             ) : (
               state.layers.map((layer) => (

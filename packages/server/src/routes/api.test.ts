@@ -332,7 +332,7 @@ describe("POST /api/stop-all", () => {
 // PH-T-001: Rate limiter 429 path
 // Uses an isolated server so the rate limiter window is not shared with other tests
 // ---------------------------------------------------------------------------
-describe("rate limiter — 429 after 30 rapid mutations", () => {
+describe("rate limiter — 429 after 120 rapid mutations", () => {
   let url: string;
   let close: () => Promise<void>;
 
@@ -345,12 +345,12 @@ describe("rate limiter — 429 after 30 rapid mutations", () => {
 
   after(async () => { await close(); });
 
-  it("31st rapid POST /api/stop-all returns 429", async () => {
-    // Fire 30 requests — all should pass the rate limit check
-    for (let i = 0; i < 30; i++) {
+  it("121st rapid POST /api/stop-all returns 429", async () => {
+    // Fire 120 requests — all should pass the rate limit check (FT-S-012: raised from 30 to 120)
+    for (let i = 0; i < 120; i++) {
       await post(`${url}/api/stop-all`, {});
     }
-    // The 31st must be rate-limited
+    // The 121st must be rate-limited
     const { status, body } = await post(`${url}/api/stop-all`, {});
     assert.strictEqual(status, 429);
     assert.ok((body as Record<string, unknown>).error, "429 response should include error message");
@@ -846,6 +846,205 @@ describe("GET /health", () => {
     assert.strictEqual(b.layers, 2, "layers should reflect active layer count");
     // cleanup
     state.clearAllLayers();
+  });
+});
+
+// ---------------------------------------------------------------------------
+// FT-T-006: stop-all with partial engine failures
+// ---------------------------------------------------------------------------
+describe("POST /api/stop-all — partial engine.stop failures → still clears state", () => {
+  let url: string;
+  let close: () => Promise<void>;
+  let state: RegulatorState;
+  let engine: ReturnType<typeof makeMockEngine>;
+
+  before(async () => {
+    state = new RegulatorState();
+    engine = makeMockEngine();
+    ({ url, close } = await startServer(engine, state));
+  });
+
+  after(async () => { await close(); });
+
+  it("returns 200 and state.layers is empty even when one engine.stop throws", async () => {
+    // Pre-add 2 layers directly into state
+    state.addLayer("brook", "pb-partial-1", 0.5);
+    state.addLayer("wind", "pb-partial-2", 0.4);
+    assert.strictEqual(state.current.layers.length, 2);
+
+    const orig = engine.stop;
+    let stopCount = 0;
+    engine.stop = async (pbId: string) => {
+      stopCount++;
+      if (stopCount === 1) throw new Error("stop failed for first layer");
+      return orig.call(engine, pbId);
+    };
+
+    try {
+      const { status, body } = await post(`${url}/api/stop-all`, {});
+      assert.strictEqual(status, 200);
+      assert.deepStrictEqual((body as Record<string, unknown>).ok, true);
+      assert.strictEqual(state.current.layers.length, 0, "state.layers should be empty after stop-all");
+    } finally {
+      engine.stop = orig;
+    }
+  });
+});
+
+// ---------------------------------------------------------------------------
+// FT-T-007: CORS enforcement
+// ---------------------------------------------------------------------------
+describe("CORS enforcement", () => {
+  let url: string;
+  let close: () => Promise<void>;
+
+  before(async () => {
+    const state = new RegulatorState();
+    const engine = makeMockEngine();
+    ({ url, close } = await startServer(engine, state));
+  });
+
+  after(async () => { await close(); });
+
+  it("OPTIONS preflight from unlisted origin does not reflect Access-Control-Allow-Origin", async () => {
+    const res = await fetch(`${url}/api/state`, {
+      method: "OPTIONS",
+      headers: {
+        Origin: "http://evil.example.com",
+        "Access-Control-Request-Method": "GET",
+      },
+    });
+    // The origin should NOT be reflected back for unlisted origins
+    const allowOrigin = res.headers.get("access-control-allow-origin");
+    assert.ok(
+      allowOrigin !== "http://evil.example.com",
+      `Unlisted origin should not be reflected, got: ${allowOrigin}`,
+    );
+  });
+
+  it("OPTIONS preflight from listed origin reflects Access-Control-Allow-Origin", async () => {
+    const res = await fetch(`${url}/api/state`, {
+      method: "OPTIONS",
+      headers: {
+        Origin: "http://localhost:3456",
+        "Access-Control-Request-Method": "GET",
+      },
+    });
+    const allowOrigin = res.headers.get("access-control-allow-origin");
+    assert.strictEqual(
+      allowOrigin,
+      "http://localhost:3456",
+      `Listed origin should be reflected, got: ${allowOrigin}`,
+    );
+  });
+});
+
+// ---------------------------------------------------------------------------
+// FT-T-008: Body size limit (4KB)
+// ---------------------------------------------------------------------------
+describe("POST /api/layers/add — body > 4KB → 413", () => {
+  let url: string;
+  let close: () => Promise<void>;
+
+  before(async () => {
+    const state = new RegulatorState();
+    const engine = makeMockEngine();
+    ({ url, close } = await startServer(engine, state));
+  });
+
+  after(async () => { await close(); });
+
+  it("body larger than 4KB returns 413 or connection error", async () => {
+    // Create a body larger than 4096 bytes
+    const largePayload = JSON.stringify({ soundId: "a".repeat(5000) });
+    let status: number;
+    try {
+      const res = await fetch(`${url}/api/layers/add`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: largePayload,
+      });
+      status = res.status;
+    } catch {
+      // Node's fetch may throw if connection is reset
+      status = 413;
+    }
+    assert.strictEqual(status, 413, `Expected 413 for oversized body, got ${status}`);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// FT-T-009: POST /api/sounds/reload returns updated catalog
+// ---------------------------------------------------------------------------
+describe("POST /api/sounds/reload", () => {
+  let url: string;
+  let close: () => Promise<void>;
+
+  before(async () => {
+    const state = new RegulatorState();
+    const engine = makeMockEngine();
+    ({ url, close } = await startServer(engine, state));
+  });
+
+  after(async () => { await close(); });
+
+  it("returns updated catalog with categories and sounds array", async () => {
+    const { status, body } = await post(`${url}/api/sounds/reload`, {});
+    assert.strictEqual(status, 200);
+    const b = body as Record<string, unknown>;
+    assert.ok(Array.isArray(b.categories), "catalog should have categories array");
+    assert.ok(Array.isArray(b.sounds), "catalog should have sounds array");
+    assert.ok((b.sounds as unknown[]).length >= 50, "catalog should have 50+ sounds");
+  });
+
+  it("GET /api/sounds and POST /api/sounds/reload return consistent sound count", async () => {
+    const { body: soundsBody } = await get(`${url}/api/sounds`);
+    const { body: reloadBody } = await post(`${url}/api/sounds/reload`, {});
+    const soundsCount = ((soundsBody as Record<string, unknown>).sounds as unknown[]).length;
+    const reloadCount = ((reloadBody as Record<string, unknown>).sounds as unknown[]).length;
+    assert.strictEqual(reloadCount, soundsCount, "reload should return same sound count as GET /sounds");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// FT-T-010: POST /api/device with active layers re-routes them
+// ---------------------------------------------------------------------------
+describe("POST /api/device — re-routes active layers", () => {
+  let url: string;
+  let close: () => Promise<void>;
+  let state: RegulatorState;
+  let engine: ReturnType<typeof makeMockEngine>;
+
+  before(async () => {
+    state = new RegulatorState();
+    engine = makeMockEngine();
+    ({ url, close } = await startServer(engine, state));
+  });
+
+  after(async () => { await close(); });
+
+  it("layers have new playbackIds after device switch", async () => {
+    // Add a layer directly via the API so engine.play is called properly
+    const addRes = await post(`${url}/api/layers/add`, { soundId: "heavy-rain", volume: 0.5 });
+    assert.strictEqual(addRes.status, 200);
+    const oldPlaybackId = (addRes.body as Record<string, unknown>).playbackId as string;
+    assert.ok(typeof oldPlaybackId === "string");
+
+    // Verify layer is in state
+    assert.strictEqual(state.current.layers.length, 1);
+    assert.strictEqual(state.current.layers[0].playbackId, oldPlaybackId);
+
+    // Switch device — should re-route all active layers
+    const deviceRes = await post(`${url}/api/device`, { deviceId: "speakers" });
+    assert.strictEqual(deviceRes.status, 200);
+
+    // After device switch, the layer should still exist but with a new playbackId
+    const layersAfter = state.current.layers;
+    assert.strictEqual(layersAfter.length, 1, "layer count should remain the same after device switch");
+    assert.strictEqual(layersAfter[0].soundId, "heavy-rain", "soundId should be preserved");
+    assert.strictEqual(layersAfter[0].volume, 0.5, "volume should be preserved");
+    // The playbackId must be new (engine re-played)
+    assert.notStrictEqual(layersAfter[0].playbackId, oldPlaybackId, "playbackId should be new after re-routing");
   });
 });
 

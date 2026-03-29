@@ -180,12 +180,22 @@ export function findSound(id: string): AmbientSound | undefined {
   return undefined;
 }
 
-/** Build the full catalog (built-in + custom). */
-export function buildCatalog(): {
+type Catalog = {
   categories: string[];
   sounds: AmbientSound[];
   grouped: Record<string, AmbientSound[]>;
-} {
+};
+
+let cachedCatalog: Catalog | null = null;
+
+/** Invalidate the catalog cache so the next buildCatalog() re-scans. */
+export function invalidateCatalog(): void {
+  cachedCatalog = null;
+}
+
+/** Build the full catalog (built-in + custom). Returns cached result on repeat calls. */
+export function buildCatalog(): Catalog {
+  if (cachedCatalog) return cachedCatalog;
   const custom = scanCustomSounds();
   const allSounds = [...SOUNDS, ...custom];
   const cats: string[] =
@@ -194,5 +204,6 @@ export function buildCatalog(): {
   for (const cat of cats) {
     grouped[cat] = allSounds.filter((s) => s.category === cat);
   }
-  return { categories: cats, sounds: allSounds, grouped };
+  cachedCatalog = { categories: cats, sounds: allSounds, grouped };
+  return cachedCatalog;
 }

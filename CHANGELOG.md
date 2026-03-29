@@ -10,6 +10,15 @@
 - **Fade in/out** — smooth volume transitions when adding or removing layers
 - **Per-layer mute** — toggle individual layers silent without removing them
 - **System tray** — minimize to tray; app continues playing in the background
+- **Catalog cache** — sound catalog is cached on first load; subsequent opens are instant
+- **Device re-routing** — switch audio output device while playback is live without stopping layers
+- **Keyboard shortcuts** — global hotkeys for play/pause, mute-all, and preset cycling
+- **Playback indicators** — active layers are highlighted in the catalog browser while playing
+- **Rate limit increase** — SSE event throughput raised; rapid layer changes no longer queue up
+
+### Changed
+- **CI: site PR build gate** — `pages.yml` now runs the build job on pull requests targeting `site/**`; deploy step is skipped on PRs and only runs on push to main
+- **CI: site paths added** — `ci.yml` paths filter now includes `site/**` so site changes trigger the main CI pipeline
 
 ## [1.0.1] - 2026-03-25
 

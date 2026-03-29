@@ -6,6 +6,10 @@ on:
     paths:
       - 'site/**'
       - '.github/workflows/pages.yml'
+  pull_request:
+    paths:
+      - 'site/**'
+      - '.github/workflows/pages.yml'
   workflow_dispatch:
 
 concurrency:
@@ -48,6 +52,7 @@ jobs:
 
   deploy:
     needs: build
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     environment:

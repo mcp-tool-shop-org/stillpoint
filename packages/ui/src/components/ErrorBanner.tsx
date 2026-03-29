@@ -18,13 +18,24 @@ export function ErrorBanner({ error }: Props) {
     <div className="error-banner" role="alert">
       <span className="error-message">{error.message}</span>
       <span className="error-code">{error.code}</span>
-      <button
-        className="error-dismiss"
-        onClick={() => setDismissed(error.code)}
-        aria-label="Dismiss error"
-      >
-        ×
-      </button>
+      <div className="error-actions">
+        {error.code === "connection_lost" && (
+          <button
+            className="error-retry"
+            onClick={() => window.location.reload()}
+            aria-label="Retry connection"
+          >
+            Retry
+          </button>
+        )}
+        <button
+          className="error-dismiss"
+          onClick={() => setDismissed(error.code)}
+          aria-label="Dismiss error"
+        >
+          ×
+        </button>
+      </div>
     </div>
   );
 }
