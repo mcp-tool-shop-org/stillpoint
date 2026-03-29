@@ -177,9 +177,10 @@ describe("POST /api/layers/add", () => {
 describe("POST /api/layers/remove", () => {
   let url: string;
   let close: () => Promise<void>;
+  let state: RegulatorState;
 
   before(async () => {
-    const state = new RegulatorState();
+    state = new RegulatorState();
     const engine = makeMockEngine();
     ({ url, close } = await startServer(engine, state));
   });
@@ -191,8 +192,15 @@ describe("POST /api/layers/remove", () => {
     assert.strictEqual(status, 400);
   });
 
-  it("valid playbackId (even if not tracked) → 200", async () => {
+  it("unknown playbackId → 404 (F-A-006)", async () => {
     const { status, body } = await post(`${url}/api/layers/remove`, { playbackId: "mock-pb-999" });
+    assert.strictEqual(status, 404);
+    assert.ok((body as Record<string, unknown>).error);
+  });
+
+  it("tracked playbackId → 200", async () => {
+    state.addLayer("rain", "mock-pb-tracked", 0.5);
+    const { status, body } = await post(`${url}/api/layers/remove`, { playbackId: "mock-pb-tracked" });
     assert.strictEqual(status, 200);
     assert.deepStrictEqual((body as Record<string, unknown>).ok, true);
   });

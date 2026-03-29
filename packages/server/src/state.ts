@@ -22,7 +22,7 @@ export class RegulatorState extends EventEmitter {
   #state: MixerState = { layers: [], deviceId: null, error: null };
 
   get current(): Readonly<MixerState> {
-    return { ...this.#state, layers: [...this.#state.layers] };
+    return { ...this.#state, layers: this.#state.layers.map(l => ({ ...l })) };
   }
 
   #emit(): void {

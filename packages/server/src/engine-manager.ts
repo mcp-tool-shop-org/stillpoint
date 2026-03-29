@@ -30,6 +30,7 @@ export async function createEngineManager(
   let backend: AudioBackend;
   let sidecar: SidecarBackend | null = null;
   let engine!: SonicEngine;
+  let disposed = false;
 
   if (runtimePath) {
     log(`runtime path: ${runtimePath}`);
@@ -38,6 +39,7 @@ export async function createEngineManager(
       executablePath: runtimePath,
       onStderr: (line) => process.stderr.write(`[runtime] ${line}\n`),
       onExit: (code, signal) => {
+        if (disposed) return;
         log(`runtime exited: code=${code} signal=${signal}`);
         stateManager.setError(
           "runtime_exited",
@@ -52,7 +54,7 @@ export async function createEngineManager(
         log(`runtime suspect: ${count} consecutive timeouts`),
       onEvent: (evt) => {
         if (evt.event === "playback_ended") {
-          const playbackId = sidecar!.resolveAndRemoveHandle(evt.data.handle);
+          const playbackId = sidecar?.resolveAndRemoveHandle(evt.data.handle);
           if (playbackId) {
             engine.handlePlaybackEnded(playbackId, evt.data.reason);
             stateManager.removeLayer(playbackId);
@@ -90,7 +92,6 @@ export async function createEngineManager(
 
   engine = new SonicEngine(backend);
 
-  let disposed = false;
   function dispose() {
     if (disposed) return;
     disposed = true;

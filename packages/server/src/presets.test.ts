@@ -16,8 +16,8 @@ const getWavsPath = mod.getWavsPath;
 const getCustomPath = mod.getCustomPath;
 
 describe("SOUNDS catalog", () => {
-  it("has 50+ built-in sounds", () => {
-    assert.ok(SOUNDS.length >= 50);
+  it("has exactly 50 built-in sounds (F-T-015)", () => {
+    assert.strictEqual(SOUNDS.length, 50);
   });
 
   it("every sound has id, name, and category", () => {
@@ -46,12 +46,13 @@ describe("CATEGORIES", () => {
     assert.strictEqual(CATEGORIES.length, 10);
   });
 
-  it("includes expected categories", () => {
+  it("includes all 10 expected categories (F-T-020)", () => {
     const cats = [...CATEGORIES];
-    assert.ok(cats.includes("Rain"));
-    assert.ok(cats.includes("Wind"));
-    assert.ok(cats.includes("Fire"));
-    assert.ok(cats.includes("Noise"));
+    const expected = ["Rain", "Water", "Ocean", "Wind", "Fire", "Night", "Noise", "Drone", "Tone", "Mechanical"];
+    for (const name of expected) {
+      assert.ok(cats.includes(name), `Missing category: ${name}`);
+    }
+    assert.strictEqual(cats.length, expected.length);
   });
 });
 
@@ -69,16 +70,36 @@ describe("findSound", () => {
 });
 
 describe("soundAssetRef", () => {
-  it("returns file:// URL for built-in sound", () => {
+  let origWavs: string | undefined;
+  let origCustom: string | undefined;
+
+  afterEach(() => {
+    if (origWavs === undefined) {
+      delete process.env.AMBIENT_WAVS_PATH;
+    } else {
+      process.env.AMBIENT_WAVS_PATH = origWavs;
+    }
+    if (origCustom === undefined) {
+      delete process.env.STILLPOINT_CUSTOM_PATH;
+    } else {
+      process.env.STILLPOINT_CUSTOM_PATH = origCustom;
+    }
+  });
+
+  it("returns exact file:// URL for built-in sound when AMBIENT_WAVS_PATH is set (F-T-014)", () => {
+    origWavs = process.env.AMBIENT_WAVS_PATH;
+    origCustom = process.env.STILLPOINT_CUSTOM_PATH;
+    process.env.AMBIENT_WAVS_PATH = "/test/wavs";
     const ref = soundAssetRef({ id: "heavy-rain", name: "Heavy Rain", category: "Rain" });
-    assert.ok(ref.startsWith("file:///"));
-    assert.ok(ref.endsWith("heavy-rain.wav"));
+    assert.strictEqual(ref, "file:////test/wavs/heavy-rain.wav");
   });
 
   it("returns custom path for custom sounds", () => {
+    origWavs = process.env.AMBIENT_WAVS_PATH;
+    origCustom = process.env.STILLPOINT_CUSTOM_PATH;
+    process.env.STILLPOINT_CUSTOM_PATH = "/test/custom";
     const ref = soundAssetRef({ id: "custom:my-sound", name: "My Sound", category: "Custom" });
-    assert.ok(ref.startsWith("file:///"));
-    assert.ok(ref.endsWith("my-sound.wav"));
+    assert.strictEqual(ref, "file:////test/custom/my-sound.wav");
   });
 });
 

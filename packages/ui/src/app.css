@@ -15,7 +15,7 @@
 .header h1 {
   font-size: 1rem;
   font-weight: 500;
-  color: #555;
+  color: #888;
   letter-spacing: 0.15em;
   text-transform: uppercase;
 }
@@ -98,7 +98,8 @@
 
 .category-select:focus,
 .sound-select:focus {
-  outline: none;
+  outline: 2px solid #4a6aaa;
+  outline-offset: 2px;
   border-color: #4a6aaa;
 }
 
@@ -130,6 +131,11 @@
   max-width: 160px;
 }
 
+.device-select select:focus {
+  outline: 2px solid #4a6aaa;
+  outline-offset: 2px;
+}
+
 /* Stop all button */
 .stop-all-btn {
   background: #2a1520;
@@ -153,7 +159,7 @@
 /* Empty state */
 .empty-state {
   text-align: center;
-  color: #444;
+  color: #666;
   font-size: 0.9rem;
   padding: 80px 20px;
   line-height: 1.6;
@@ -195,7 +201,7 @@
 
 .layer-category {
   font-size: 0.65rem;
-  color: #555;
+  color: #777;
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }

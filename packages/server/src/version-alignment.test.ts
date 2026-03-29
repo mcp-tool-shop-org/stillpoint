@@ -17,6 +17,11 @@ describe("version alignment", () => {
     }
   });
 
+  it("server package major version is >= 1 (F-T-016)", () => {
+    const parts = serverPkg.version.split(".");
+    assert.ok(parseInt(parts[0]) >= 1, `major version must be >= 1, got ${serverPkg.version}`);
+  });
+
   it("server version matches root version", () => {
     assert.equal(serverPkg.version, rootPkg.version, `server (${serverPkg.version}) != root (${rootPkg.version})`);
   });

@@ -19,7 +19,7 @@ export function LayerStrip({
     <div className="layer-strip">
       <div className="layer-info">
         <span className="layer-name">{sound?.name ?? "Unknown"}</span>
-        <span className="layer-category">{sound?.category}</span>
+        <span className="layer-category">{sound?.category ?? '—'}</span>
       </div>
 
       <input
@@ -32,6 +32,7 @@ export function LayerStrip({
           onVolumeChange(playbackId, Number(e.target.value) / 100)
         }
         title={`${Math.round(volume * 100)}%`}
+        aria-label={`Volume for ${sound?.name ?? 'layer'}`}
       />
 
       <span className="layer-volume">{Math.round(volume * 100)}%</span>
@@ -40,6 +41,7 @@ export function LayerStrip({
         className="layer-remove"
         onClick={() => onRemove(playbackId)}
         title="Remove layer"
+        aria-label={`Remove ${sound?.name ?? 'layer'}`}
       >
         ×
       </button>

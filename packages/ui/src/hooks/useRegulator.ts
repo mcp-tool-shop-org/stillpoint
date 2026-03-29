@@ -48,8 +48,12 @@ export function useRegulator() {
 
   // Load catalog + devices on mount
   useEffect(() => {
-    api.getSounds().then(setCatalog).catch(() => {});
-    api.getDevices().then(setDevices).catch(() => {});
+    api.getSounds().then(setCatalog).catch(() => {
+      setState(s => ({ ...s, error: { code: 'catalog_failed', message: 'Could not load sounds — is the server running?' } }));
+    });
+    api.getDevices().then(setDevices).catch(() => {
+      setState(s => ({ ...s, error: { code: 'devices_failed', message: 'Could not load audio devices — is the server running?' } }));
+    });
   }, []);
 
   const addLayer = useCallback(async (soundId: string) => {

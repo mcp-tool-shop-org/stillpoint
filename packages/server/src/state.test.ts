@@ -71,6 +71,15 @@ describe("RegulatorState", () => {
     assert.strictEqual(state.current.layers[0].volume, 0);
   });
 
+  it("setLayerVolume on non-existent playbackId is a no-op (F-T-010)", () => {
+    const state = new RegulatorState();
+    let emitCount = 0;
+    state.on("change", () => { emitCount++; });
+    state.setLayerVolume("nonexistent", 0.5);
+    assert.strictEqual(emitCount, 0);
+    assert.deepStrictEqual(state.current.layers, []);
+  });
+
   it("hasSound returns true for existing sound", () => {
     const state = new RegulatorState();
     state.addLayer("rain", "pb-1", 0.5);
@@ -145,5 +154,25 @@ describe("RegulatorState", () => {
     state.addLayer("wind", "pb-2", 0.8);
     assert.strictEqual(snap.layers.length, 1); // snapshot unchanged
     assert.strictEqual(state.current.layers.length, 2);
+  });
+
+  it("current snapshot layers are deep-copied — mutating snapshot does not affect live state (F-T-013)", () => {
+    const state = new RegulatorState();
+    state.addLayer("rain", "pb-1", 0.5);
+    const snap = state.current;
+    snap.layers[0].volume = 999;
+    assert.strictEqual(state.current.layers[0].volume, 0.5);
+  });
+
+  it("setError emits a change event (F-T-019)", () => {
+    const state = new RegulatorState();
+    let emitCount = 0;
+    state.on("change", () => { emitCount++; });
+    state.setError("E_TEST", "something went wrong");
+    assert.strictEqual(emitCount, 1);
+    assert.deepStrictEqual(state.current.error, {
+      code: "E_TEST",
+      message: "something went wrong",
+    });
   });
 });

@@ -22,7 +22,11 @@ export function eventsRouter(state: RegulatorState): Router {
     res.write(`data: ${JSON.stringify(state.current)}\n\n`);
 
     const onChange = (s: unknown) => {
-      res.write(`data: ${JSON.stringify(s)}\n\n`);
+      try {
+        res.write(`data: ${JSON.stringify(s)}\n\n`);
+      } catch {
+        // Serialization error — skip this event to avoid breaking the stream
+      }
     };
 
     state.on("change", onChange);

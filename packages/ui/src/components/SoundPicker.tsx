@@ -24,6 +24,7 @@ export function SoundPicker({ catalog, activeSoundIds, onAdd }: Props) {
     <div className="sound-picker">
       <select
         className="category-select"
+        aria-label="Category"
         value={selectedCategory}
         onChange={(e) => setSelectedCategory(e.target.value)}
       >
@@ -36,11 +37,11 @@ export function SoundPicker({ catalog, activeSoundIds, onAdd }: Props) {
 
       <select
         className="sound-select"
+        aria-label="Add a sound"
         value=""
         onChange={(e) => {
           if (e.target.value) {
             onAdd(e.target.value);
-            e.target.value = "";
           }
         }}
       >

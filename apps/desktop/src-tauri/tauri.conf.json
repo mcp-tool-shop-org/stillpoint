@@ -1,10 +1,10 @@
 {
-  "$schema": "https://raw.githubusercontent.com/nicedoc/schemas/main/tauri-2/tauri.conf.json",
+  "$schema": "https://schema.tauri.app/config/2",
   "productName": "Stillpoint",
   "version": "0.1.0",
   "identifier": "com.mcptoolshop.stillpoint",
   "build": {
-    "devUrl": "http://localhost:5173",
+    "devUrl": "http://localhost:5177",
     "frontendDist": "../../../packages/ui/dist"
   },
   "app": {
@@ -20,7 +20,7 @@
       }
     ],
     "security": {
-      "csp": "default-src 'self'; connect-src 'self' http://localhost:3456 http://localhost:5173; style-src 'self' 'unsafe-inline'"
+      "csp": "default-src 'self'; connect-src 'self' http://localhost:3456 http://localhost:5177; style-src 'self' 'unsafe-inline'"
     }
   },
   "bundle": {

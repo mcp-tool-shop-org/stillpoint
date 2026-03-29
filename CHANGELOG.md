@@ -14,8 +14,9 @@
 ### Changed
 - Promoted to v1.0.0 — production-stable release
 
-## [0.1.0]
+## [0.1.0] - 2026-02-20
 
+### Added
 - Initial release: ambient sound mixer powered by sonic-core
 - **Layered mixer** — add multiple sounds with independent volume control
 - **50 ambient sounds** across 10 categories (rain, water, ocean, wind, fire, night, noise, drone, tone, mechanical)
