@@ -1,4 +1,4 @@
-import { describe, it, before } from "node:test";
+import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import { RegulatorState } from "./state.ts";
 
@@ -38,6 +38,15 @@ describe("RegulatorState", () => {
     assert.strictEqual(state.current.layers[0].soundId, "wind");
   });
 
+  it("removeLayer emits change event", () => {
+    const state = new RegulatorState();
+    state.addLayer("rain", "pb-1", 0.5);
+    let emitted = false;
+    state.on("change", () => { emitted = true; });
+    state.removeLayer("pb-1");
+    assert.ok(emitted);
+  });
+
   it("removeLayerBySound removes first matching sound", () => {
     const state = new RegulatorState();
     state.addLayer("rain", "pb-1", 0.5);
@@ -75,6 +84,31 @@ describe("RegulatorState", () => {
     state.addLayer("wind", "pb-2", 0.8);
     state.clearAllLayers();
     assert.strictEqual(state.current.layers.length, 0);
+  });
+
+  it("clearAllLayers emits change event", () => {
+    const state = new RegulatorState();
+    state.addLayer("rain", "pb-1", 0.5);
+    let emitted = false;
+    state.on("change", () => { emitted = true; });
+    state.clearAllLayers();
+    assert.ok(emitted);
+  });
+
+  it("removeLayerBySound with duplicate sounds removes only the first match", () => {
+    // State allows addLayer to be called multiple times with same soundId (engine-level
+    // dedup is the router's job). Test that removeLayerBySound removes only the first.
+    const state = new RegulatorState();
+    state.addLayer("rain", "pb-1", 0.5);
+    // Directly invoke addLayer a second time with same soundId (bypass router 409 guard)
+    state.addLayer("rain", "pb-2", 0.7);
+    assert.strictEqual(state.current.layers.length, 2);
+
+    const removed = state.removeLayerBySound("rain");
+    assert.ok(removed);
+    assert.strictEqual(removed.playbackId, "pb-1"); // first match
+    assert.strictEqual(state.current.layers.length, 1);
+    assert.strictEqual(state.current.layers[0].playbackId, "pb-2"); // second remains
   });
 
   it("setDevice updates deviceId", () => {

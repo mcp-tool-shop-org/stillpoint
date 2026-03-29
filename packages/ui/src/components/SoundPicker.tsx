@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { SoundCatalog } from "../lib/api.js";
 
 interface Props {
@@ -11,6 +11,12 @@ export function SoundPicker({ catalog, activeSoundIds, onAdd }: Props) {
   const [selectedCategory, setSelectedCategory] = useState(
     catalog.categories[0] ?? "",
   );
+
+  useEffect(() => {
+    if (catalog.categories.length > 0 && !catalog.categories.includes(selectedCategory)) {
+      setSelectedCategory(catalog.categories[0]);
+    }
+  }, [catalog.categories]);
 
   const sounds = catalog.grouped[selectedCategory] ?? [];
 

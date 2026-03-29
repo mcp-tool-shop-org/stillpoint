@@ -15,6 +15,7 @@ export function App() {
     removeLayer,
     setLayerVolume,
     stopAll,
+    setDevice,
   } = useRegulator();
 
   const activeSoundIds = useMemo(
@@ -49,7 +50,7 @@ export function App() {
               <DeviceSelect
                 devices={devices}
                 currentDeviceId={state.deviceId}
-                onChange={() => {}}
+                onChange={setDevice}
               />
               {state.layers.length > 0 && (
                 <button className="stop-all-btn" onClick={stopAll}>

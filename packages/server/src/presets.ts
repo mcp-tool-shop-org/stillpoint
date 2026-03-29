@@ -8,6 +8,8 @@
 
 import { readdirSync, existsSync } from "node:fs";
 
+const log = (msg: string) => process.stderr.write(`[stillpoint] ${msg}\n`);
+
 export interface AmbientSound {
   id: string;
   name: string;
@@ -103,7 +105,11 @@ export const SOUNDS: AmbientSound[] = [
 
 /** Resolve the ambient WAVs directory. */
 export function getWavsPath(): string {
-  return process.env.AMBIENT_WAVS_PATH ?? "F:/AI/ambient-wavs/output";
+  if (!process.env.AMBIENT_WAVS_PATH) {
+    log("AMBIENT_WAVS_PATH not set, using ./ambient-wavs");
+    return "./ambient-wavs";
+  }
+  return process.env.AMBIENT_WAVS_PATH;
 }
 
 /** Resolve the custom sounds directory. */
@@ -138,7 +144,10 @@ export function scanCustomSounds(): AmbientSound[] {
 /** Build a file:// asset_ref for a sound. */
 export function soundAssetRef(sound: AmbientSound): string {
   if (sound.id.startsWith("custom:")) {
-    const filename = sound.id.replace("custom:", "");
+    const filename = sound.id.slice("custom:".length);
+    if (filename.includes("/") || filename.includes("\\") || filename.includes("..")) {
+      throw new Error(`Invalid custom sound id: ${sound.id}`);
+    }
     const base = getCustomPath().replace(/\\/g, "/");
     return `file:///${base}/${filename}.wav`;
   }

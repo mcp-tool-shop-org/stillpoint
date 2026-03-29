@@ -60,4 +60,5 @@ export const api = {
   setLayerVolume: (playbackId: string, level: number) =>
     post("/layers/volume", { playbackId, level }),
   stopAll: () => post("/stop-all"),
+  setDevice: (deviceId: string | null) => post("/device", { deviceId }),
 };

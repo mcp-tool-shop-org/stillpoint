@@ -13,6 +13,7 @@ export function apiRouter(
   state: RegulatorState,
 ): Router {
   const router = Router();
+  const inFlight = new Set<string>();
 
   /** Full sound catalog grouped by category. */
   router.get("/sounds", (_req: Request, res: Response) => {
@@ -44,7 +45,7 @@ export function apiRouter(
       return;
     }
 
-    if (state.hasSound(soundId)) {
+    if (state.hasSound(soundId) || inFlight.has(soundId)) {
       res.status(409).json({ error: `${soundId} is already playing` });
       return;
     }
@@ -57,6 +58,7 @@ export function apiRouter(
 
     const layerVolume = typeof volume === "number" ? Math.max(0, Math.min(1, volume)) : 0.5;
 
+    inFlight.add(soundId);
     try {
       const source: Source = {
         kind: "asset",
@@ -75,6 +77,8 @@ export function apiRouter(
       const msg = err instanceof Error ? err.message : String(err);
       state.setError("play_failed", msg);
       res.status(500).json({ error: msg });
+    } finally {
+      inFlight.delete(soundId);
     }
   });
 

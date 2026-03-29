@@ -36,7 +36,14 @@ export function useRegulator() {
         // Ignore parse errors
       }
     };
-    return () => es.close();
+    es.onerror = () => {
+      setState(s => ({ ...s, error: { code: 'connection_lost', message: 'Lost connection to server. Retrying...' } }));
+    };
+    return () => {
+      es.close();
+      for (const timer of volumeTimers.current.values()) clearTimeout(timer);
+      volumeTimers.current.clear();
+    };
   }, []);
 
   // Load catalog + devices on mount
@@ -94,6 +101,14 @@ export function useRegulator() {
     }
   }, []);
 
+  const setDevice = useCallback(async (deviceId: string | null) => {
+    try {
+      await api.setDevice(deviceId);
+    } catch {
+      // Silently ignore — server endpoint may not exist yet
+    }
+  }, []);
+
   return {
     state,
     catalog,
@@ -102,5 +117,6 @@ export function useRegulator() {
     removeLayer,
     setLayerVolume,
     stopAll,
+    setDevice,
   };
 }

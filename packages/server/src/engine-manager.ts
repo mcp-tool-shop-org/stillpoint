@@ -5,12 +5,6 @@ import type { RegulatorState } from "./state.js";
 
 const log = (msg: string) => process.stderr.write(`[stillpoint] ${msg}\n`);
 
-/** Known runtime binary fallback paths. */
-const RUNTIME_FALLBACKS = [
-  "F:/AI/sonic-runtime/src/SonicRuntime/bin/Release/net8.0/win-x64/publish/SonicRuntime.exe",
-  "F:/AI/sonic-runtime/src/SonicRuntime/bin/Debug/net8.0/win-x64/SonicRuntime.exe",
-];
-
 function resolveRuntimePath(): string | null {
   const envPath = process.env.SONIC_RUNTIME_PATH;
   if (envPath) {
@@ -18,9 +12,7 @@ function resolveRuntimePath(): string | null {
     log(`SONIC_RUNTIME_PATH set but not found: ${envPath}`);
     return null;
   }
-  for (const p of RUNTIME_FALLBACKS) {
-    if (existsSync(p)) return p;
-  }
+  log("SONIC_RUNTIME_PATH is not set. Set it to the SonicRuntime executable path to enable audio.");
   return null;
 }
 
@@ -88,11 +80,7 @@ export async function createEngineManager(
 
     backend = sidecar;
   } else {
-    const searched = process.env.SONIC_RUNTIME_PATH
-      ? [process.env.SONIC_RUNTIME_PATH]
-      : RUNTIME_FALLBACKS;
-    log(`No runtime binary found. Searched: ${searched.join(", ")}`);
-    log("Using NullBackend (no audio)");
+    log("No runtime binary found. Using NullBackend (no audio).");
     stateManager.setError(
       "runtime_missing",
       "Audio engine not found. Set SONIC_RUNTIME_PATH.",
