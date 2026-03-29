@@ -1,8 +1,12 @@
 {
   "name": "@stillpoint/server",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "type": "module",
-  "files": ["dist", "README.md", "LICENSE"],
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "dev": "tsx watch src/bin.ts",
     "build": "tsc -b",
