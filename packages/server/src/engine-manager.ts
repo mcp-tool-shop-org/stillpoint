@@ -37,8 +37,8 @@ export async function createEngineManager(
 
     sidecar = new SidecarBackend({
       executablePath: runtimePath,
-      onStderr: (line) => process.stderr.write(`[runtime] ${line}\n`),
-      onExit: (code, signal) => {
+      onStderr: (line: string) => process.stderr.write(`[runtime] ${line}\n`),
+      onExit: (code: number | null, signal: string | null) => {
         if (disposed) return;
         log(`runtime exited: code=${code} signal=${signal}`);
         stateManager.setError(
@@ -46,13 +46,13 @@ export async function createEngineManager(
           "Audio engine stopped unexpectedly. Restarting...",
         );
       },
-      onRestart: (attempt) => {
+      onRestart: (attempt: number) => {
         log(`runtime auto-restart #${attempt}`);
         stateManager.clearError();
       },
-      onSuspect: (count) =>
+      onSuspect: (count: number) =>
         log(`runtime suspect: ${count} consecutive timeouts`),
-      onEvent: (evt) => {
+      onEvent: (evt: { event: string; data: Record<string, unknown> }) => {
         if (evt.event === "playback_ended") {
           const playbackId = sidecar?.resolveAndRemoveHandle(evt.data.handle);
           if (playbackId) {
