@@ -23,7 +23,7 @@ This installs dependencies for all three packages (server, UI, desktop).
 
 ## Asset setup
 
-Stillpoint expects ambient WAV files at the path set by `AMBIENT_WAVS_PATH` (defaults to `F:/AI/ambient-wavs/output`). Each sound references a file like `heavy-rain.wav`, `fireplace.wav`, etc.
+Stillpoint expects ambient WAV files at the path set by `AMBIENT_WAVS_PATH` (defaults to `./ambient-wavs`). Each sound references a file like `heavy-rain.wav`, `fireplace.wav`, etc. Place your WAV files in the `ambient-wavs` folder at the project root, or set `AMBIENT_WAVS_PATH` to point anywhere on your system.
 
 ## Run the server
 
@@ -59,12 +59,17 @@ Open `http://localhost:5177`. You'll see the Stillpoint mixer with a category dr
 
 ## First mix
 
+If this is your first time, the mixer shows three quick-start buttons — **Rain + Fire**, **Focus**, and **Beach**. Click one to load a starter mix immediately, then adjust volumes to taste.
+
+To build a mix from scratch:
+
 1. Select a category from the first dropdown (e.g., "Rain")
 2. Select a sound from the second dropdown (e.g., "Heavy Rain")
 3. The sound starts playing immediately as a new layer
-4. Add more sounds — they play simultaneously
-5. Adjust each layer's volume with the slider
-6. Click × to remove a layer, or "Stop All" to clear everything
+4. Add more sounds — they play simultaneously (up to 8 layers)
+5. Adjust each layer's volume with the slider, or use the master volume fader to scale everything at once
+6. Click **M** to mute a layer without removing it, or **×** to remove it entirely
+7. Click "Stop All" (or press **Space** / **Esc**) to clear everything
 
 ## Tauri desktop (optional)
 
@@ -75,4 +80,4 @@ cd apps/desktop
 npm run tauri dev
 ```
 
-This opens Stillpoint in a native Tauri window pointing at `http://localhost:5177`.
+This opens Stillpoint in a native Tauri window pointing at `http://localhost:5177`. The desktop build adds system tray support — closing the window hides it to the tray rather than quitting, so your mix keeps playing. Right-click the tray icon for **Show**, **Hide**, and **Quit** options.
