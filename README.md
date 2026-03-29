@@ -94,7 +94,7 @@ Filenames become display names: `my-rain.wav` → **My Rain**.
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `SONIC_RUNTIME_PATH` | (fallback paths) | Path to sonic-runtime binary |
-| `AMBIENT_WAVS_PATH` | `F:/AI/ambient-wavs/output` | Directory containing ambient WAV files |
+| `AMBIENT_WAVS_PATH` | `./ambient-wavs` | Directory containing ambient WAV files |
 | `STILLPOINT_CUSTOM_PATH` | `<AMBIENT_WAVS_PATH>/../custom` | Directory for user-provided custom WAV files |
 | `PORT` | `3456` | Server port |
 

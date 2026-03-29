@@ -2,6 +2,7 @@ import { Router, type Request, type Response } from "express";
 import type { SonicEngine } from "@sonic-core/engine";
 import type { Source } from "@sonic-core/types";
 import type { RegulatorState } from "../state.js";
+import { MAX_LAYERS } from "../state.js";
 import {
   findSound,
   soundAssetRef,
@@ -27,6 +28,7 @@ export function apiRouter(
       mutationTimestamps.shift();
     }
     if (mutationTimestamps.length >= RATE_LIMIT_MAX) {
+      process.stderr.write('[stillpoint] rate limit hit\n');
       res.status(429).json({ error: "Too many requests — slow down" });
       return false;
     }
@@ -68,8 +70,15 @@ export function apiRouter(
 
     const layerVolumeParsed = typeof volume === "number" ? volume : undefined;
 
+    process.stderr.write(`[stillpoint] add: ${soundId}\n`);
+
     if (state.hasSound(soundId) || inFlight.has(soundId)) {
       res.status(409).json({ error: `${soundId} is already playing` });
+      return;
+    }
+
+    if (state.current.layers.length >= MAX_LAYERS) {
+      res.status(409).json({ error: `Maximum ${MAX_LAYERS} layers — remove one first` });
       return;
     }
 
@@ -116,6 +125,8 @@ export function apiRouter(
       return;
     }
 
+    process.stderr.write(`[stillpoint] remove: ${playbackId}\n`);
+
     // F-A-006: reject unknown playbackId instead of silently succeeding
     if (!state.current.layers.some(l => l.playbackId === playbackId)) {
       res.status(404).json({ error: "Layer not found" });
@@ -124,7 +135,8 @@ export function apiRouter(
 
     try {
       await engine.stop(playbackId);
-    } catch {
+    } catch (err) {
+      process.stderr.write(`[stillpoint] remove stop failed: ${err}\n`);
       // Already stopped
     }
     state.removeLayer(playbackId);
@@ -154,18 +166,19 @@ export function apiRouter(
 
     const safeLevel = level as number;
 
-    // F-A-007: call engine first so state only updates on success
-    try {
-      await engine.set_volume(playbackId, safeLevel);
-    } catch (err) {
-      // Playback may have ended — log but continue
-      console.error("[api] set_volume failed:", err);
-      res.status(500).json({ error: "Failed to set volume" });
+    process.stderr.write(`[stillpoint] volume: ${playbackId} → ${safeLevel}\n`);
+
+    // PH-B-001: check state before calling engine to avoid TOCTOU
+    if (!state.current.layers.some(l => l.playbackId === playbackId)) {
+      res.status(404).json({ error: 'Layer not found' });
       return;
     }
 
-    if (!state.current.layers.some(l => l.playbackId === playbackId)) {
-      res.status(404).json({ error: 'Layer not found' });
+    try {
+      await engine.set_volume(playbackId, safeLevel);
+    } catch (err) {
+      process.stderr.write(`[stillpoint] set_volume failed: ${err}\n`);
+      res.status(500).json({ error: "Failed to set volume" });
       return;
     }
 
@@ -178,8 +191,13 @@ export function apiRouter(
     if (!checkRateLimit(res)) return;
 
     const { layers } = state.current;
+    process.stderr.write(`[stillpoint] stop-all (${layers.length} layers)\n`);
     // F-A-008: stop all layers in parallel
-    await Promise.allSettled(layers.map(l => engine.stop(l.playbackId)));
+    const results = await Promise.allSettled(layers.map(l => engine.stop(l.playbackId)));
+    const failed = results.filter(r => r.status === 'rejected');
+    if (failed.length) {
+      process.stderr.write(`[stillpoint] stop-all: ${failed.length} layer(s) failed to stop\n`);
+    }
     state.clearAllLayers();
     res.json({ ok: true });
   });

@@ -313,3 +313,162 @@ describe("POST /api/stop-all", () => {
     assert.deepStrictEqual((stateAfter as Record<string, unknown>).layers, []);
   });
 });
+
+// ---------------------------------------------------------------------------
+// PH-T-001: Rate limiter 429 path
+// Uses an isolated server so the rate limiter window is not shared with other tests
+// ---------------------------------------------------------------------------
+describe("rate limiter — 429 after 30 rapid mutations", () => {
+  let url: string;
+  let close: () => Promise<void>;
+
+  before(async () => {
+    // Fresh server = fresh rate limiter window
+    const state = new RegulatorState();
+    const engine = makeMockEngine();
+    ({ url, close } = await startServer(engine, state));
+  });
+
+  after(async () => { await close(); });
+
+  it("31st rapid POST /api/stop-all returns 429", async () => {
+    // Fire 30 requests — all should pass the rate limit check
+    for (let i = 0; i < 30; i++) {
+      await post(`${url}/api/stop-all`, {});
+    }
+    // The 31st must be rate-limited
+    const { status, body } = await post(`${url}/api/stop-all`, {});
+    assert.strictEqual(status, 429);
+    assert.ok((body as Record<string, unknown>).error, "429 response should include error message");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// PH-T-002: GET /api/devices
+// ---------------------------------------------------------------------------
+describe("GET /api/devices", () => {
+  let url: string;
+  let close: () => Promise<void>;
+  let engine: ReturnType<typeof makeMockEngine>;
+
+  before(async () => {
+    const state = new RegulatorState();
+    engine = makeMockEngine();
+    ({ url, close } = await startServer(engine, state));
+  });
+
+  after(async () => { await close(); });
+
+  it("happy path returns an array", async () => {
+    const { status, body } = await get(`${url}/api/devices`);
+    assert.strictEqual(status, 200);
+    assert.ok(Array.isArray(body), "response body should be an array");
+  });
+
+  it("engine.get_devices throws → 500", async () => {
+    const orig = engine.get_devices;
+    engine.get_devices = async () => { throw new Error("device enumeration failed"); };
+    try {
+      const { status, body } = await get(`${url}/api/devices`);
+      assert.strictEqual(status, 500);
+      assert.ok((body as Record<string, unknown>).error, "500 response should include error field");
+    } finally {
+      engine.get_devices = orig;
+    }
+  });
+});
+
+// ---------------------------------------------------------------------------
+// PH-T-003: engine.play() throw → 500 on POST /api/layers/add
+// ---------------------------------------------------------------------------
+describe("POST /api/layers/add — engine.play throws → 500", () => {
+  let url: string;
+  let close: () => Promise<void>;
+  let engine: ReturnType<typeof makeMockEngine>;
+
+  before(async () => {
+    const state = new RegulatorState();
+    engine = makeMockEngine();
+    ({ url, close } = await startServer(engine, state));
+  });
+
+  after(async () => { await close(); });
+
+  it("engine.play() throws → 500 with error message", async () => {
+    const orig = engine.play;
+    engine.play = async (_source: unknown, _opts: unknown) => { throw new Error("audio backend crashed"); };
+    try {
+      const { status, body } = await post(`${url}/api/layers/add`, { soundId: "heavy-rain", volume: 0.5 });
+      assert.strictEqual(status, 500);
+      assert.ok((body as Record<string, unknown>).error, "500 response should include error field");
+    } finally {
+      engine.play = orig;
+    }
+  });
+});
+
+// ---------------------------------------------------------------------------
+// PH-T-005: engine.stop() swallowed error — graceful degradation
+// ---------------------------------------------------------------------------
+describe("POST /api/layers/remove — engine.stop throws → 200 (graceful degradation)", () => {
+  let url: string;
+  let close: () => Promise<void>;
+  let state: RegulatorState;
+  let engine: ReturnType<typeof makeMockEngine>;
+
+  before(async () => {
+    state = new RegulatorState();
+    engine = makeMockEngine();
+    ({ url, close } = await startServer(engine, state));
+  });
+
+  after(async () => { await close(); });
+
+  it("stop error is swallowed and layer is removed from state", async () => {
+    const pbId = "mock-pb-stop-throws";
+    state.addLayer("brook", pbId, 0.4);
+
+    const orig = engine.stop;
+    engine.stop = async (_pbId: string) => { throw new Error("stop: audio device lost"); };
+    try {
+      const { status, body } = await post(`${url}/api/layers/remove`, { playbackId: pbId });
+      assert.strictEqual(status, 200);
+      assert.deepStrictEqual((body as Record<string, unknown>).ok, true);
+      // Layer must be removed from state even though stop() threw
+      const stateRes = await get(`${url}/api/state`);
+      const layers = (stateRes.body as Record<string, unknown>).layers as Array<Record<string, unknown>>;
+      assert.ok(!layers.some((l) => l.playbackId === pbId), "layer should be removed from state after graceful stop failure");
+    } finally {
+      engine.stop = orig;
+    }
+  });
+});
+
+// ---------------------------------------------------------------------------
+// MAX_LAYERS cap: adding a 9th layer → 409
+// ---------------------------------------------------------------------------
+describe("POST /api/layers/add — MAX_LAYERS cap → 409", () => {
+  let url: string;
+  let close: () => Promise<void>;
+  let state: RegulatorState;
+
+  before(async () => {
+    state = new RegulatorState();
+    const engine = makeMockEngine();
+    ({ url, close } = await startServer(engine, state));
+    // Pre-fill 8 layers directly into state (MAX_LAYERS = 8)
+    const sounds = ["heavy-rain", "light-rain", "drizzle", "brook", "river", "ocean", "gentle-wind", "white-noise"];
+    for (let i = 0; i < 8; i++) {
+      state.addLayer(sounds[i], `pre-pb-${i}`, 0.5);
+    }
+  });
+
+  after(async () => { await close(); });
+
+  it("adding a 9th layer → 409 with max layers message", async () => {
+    const { status, body } = await post(`${url}/api/layers/add`, { soundId: "waterfall", volume: 0.4 });
+    assert.strictEqual(status, 409);
+    const err = (body as Record<string, unknown>).error as string;
+    assert.ok(typeof err === "string" && err.length > 0, "409 response should include error field");
+  });
+});

@@ -10,6 +10,8 @@ export function App() {
   const {
     state,
     catalog,
+    catalogLoading,
+    connected,
     devices,
     addLayer,
     removeLayer,
@@ -33,6 +35,12 @@ export function App() {
     <div className="stillpoint">
       <header className="header">
         <h1>Stillpoint</h1>
+        <span
+          className="connection-dot"
+          data-connected={connected}
+          title={connected ? "Connected" : "Disconnected"}
+          aria-label={connected ? "Server connected" : "Server disconnected"}
+        />
       </header>
 
       <ErrorBanner error={state.error} />
@@ -40,11 +48,15 @@ export function App() {
       <main className="main">
         <div className="mixer">
           <div className="mixer-toolbar">
-            <SoundPicker
-              catalog={catalog}
-              activeSoundIds={activeSoundIds}
-              onAdd={addLayer}
-            />
+            {catalogLoading ? (
+              <span className="catalog-loading">Loading sounds…</span>
+            ) : (
+              <SoundPicker
+                catalog={catalog}
+                activeSoundIds={activeSoundIds}
+                onAdd={addLayer}
+              />
+            )}
 
             <div className="toolbar-right">
               <DeviceSelect
@@ -72,6 +84,7 @@ export function App() {
                   sound={soundMap.get(layer.soundId)}
                   playbackId={layer.playbackId}
                   volume={layer.volume}
+                  catalogLoaded={!catalogLoading}
                   onVolumeChange={setLayerVolume}
                   onRemove={removeLayer}
                 />

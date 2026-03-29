@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface Props {
   error: { code: string; message: string } | null;
@@ -6,6 +6,11 @@ interface Props {
 
 export function ErrorBanner({ error }: Props) {
   const [dismissed, setDismissed] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (error && error.code !== dismissed) setDismissed(null);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error?.code]);
 
   if (!error || error.code === dismissed) return null;
 

@@ -18,6 +18,8 @@ export interface MixerState {
   error: { code: string; message: string } | null;
 }
 
+export const MAX_LAYERS = 8;
+
 export class RegulatorState extends EventEmitter {
   #state: MixerState = { layers: [], deviceId: null, error: null };
 

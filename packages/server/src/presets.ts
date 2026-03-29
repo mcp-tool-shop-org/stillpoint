@@ -105,11 +105,14 @@ export const SOUNDS: AmbientSound[] = [
 
 /** Resolve the ambient WAVs directory. */
 export function getWavsPath(): string {
+  const resolved = process.env.AMBIENT_WAVS_PATH ?? "./ambient-wavs";
   if (!process.env.AMBIENT_WAVS_PATH) {
     log("AMBIENT_WAVS_PATH not set, using ./ambient-wavs");
-    return "./ambient-wavs";
   }
-  return process.env.AMBIENT_WAVS_PATH;
+  if (!existsSync(resolved)) {
+    log(`Warning: ambient WAVs directory not found at "${resolved}". Audio playback will fail until AMBIENT_WAVS_PATH points to a valid directory.`);
+  }
+  return resolved;
 }
 
 /** Resolve the custom sounds directory. */
@@ -136,7 +139,8 @@ export function scanCustomSounds(): AmbientSound[] {
         const stem = f.replace(/\.wav$/i, "");
         return { id: `custom:${stem}`, name: kebabToTitle(stem), category: "Custom" };
       });
-  } catch {
+  } catch (err) {
+    log(`Failed to scan custom sounds directory "${dir}": ${err instanceof Error ? err.message : err}`);
     return [];
   }
 }

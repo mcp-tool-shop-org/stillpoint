@@ -43,7 +43,7 @@ export async function createEngineManager(
         log(`runtime exited: code=${code} signal=${signal}`);
         stateManager.setError(
           "runtime_exited",
-          "Audio engine stopped unexpectedly. Restarting...",
+          "Audio engine stopped unexpectedly.",
         );
       },
       onRestart: (attempt: number) => {

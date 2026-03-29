@@ -20,16 +20,23 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 22
+          cache: 'npm'
+          cache-dependency-path: site/package-lock.json
 
       - name: Install site dependencies
         working-directory: site
         run: npm ci
+
+      - name: Audit site dependencies
+        working-directory: site
+        run: npm audit --audit-level=high
 
       - name: Build site
         working-directory: site
@@ -42,6 +49,7 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

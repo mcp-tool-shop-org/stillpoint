@@ -20,6 +20,15 @@ const server = app.listen(PORT, () => {
   log(`server listening on http://localhost:${PORT}`);
 });
 
+server.on("error", (err: NodeJS.ErrnoException) => {
+  if (err.code === "EADDRINUSE") {
+    log(`Port ${PORT} is already in use. Set PORT= to a different port.`);
+  } else {
+    log(`listen error: ${err.message}`);
+  }
+  process.exit(1);
+});
+
 // Graceful shutdown
 let shuttingDown = false;
 function shutdown() {

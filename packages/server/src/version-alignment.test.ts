@@ -7,6 +7,8 @@ import { fileURLToPath } from "node:url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const serverPkg = JSON.parse(readFileSync(join(__dirname, "..", "package.json"), "utf-8"));
 const rootPkg = JSON.parse(readFileSync(join(__dirname, "..", "..", "..", "package.json"), "utf-8"));
+const uiPkg = JSON.parse(readFileSync(join(__dirname, "..", "..", "..", "packages", "ui", "package.json"), "utf-8"));
+const desktopPkg = JSON.parse(readFileSync(join(__dirname, "..", "..", "..", "apps", "desktop", "package.json"), "utf-8"));
 
 describe("version alignment", () => {
   it("server package version is semver", () => {
@@ -29,5 +31,13 @@ describe("version alignment", () => {
   it("CHANGELOG mentions current version", () => {
     const changelog = readFileSync(join(__dirname, "..", "..", "..", "CHANGELOG.md"), "utf-8");
     assert.ok(changelog.includes(serverPkg.version), `CHANGELOG missing version ${serverPkg.version}`);
+  });
+
+  it("ui package version matches root version", () => {
+    assert.equal(uiPkg.version, rootPkg.version, `ui (${uiPkg.version}) != root (${rootPkg.version})`);
+  });
+
+  it("desktop package version matches root version", () => {
+    assert.equal(desktopPkg.version, rootPkg.version, `desktop (${desktopPkg.version}) != root (${rootPkg.version})`);
   });
 });

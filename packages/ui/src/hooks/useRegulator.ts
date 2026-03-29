@@ -22,6 +22,8 @@ export function useRegulator() {
   const [state, setState] = useState<MixerState>(INITIAL_STATE);
   const [catalog, setCatalog] = useState<SoundCatalog>(EMPTY_CATALOG);
   const [devices, setDevices] = useState<DeviceInfo[]>([]);
+  const [catalogLoading, setCatalogLoading] = useState(true);
+  const [connected, setConnected] = useState(false);
   const volumeTimers = useRef<Map<string, ReturnType<typeof setTimeout>>>(
     new Map(),
   );
@@ -30,6 +32,7 @@ export function useRegulator() {
   useEffect(() => {
     const es = new EventSource("/api/events");
     es.onmessage = (e) => {
+      setConnected(true);
       try {
         setState(JSON.parse(e.data));
       } catch {
@@ -37,6 +40,7 @@ export function useRegulator() {
       }
     };
     es.onerror = () => {
+      setConnected(false);
       setState(s => ({ ...s, error: { code: 'connection_lost', message: 'Lost connection to server. Retrying...' } }));
     };
     return () => {
@@ -48,7 +52,11 @@ export function useRegulator() {
 
   // Load catalog + devices on mount
   useEffect(() => {
-    api.getSounds().then(setCatalog).catch(() => {
+    api.getSounds().then((data) => {
+      setCatalog(data);
+      setCatalogLoading(false);
+    }).catch(() => {
+      setCatalogLoading(false);
       setState(s => ({ ...s, error: { code: 'catalog_failed', message: 'Could not load sounds — is the server running?' } }));
     });
     api.getDevices().then(setDevices).catch(() => {
@@ -74,22 +82,34 @@ export function useRegulator() {
 
   const setLayerVolume = useCallback(
     (playbackId: string, level: number) => {
-      // Optimistic local update
-      setState((s) => ({
-        ...s,
-        layers: s.layers.map((l) =>
-          l.playbackId === playbackId ? { ...l, volume: level } : l,
-        ),
-      }));
+      // Capture previous volume before optimistic update
+      let prevVolume = level;
+      setState((s) => {
+        const existing = s.layers.find((l) => l.playbackId === playbackId);
+        if (existing) prevVolume = existing.volume;
+        return {
+          ...s,
+          layers: s.layers.map((l) =>
+            l.playbackId === playbackId ? { ...l, volume: level } : l,
+          ),
+        };
+      });
 
       // Debounce the server call
       const timers = volumeTimers.current;
-      const existing = timers.get(playbackId);
-      if (existing) clearTimeout(existing);
+      const existingTimer = timers.get(playbackId);
+      if (existingTimer) clearTimeout(existingTimer);
       timers.set(
         playbackId,
         setTimeout(() => {
-          api.setLayerVolume(playbackId, level).catch(() => {});
+          api.setLayerVolume(playbackId, level).catch(() => {
+            setState((s) => ({
+              ...s,
+              layers: s.layers.map((l) =>
+                l.playbackId === playbackId ? { ...l, volume: prevVolume } : l,
+              ),
+            }));
+          });
           timers.delete(playbackId);
         }, 100),
       );
@@ -109,13 +129,15 @@ export function useRegulator() {
     try {
       await api.setDevice(deviceId);
     } catch {
-      // Silently ignore — server endpoint may not exist yet
+      setState(s => ({ ...s, error: { code: 'device_failed', message: 'Could not switch audio device' } }));
     }
   }, []);
 
   return {
     state,
     catalog,
+    catalogLoading,
+    connected,
     devices,
     addLayer,
     removeLayer,
