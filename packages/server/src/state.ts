@@ -12,16 +12,24 @@ export interface Layer {
   volume: number;
 }
 
+export interface Preset {
+  id: string;
+  name: string;
+  layers: { soundId: string; volume: number }[];
+}
+
 export interface MixerState {
   layers: Layer[];
   deviceId: string | null;
   error: { code: string; message: string } | null;
+  masterVolume: number;
+  timer: { endTime: number } | null;
 }
 
 export const MAX_LAYERS = 8;
 
 export class RegulatorState extends EventEmitter {
-  #state: MixerState = { layers: [], deviceId: null, error: null };
+  #state: MixerState = { layers: [], deviceId: null, error: null, masterVolume: 1.0, timer: null };
 
   constructor() {
     super();
@@ -29,7 +37,11 @@ export class RegulatorState extends EventEmitter {
   }
 
   get current(): Readonly<MixerState> {
-    return { ...this.#state, layers: this.#state.layers.map(l => ({ ...l })) };
+    return {
+      ...this.#state,
+      layers: this.#state.layers.map(l => ({ ...l })),
+      timer: this.#state.timer ? { ...this.#state.timer } : null,
+    };
   }
 
   #emit(): void {
@@ -76,6 +88,21 @@ export class RegulatorState extends EventEmitter {
 
   setDevice(deviceId: string | null): void {
     this.#state.deviceId = deviceId;
+    this.#emit();
+  }
+
+  setMasterVolume(level: number): void {
+    this.#state.masterVolume = Math.max(0, Math.min(1, level));
+    this.#emit();
+  }
+
+  setTimer(minutes: number): void {
+    this.#state.timer = { endTime: Date.now() + minutes * 60_000 };
+    this.#emit();
+  }
+
+  clearTimer(): void {
+    this.#state.timer = null;
     this.#emit();
   }
 

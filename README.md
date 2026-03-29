@@ -41,7 +41,13 @@ Powered by [sonic-core](https://github.com/mcp-tool-shop-org/sonic-core) and [so
 - **Layered mixer** — add multiple sounds simultaneously with independent volume
 - **Category browser** — dropdown-organized sound picker
 - **Per-layer volume** — range sliders with real-time adjustment
-- **Device routing** — audio output device selector (display-only in current build)
+- **Per-layer mute** — silence individual layers without removing them
+- **Master volume** — global control that scales all layers at once
+- **Fade in/out** — smooth transitions when adding or removing layers
+- **Device routing** — audio output device selector; set via UI or `POST /device`
+- **Sleep timer** — auto-stop playback after a configurable duration
+- **Saved presets** — save and load named mixes (layers + volumes)
+- **System tray** — minimize to tray; playback continues in the background
 - **Real-time sync** — SSE-powered state updates
 - **Tauri desktop** — native window via Tauri v2
 

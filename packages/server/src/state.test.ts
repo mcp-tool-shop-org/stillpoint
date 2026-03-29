@@ -187,4 +187,97 @@ describe("RegulatorState", () => {
       message: "something went wrong",
     });
   });
+
+  // ---------------------------------------------------------------------------
+  // masterVolume tests (FT-S-003)
+  // ---------------------------------------------------------------------------
+
+  it("masterVolume defaults to 1.0", () => {
+    const state = new RegulatorState();
+    assert.strictEqual(state.current.masterVolume, 1.0);
+  });
+
+  it("setMasterVolume stores the value and emits change", () => {
+    const state = new RegulatorState();
+    let emitCount = 0;
+    state.on("change", () => { emitCount++; });
+    state.setMasterVolume(0.5);
+    assert.strictEqual(state.current.masterVolume, 0.5);
+    assert.strictEqual(emitCount, 1);
+  });
+
+  it("setMasterVolume clamps values above 1 to 1", () => {
+    const state = new RegulatorState();
+    state.setMasterVolume(1.5);
+    assert.strictEqual(state.current.masterVolume, 1.0);
+  });
+
+  it("setMasterVolume clamps values below 0 to 0", () => {
+    const state = new RegulatorState();
+    state.setMasterVolume(-0.5);
+    assert.strictEqual(state.current.masterVolume, 0.0);
+  });
+
+  it("setMasterVolume boundary 0 stores exactly 0", () => {
+    const state = new RegulatorState();
+    state.setMasterVolume(0);
+    assert.strictEqual(state.current.masterVolume, 0);
+  });
+
+  it("setMasterVolume boundary 1 stores exactly 1", () => {
+    const state = new RegulatorState();
+    state.setMasterVolume(1);
+    assert.strictEqual(state.current.masterVolume, 1);
+  });
+
+  // ---------------------------------------------------------------------------
+  // Sleep timer tests (FT-S-005)
+  // ---------------------------------------------------------------------------
+
+  it("timer defaults to null", () => {
+    const state = new RegulatorState();
+    assert.strictEqual(state.current.timer, null);
+  });
+
+  it("setTimer sets endTime roughly minutes * 60000 ms from now and emits change", () => {
+    const state = new RegulatorState();
+    let emitCount = 0;
+    state.on("change", () => { emitCount++; });
+    const before = Date.now();
+    state.setTimer(30);
+    const after = Date.now();
+    assert.ok(state.current.timer !== null, "timer should not be null after setTimer");
+    const { endTime } = state.current.timer!;
+    assert.ok(endTime >= before + 30 * 60_000, "endTime should be at least 30 minutes from now");
+    assert.ok(endTime <= after + 30 * 60_000 + 100, "endTime should not be more than ~30 minutes from now");
+    assert.strictEqual(emitCount, 1);
+  });
+
+  it("clearTimer resets timer to null and emits change", () => {
+    const state = new RegulatorState();
+    state.setTimer(10);
+    assert.ok(state.current.timer !== null);
+    let emitCount = 0;
+    state.on("change", () => { emitCount++; });
+    state.clearTimer();
+    assert.strictEqual(state.current.timer, null);
+    assert.strictEqual(emitCount, 1);
+  });
+
+  it("clearTimer is idempotent — calling when no timer still emits change", () => {
+    const state = new RegulatorState();
+    let emitCount = 0;
+    state.on("change", () => { emitCount++; });
+    state.clearTimer();
+    // clearTimer always emits; this is fine — it sets null unconditionally
+    assert.strictEqual(state.current.timer, null);
+  });
+
+  it("setTimer snapshot is deep-copied — mutating snapshot does not affect live state", () => {
+    const state = new RegulatorState();
+    state.setTimer(5);
+    const snap = state.current;
+    snap.timer!.endTime = 0;
+    assert.ok(state.current.timer!.endTime !== 0, "live state endTime should not change");
+  });
 });

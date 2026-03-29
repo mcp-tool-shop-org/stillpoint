@@ -4,8 +4,10 @@ interface Props {
   sound: AmbientSound | undefined;
   playbackId: string;
   volume: number;
+  muted: boolean;
   catalogLoaded: boolean;
   onVolumeChange: (playbackId: string, level: number) => void;
+  onMute: (playbackId: string, currentVolume: number) => void;
   onRemove: (playbackId: string) => void;
 }
 
@@ -13,8 +15,10 @@ export function LayerStrip({
   sound,
   playbackId,
   volume,
+  muted,
   catalogLoaded,
   onVolumeChange,
+  onMute,
   onRemove,
 }: Props) {
   // Sound not found after catalog has loaded — show degraded mini-state
@@ -58,6 +62,16 @@ export function LayerStrip({
       />
 
       <span className="layer-volume">{Math.round(volume * 100)}%</span>
+
+      <button
+        className={`layer-mute${muted ? " layer-mute--muted" : ""}`}
+        onClick={() => onMute(playbackId, volume)}
+        title={muted ? "Unmute" : "Mute"}
+        aria-label={muted ? `Unmute ${sound?.name ?? 'layer'}` : `Mute ${sound?.name ?? 'layer'}`}
+        aria-pressed={muted}
+      >
+        M
+      </button>
 
       <button
         className="layer-remove"

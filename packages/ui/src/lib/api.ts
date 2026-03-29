@@ -6,9 +6,23 @@ export interface Layer {
   volume: number;
 }
 
+export interface TimerState {
+  durationSeconds: number;
+  remainingSeconds: number;
+  active: boolean;
+}
+
+export interface Preset {
+  id: string;
+  name: string;
+  layers: { soundId: string; volume: number }[];
+}
+
 export interface MixerState {
   layers: Layer[];
   deviceId: string | null;
+  masterVolume: number;
+  timer: TimerState | null;
   error: { code: string; message: string } | null;
 }
 
@@ -69,4 +83,11 @@ export const api = {
     post("/layers/volume", { playbackId, level }),
   stopAll: () => post("/stop-all"),
   setDevice: (deviceId: string | null) => post("/device", { deviceId }),
+  setMasterVolume: (level: number) => post("/volume/master", { level }),
+  getPresets: () => get<Preset[]>("/presets"),
+  savePreset: (name: string) => post("/presets", { name }) as Promise<Preset>,
+  loadPreset: (id: string) => post(`/presets/${id}/load`),
+  deletePreset: (id: string) => post(`/presets/${id}/delete`),
+  setTimer: (seconds: number) => post("/timer", { seconds }),
+  cancelTimer: () => post("/timer/cancel"),
 };

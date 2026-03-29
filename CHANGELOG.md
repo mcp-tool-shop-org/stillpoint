@@ -1,5 +1,16 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+- **POST /device** — REST endpoint to set audio output device programmatically
+- **Master volume** — global volume control that scales all layers simultaneously
+- **Sleep timer** — auto-stop playback after a configurable duration
+- **Saved presets** — save and load named mixes (layer set + volumes)
+- **Fade in/out** — smooth volume transitions when adding or removing layers
+- **Per-layer mute** — toggle individual layers silent without removing them
+- **System tray** — minimize to tray; app continues playing in the background
+
 ## [1.0.1] - 2026-03-25
 
 ### Added

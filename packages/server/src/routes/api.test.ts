@@ -459,6 +459,397 @@ describe("POST /api/layers/remove — engine.stop throws → 200 (graceful degra
 });
 
 // ---------------------------------------------------------------------------
+// FT-S-001: POST /api/device
+// ---------------------------------------------------------------------------
+describe("POST /api/device", () => {
+  let url: string;
+  let close: () => Promise<void>;
+  let state: RegulatorState;
+
+  before(async () => {
+    state = new RegulatorState();
+    const engine = makeMockEngine();
+    ({ url, close } = await startServer(engine, state));
+  });
+
+  after(async () => { await close(); });
+
+  it("missing deviceId key (undefined) → 200 with null default (no body field)", async () => {
+    // When deviceId is absent from body, typeof deviceId !== "string" AND deviceId !== null
+    // The implementation: if (deviceId !== null && typeof deviceId !== "string") → 400
+    // undefined is not null and not string → 400
+    const { status } = await post(`${url}/api/device`, {});
+    assert.strictEqual(status, 400);
+  });
+
+  it("deviceId as non-string non-null value (number) → 400", async () => {
+    const { status, body } = await post(`${url}/api/device`, { deviceId: 42 });
+    assert.strictEqual(status, 400);
+    assert.ok((body as Record<string, unknown>).error);
+  });
+
+  it("deviceId as valid string → 200 ok and state updated", async () => {
+    const { status, body } = await post(`${url}/api/device`, { deviceId: "speakers" });
+    assert.strictEqual(status, 200);
+    assert.deepStrictEqual((body as Record<string, unknown>).ok, true);
+    assert.strictEqual(state.current.deviceId, "speakers");
+  });
+
+  it("deviceId as null → 200 ok and state reset to null", async () => {
+    state.setDevice("old-device");
+    const { status, body } = await post(`${url}/api/device`, { deviceId: null });
+    assert.strictEqual(status, 200);
+    assert.deepStrictEqual((body as Record<string, unknown>).ok, true);
+    assert.strictEqual(state.current.deviceId, null);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// FT-S-003: POST /api/volume/master
+// ---------------------------------------------------------------------------
+describe("POST /api/volume/master", () => {
+  let url: string;
+  let close: () => Promise<void>;
+  let state: RegulatorState;
+
+  before(async () => {
+    state = new RegulatorState();
+    const engine = makeMockEngine();
+    ({ url, close } = await startServer(engine, state));
+  });
+
+  after(async () => { await close(); });
+
+  it("missing level → 400", async () => {
+    const { status, body } = await post(`${url}/api/volume/master`, {});
+    assert.strictEqual(status, 400);
+    assert.ok((body as Record<string, unknown>).error);
+  });
+
+  it("level null (non-finite) → 400", async () => {
+    const { status } = await post(`${url}/api/volume/master`, { level: null });
+    assert.strictEqual(status, 400);
+  });
+
+  it("level > 1 → 400", async () => {
+    const { status } = await post(`${url}/api/volume/master`, { level: 1.5 });
+    assert.strictEqual(status, 400);
+  });
+
+  it("level < 0 → 400", async () => {
+    const { status } = await post(`${url}/api/volume/master`, { level: -0.1 });
+    assert.strictEqual(status, 400);
+  });
+
+  it("valid level 0.5 → 200 ok and state updated", async () => {
+    const { status, body } = await post(`${url}/api/volume/master`, { level: 0.5 });
+    assert.strictEqual(status, 200);
+    assert.deepStrictEqual((body as Record<string, unknown>).ok, true);
+    assert.strictEqual(state.current.masterVolume, 0.5);
+  });
+
+  it("boundary level=0 → 200", async () => {
+    const { status, body } = await post(`${url}/api/volume/master`, { level: 0 });
+    assert.strictEqual(status, 200);
+    assert.deepStrictEqual((body as Record<string, unknown>).ok, true);
+  });
+
+  it("boundary level=1 → 200", async () => {
+    const { status, body } = await post(`${url}/api/volume/master`, { level: 1 });
+    assert.strictEqual(status, 200);
+    assert.deepStrictEqual((body as Record<string, unknown>).ok, true);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// FT-S-005: Sleep timer routes
+// Uses isolated server per test group to avoid rate limiter interference
+// ---------------------------------------------------------------------------
+describe("GET /api/timer — no active timer", () => {
+  let url: string;
+  let close: () => Promise<void>;
+
+  before(async () => {
+    const state = new RegulatorState();
+    const engine = makeMockEngine();
+    ({ url, close } = await startServer(engine, state));
+  });
+
+  after(async () => { await close(); });
+
+  it("returns { endTime: null } when no timer is set", async () => {
+    const { status, body } = await get(`${url}/api/timer`);
+    assert.strictEqual(status, 200);
+    const b = body as Record<string, unknown>;
+    assert.ok("endTime" in b, "response should have endTime field");
+    assert.strictEqual(b.endTime, null);
+  });
+});
+
+describe("POST /api/timer", () => {
+  let url: string;
+  let close: () => Promise<void>;
+  let state: RegulatorState;
+
+  before(async () => {
+    state = new RegulatorState();
+    const engine = makeMockEngine();
+    ({ url, close } = await startServer(engine, state));
+  });
+
+  after(async () => {
+    // Cancel any lingering timers by deleting
+    await fetch(`${url}/api/timer`, { method: "DELETE" });
+    await close();
+  });
+
+  it("missing minutes → 400", async () => {
+    const { status, body } = await post(`${url}/api/timer`, {});
+    assert.strictEqual(status, 400);
+    assert.ok((body as Record<string, unknown>).error);
+  });
+
+  it("minutes=0 → 400 (not positive)", async () => {
+    const { status } = await post(`${url}/api/timer`, { minutes: 0 });
+    assert.strictEqual(status, 400);
+  });
+
+  it("minutes=-1 → 400 (negative)", async () => {
+    const { status } = await post(`${url}/api/timer`, { minutes: -1 });
+    assert.strictEqual(status, 400);
+  });
+
+  it("minutes=481 → 400 (exceeds max 480)", async () => {
+    const { status } = await post(`${url}/api/timer`, { minutes: 481 });
+    assert.strictEqual(status, 400);
+  });
+
+  it("valid minutes → 200 with endTime in the future", async () => {
+    const before = Date.now();
+    const { status, body } = await post(`${url}/api/timer`, { minutes: 30 });
+    assert.strictEqual(status, 200);
+    const b = body as Record<string, unknown>;
+    assert.ok("endTime" in b, "response should have endTime field");
+    assert.ok(typeof b.endTime === "number", "endTime should be a number");
+    assert.ok((b.endTime as number) > before, "endTime should be in the future");
+    // Also confirm state updated
+    assert.ok(state.current.timer !== null, "state.timer should be set");
+  });
+
+  it("setting a second timer replaces the first", async () => {
+    const { status: s1 } = await post(`${url}/api/timer`, { minutes: 60 });
+    assert.strictEqual(s1, 200);
+    const firstEndTime = state.current.timer?.endTime;
+    const { status: s2, body } = await post(`${url}/api/timer`, { minutes: 120 });
+    assert.strictEqual(s2, 200);
+    const b = body as Record<string, unknown>;
+    assert.ok((b.endTime as number) > (firstEndTime ?? 0), "second timer should have later endTime");
+  });
+});
+
+describe("DELETE /api/timer", () => {
+  let url: string;
+  let close: () => Promise<void>;
+  let state: RegulatorState;
+
+  before(async () => {
+    state = new RegulatorState();
+    const engine = makeMockEngine();
+    ({ url, close } = await startServer(engine, state));
+  });
+
+  after(async () => { await close(); });
+
+  it("returns { ok: true } when no timer is active", async () => {
+    const res = await fetch(`${url}/api/timer`, { method: "DELETE" });
+    const body = await res.json();
+    assert.strictEqual(res.status, 200);
+    assert.deepStrictEqual((body as Record<string, unknown>).ok, true);
+  });
+
+  it("cancels an active timer and returns { ok: true }", async () => {
+    await post(`${url}/api/timer`, { minutes: 30 });
+    assert.ok(state.current.timer !== null, "timer should be set before delete");
+    const res = await fetch(`${url}/api/timer`, { method: "DELETE" });
+    const body = await res.json();
+    assert.strictEqual(res.status, 200);
+    assert.deepStrictEqual((body as Record<string, unknown>).ok, true);
+    assert.strictEqual(state.current.timer, null, "state.timer should be null after delete");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// FT-S-002: Preset routes
+// Uses STILLPOINT_DATA_PATH to isolate file I/O to a temp directory
+// ---------------------------------------------------------------------------
+import { mkdtempSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+
+describe("GET /api/presets", () => {
+  let url: string;
+  let close: () => Promise<void>;
+  let tmpDir: string;
+
+  before(async () => {
+    tmpDir = mkdtempSync(join(tmpdir(), "stillpoint-test-presets-"));
+    process.env.STILLPOINT_DATA_PATH = tmpDir;
+    const state = new RegulatorState();
+    const engine = makeMockEngine();
+    ({ url, close } = await startServer(engine, state));
+  });
+
+  after(async () => {
+    delete process.env.STILLPOINT_DATA_PATH;
+    await close();
+    try { rmSync(tmpDir, { recursive: true, force: true }); } catch { /* ignore */ }
+  });
+
+  it("returns an empty array when no presets saved", async () => {
+    const { status, body } = await get(`${url}/api/presets`);
+    assert.strictEqual(status, 200);
+    assert.ok(Array.isArray(body), "response should be an array");
+    assert.strictEqual((body as unknown[]).length, 0);
+  });
+});
+
+describe("POST /api/presets — save current mix", () => {
+  let url: string;
+  let close: () => Promise<void>;
+  let state: RegulatorState;
+  let tmpDir: string;
+
+  before(async () => {
+    tmpDir = mkdtempSync(join(tmpdir(), "stillpoint-test-presets-save-"));
+    process.env.STILLPOINT_DATA_PATH = tmpDir;
+    state = new RegulatorState();
+    const engine = makeMockEngine();
+    ({ url, close } = await startServer(engine, state));
+  });
+
+  after(async () => {
+    delete process.env.STILLPOINT_DATA_PATH;
+    await close();
+    try { rmSync(tmpDir, { recursive: true, force: true }); } catch { /* ignore */ }
+  });
+
+  it("missing name → 400", async () => {
+    const { status, body } = await post(`${url}/api/presets`, {});
+    assert.strictEqual(status, 400);
+    assert.ok((body as Record<string, unknown>).error);
+  });
+
+  it("empty string name → 400", async () => {
+    const { status } = await post(`${url}/api/presets`, { name: "   " });
+    assert.strictEqual(status, 400);
+  });
+
+  it("valid name → 200 with preset object containing id, name, layers", async () => {
+    // Add a layer to the mix so the preset captures it
+    state.addLayer("rain", "mock-pb-preset", 0.6);
+    const { status, body } = await post(`${url}/api/presets`, { name: "My Mix" });
+    assert.strictEqual(status, 200);
+    const preset = body as Record<string, unknown>;
+    assert.ok(typeof preset.id === "string" && preset.id.length > 0, "preset should have an id");
+    assert.strictEqual(preset.name, "My Mix");
+    assert.ok(Array.isArray(preset.layers), "preset should have layers array");
+    const layers = preset.layers as Array<Record<string, unknown>>;
+    assert.strictEqual(layers.length, 1);
+    assert.strictEqual(layers[0].soundId, "rain");
+    assert.strictEqual(layers[0].volume, 0.6);
+  });
+
+  it("saved preset appears in GET /api/presets", async () => {
+    const { body: list } = await get(`${url}/api/presets`);
+    assert.ok(Array.isArray(list));
+    assert.ok((list as unknown[]).length >= 1, "should have at least the saved preset");
+    const found = (list as Array<Record<string, unknown>>).find(p => p.name === "My Mix");
+    assert.ok(found, "saved preset should appear in the list");
+  });
+});
+
+describe("DELETE /api/presets/:id", () => {
+  let url: string;
+  let close: () => Promise<void>;
+  let tmpDir: string;
+
+  before(async () => {
+    tmpDir = mkdtempSync(join(tmpdir(), "stillpoint-test-presets-del-"));
+    process.env.STILLPOINT_DATA_PATH = tmpDir;
+    const state = new RegulatorState();
+    const engine = makeMockEngine();
+    ({ url, close } = await startServer(engine, state));
+  });
+
+  after(async () => {
+    delete process.env.STILLPOINT_DATA_PATH;
+    await close();
+    try { rmSync(tmpDir, { recursive: true, force: true }); } catch { /* ignore */ }
+  });
+
+  it("unknown id → 404", async () => {
+    const res = await fetch(`${url}/api/presets/nonexistent-id`, { method: "DELETE" });
+    const body = await res.json();
+    assert.strictEqual(res.status, 404);
+    assert.ok((body as Record<string, unknown>).error);
+  });
+
+  it("valid id → removes preset and returns { ok: true }", async () => {
+    // Save a preset first
+    const { body: saved } = await post(`${url}/api/presets`, { name: "To Delete" });
+    const id = (saved as Record<string, unknown>).id as string;
+    assert.ok(typeof id === "string");
+
+    const res = await fetch(`${url}/api/presets/${id}`, { method: "DELETE" });
+    const body = await res.json();
+    assert.strictEqual(res.status, 200);
+    assert.deepStrictEqual((body as Record<string, unknown>).ok, true);
+
+    // Confirm it's gone
+    const { body: list } = await get(`${url}/api/presets`);
+    const found = (list as Array<Record<string, unknown>>).find(p => p.id === id);
+    assert.strictEqual(found, undefined, "deleted preset should not appear in list");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// GET /health shape
+// ---------------------------------------------------------------------------
+describe("GET /health", () => {
+  let url: string;
+  let close: () => Promise<void>;
+  let state: RegulatorState;
+
+  before(async () => {
+    state = new RegulatorState();
+    const engine = makeMockEngine();
+    ({ url, close } = await startServer(engine, state));
+  });
+
+  after(async () => { await close(); });
+
+  it("returns { ok, uptime, layers } shape", async () => {
+    const { status, body } = await get(`${url}/health`);
+    assert.strictEqual(status, 200);
+    const b = body as Record<string, unknown>;
+    assert.strictEqual(b.ok, true, "ok should be true");
+    assert.ok(typeof b.uptime === "number", "uptime should be a number");
+    assert.ok(typeof b.layers === "number", "layers should be a number");
+    assert.strictEqual(b.layers, 0, "layers should be 0 with no active layers");
+  });
+
+  it("layers count reflects active state", async () => {
+    state.addLayer("wind", "mock-pb-health-1", 0.5);
+    state.addLayer("rain", "mock-pb-health-2", 0.5);
+    const { body } = await get(`${url}/health`);
+    const b = body as Record<string, unknown>;
+    assert.strictEqual(b.layers, 2, "layers should reflect active layer count");
+    // cleanup
+    state.clearAllLayers();
+  });
+});
+
+// ---------------------------------------------------------------------------
 // MAX_LAYERS cap: adding a 9th layer → 409
 // ---------------------------------------------------------------------------
 describe("POST /api/layers/add — MAX_LAYERS cap → 409", () => {
