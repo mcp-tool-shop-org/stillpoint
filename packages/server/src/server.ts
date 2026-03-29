@@ -41,6 +41,8 @@ export function createServer(
     });
   });
 
+  // /api is the current (v1) surface — versioning is a documentation concern at this stage.
+  // If a /api/v2 is needed later, mount a second router here alongside this one.
   app.use("/api", apiRouter(engine, state));
   app.use("/api", eventsRouter(state));
 

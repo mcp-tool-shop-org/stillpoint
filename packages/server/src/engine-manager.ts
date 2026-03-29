@@ -49,6 +49,8 @@ export async function createEngineManager(
       onRestart: (attempt: number) => {
         log(`runtime auto-restart #${attempt}`);
         stateManager.clearError();
+        stateManager.clearAllLayers();
+        log(`cleared all layers after restart #${attempt} — stale playback handles purged`);
       },
       onSuspect: (count: number) =>
         log(`runtime suspect: ${count} consecutive timeouts`),

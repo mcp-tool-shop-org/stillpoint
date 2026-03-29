@@ -72,3 +72,36 @@ describe("createEngineManager — NullBackend fallback", () => {
     assert.doesNotThrow(() => manager.dispose());
   });
 });
+
+describe("FT-S-015: clearAllLayers on engine restart", () => {
+  it("clearAllLayers() removes all layers and emits change", () => {
+    const state = new RegulatorState();
+    state.addLayer("heavy-rain", "pb-1", 0.8);
+    state.addLayer("brook", "pb-2", 0.5);
+    assert.strictEqual(state.current.layers.length, 2);
+
+    let changeEmitted = false;
+    state.once("change", () => { changeEmitted = true; });
+
+    state.clearAllLayers();
+
+    assert.strictEqual(state.current.layers.length, 0);
+    assert.ok(changeEmitted, "change event should be emitted after clearAllLayers");
+  });
+
+  it("clearAllLayers() is idempotent when already empty", () => {
+    const state = new RegulatorState();
+    assert.strictEqual(state.current.layers.length, 0);
+    assert.doesNotThrow(() => state.clearAllLayers());
+    assert.strictEqual(state.current.layers.length, 0);
+  });
+
+  it("after clearAllLayers(), new layers can be added normally", () => {
+    const state = new RegulatorState();
+    state.addLayer("ocean", "pb-1", 1.0);
+    state.clearAllLayers();
+    state.addLayer("campfire", "pb-2", 0.7);
+    assert.strictEqual(state.current.layers.length, 1);
+    assert.strictEqual(state.current.layers[0].soundId, "campfire");
+  });
+});

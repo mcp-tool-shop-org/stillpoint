@@ -44,6 +44,14 @@ export function App() {
     cancelTimer,
   } = useRegulator();
 
+  // FT-FE-013: Dynamic window title
+  useEffect(() => {
+    const count = state.layers.length;
+    document.title = count > 0
+      ? `Stillpoint — ${count} layer${count > 1 ? 's' : ''} playing`
+      : 'Stillpoint';
+  }, [state.layers.length]);
+
   // FT-FE-007: Keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -186,6 +194,11 @@ export function App() {
             {state.layers.length === 0 ? (
               <div className="empty-state">
                 Pick a category, then add sounds to build your mix.
+                <div className="starter-mixes">
+                  <button className="starter-mix-btn" onClick={() => { addLayer('heavy-rain'); addLayer('fireplace'); }}>Rain + Fire</button>
+                  <button className="starter-mix-btn" onClick={() => { addLayer('brown-noise'); addLayer('deep-drone'); }}>Focus</button>
+                  <button className="starter-mix-btn" onClick={() => { addLayer('ocean'); addLayer('gentle-wind'); }}>Beach</button>
+                </div>
                 <div className="shortcuts-hint">Shortcuts: Space / Esc = stop all</div>
               </div>
             ) : (

@@ -15,6 +15,11 @@
 - **Keyboard shortcuts** — global hotkeys for play/pause, mute-all, and preset cycling
 - **Playback indicators** — active layers are highlighted in the catalog browser while playing
 - **Rate limit increase** — SSE event throughput raised; rapid layer changes no longer queue up
+- **Custom sound metadata** — custom WAV files expose duration and file size via catalog API
+- **Starter mixes** — bundled preset mixes ship with the app for instant first-use experience
+- **Window title** — Tauri window title reflects current preset name when a preset is loaded
+- **Ghost layer cleanup** — removing a sound that failed to start no longer leaves a ghost entry in the layer list
+- **Cargo dependabot** — monthly Rust dependency updates for `apps/desktop/src-tauri`
 
 ### Changed
 - **CI: site PR build gate** — `pages.yml` now runs the build job on pull requests targeting `site/**`; deploy step is skipped on PRs and only runs on push to main

@@ -6,7 +6,8 @@
  * custom sounds from STILLPOINT_CUSTOM_PATH.
  */
 
-import { readdirSync, existsSync } from "node:fs";
+import { readdirSync, existsSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 
 const log = (msg: string) => process.stderr.write(`[stillpoint] ${msg}\n`);
 
@@ -127,17 +128,44 @@ function kebabToTitle(kebab: string): string {
   return kebab.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
+/** Load optional _meta.json overrides from a custom sounds directory.
+ *  Schema: { [stem: string]: { name?: string, category?: string } }
+ *  Returns an empty object if the file is absent or malformed.
+ */
+function loadCustomMeta(dir: string): Record<string, { name?: string; category?: string }> {
+  const metaPath = join(dir, "_meta.json");
+  if (!existsSync(metaPath)) return {};
+  try {
+    const raw = readFileSync(metaPath, "utf-8");
+    const parsed = JSON.parse(raw);
+    if (typeof parsed !== "object" || parsed === null || Array.isArray(parsed)) {
+      log(`Warning: _meta.json in "${dir}" is not an object — ignoring`);
+      return {};
+    }
+    return parsed as Record<string, { name?: string; category?: string }>;
+  } catch (err) {
+    log(`Warning: failed to parse _meta.json in "${dir}": ${err instanceof Error ? err.message : err} — ignoring`);
+    return {};
+  }
+}
+
 /** Scan the custom sounds directory for WAV files. */
 export function scanCustomSounds(): AmbientSound[] {
   const dir = getCustomPath();
   if (!existsSync(dir)) return [];
   try {
+    const meta = loadCustomMeta(dir);
     const mapped = readdirSync(dir)
       .filter((f) => f.toLowerCase().endsWith(".wav"))
       .sort()
       .map((f) => {
         const stem = f.replace(/\.wav$/i, "");
-        return { id: `custom:${stem}`, name: kebabToTitle(stem), category: "Custom" };
+        const overrides = meta[stem] ?? {};
+        return {
+          id: `custom:${stem}`,
+          name: overrides.name ?? kebabToTitle(stem),
+          category: overrides.category ?? "Custom",
+        };
       });
     const seen = new Set<string>();
     const deduped: AmbientSound[] = [];

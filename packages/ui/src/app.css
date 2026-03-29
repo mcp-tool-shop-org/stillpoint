@@ -244,6 +244,41 @@ body {
   line-height: 1.6;
 }
 
+/* FT-FE-014: Starter mix quick-start buttons */
+.starter-mixes {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+  margin-bottom: 4px;
+}
+
+.starter-mix-btn {
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  color: var(--color-text-faint);
+  font-size: 0.78rem;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 5px 14px;
+  line-height: 1.4;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.starter-mix-btn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-text-mid);
+  background: var(--color-input-bg);
+}
+
+.starter-mix-btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
 /* Layers — the fader strips */
 .layers {
   display: flex;

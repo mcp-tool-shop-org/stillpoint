@@ -214,6 +214,73 @@ describe("scanCustomSounds", () => {
     const sounds = scanCustomSounds();
     assert.strictEqual(sounds.length, 2);
   });
+
+  it("FT-S-014: applies name override from _meta.json", () => {
+    origCustom = process.env.STILLPOINT_CUSTOM_PATH;
+    tmpDir = mkdtempSync(join(tmpdir(), "stillpoint-test-"));
+    writeFileSync(join(tmpDir, "forest-rain.wav"), "");
+    writeFileSync(join(tmpDir, "_meta.json"), JSON.stringify({
+      "forest-rain": { name: "Forest Rain (Custom)" }
+    }));
+
+    process.env.STILLPOINT_CUSTOM_PATH = tmpDir;
+    const sounds = scanCustomSounds();
+    assert.strictEqual(sounds.length, 1);
+    assert.strictEqual(sounds[0].id, "custom:forest-rain");
+    assert.strictEqual(sounds[0].name, "Forest Rain (Custom)");
+    assert.strictEqual(sounds[0].category, "Custom");
+  });
+
+  it("FT-S-014: applies category override from _meta.json", () => {
+    origCustom = process.env.STILLPOINT_CUSTOM_PATH;
+    tmpDir = mkdtempSync(join(tmpdir(), "stillpoint-test-"));
+    writeFileSync(join(tmpDir, "storm-surge.wav"), "");
+    writeFileSync(join(tmpDir, "_meta.json"), JSON.stringify({
+      "storm-surge": { name: "Storm Surge", category: "Rain" }
+    }));
+
+    process.env.STILLPOINT_CUSTOM_PATH = tmpDir;
+    const sounds = scanCustomSounds();
+    assert.strictEqual(sounds.length, 1);
+    assert.strictEqual(sounds[0].category, "Rain");
+  });
+
+  it("FT-S-014: falls back to defaults when stem not in _meta.json", () => {
+    origCustom = process.env.STILLPOINT_CUSTOM_PATH;
+    tmpDir = mkdtempSync(join(tmpdir(), "stillpoint-test-"));
+    writeFileSync(join(tmpDir, "deep-hum.wav"), "");
+    writeFileSync(join(tmpDir, "_meta.json"), JSON.stringify({}));
+
+    process.env.STILLPOINT_CUSTOM_PATH = tmpDir;
+    const sounds = scanCustomSounds();
+    assert.strictEqual(sounds.length, 1);
+    assert.strictEqual(sounds[0].name, "Deep Hum");
+    assert.strictEqual(sounds[0].category, "Custom");
+  });
+
+  it("FT-S-014: ignores malformed _meta.json and scans normally", () => {
+    origCustom = process.env.STILLPOINT_CUSTOM_PATH;
+    tmpDir = mkdtempSync(join(tmpdir(), "stillpoint-test-"));
+    writeFileSync(join(tmpDir, "test-sound.wav"), "");
+    writeFileSync(join(tmpDir, "_meta.json"), "NOT VALID JSON {{{");
+
+    process.env.STILLPOINT_CUSTOM_PATH = tmpDir;
+    const sounds = scanCustomSounds();
+    assert.strictEqual(sounds.length, 1);
+    assert.strictEqual(sounds[0].name, "Test Sound"); // falls back to derived name
+  });
+
+  it("FT-S-014: ignores array _meta.json and scans normally", () => {
+    origCustom = process.env.STILLPOINT_CUSTOM_PATH;
+    tmpDir = mkdtempSync(join(tmpdir(), "stillpoint-test-"));
+    writeFileSync(join(tmpDir, "test-sound.wav"), "");
+    writeFileSync(join(tmpDir, "_meta.json"), JSON.stringify(["not", "an", "object"]));
+
+    process.env.STILLPOINT_CUSTOM_PATH = tmpDir;
+    const sounds = scanCustomSounds();
+    assert.strictEqual(sounds.length, 1);
+    assert.strictEqual(sounds[0].category, "Custom");
+  });
 });
 
 describe("buildCatalog", () => {

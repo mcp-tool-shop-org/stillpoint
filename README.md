@@ -8,6 +8,7 @@
 
 <p align="center">
   <a href="https://github.com/mcp-tool-shop-org/stillpoint/actions/workflows/ci.yml"><img src="https://github.com/mcp-tool-shop-org/stillpoint/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
+  <a href="https://github.com/mcp-tool-shop-org/stillpoint/actions/workflows/pages.yml"><img src="https://github.com/mcp-tool-shop-org/stillpoint/actions/workflows/pages.yml/badge.svg" alt="Site" /></a>
   <a href="https://github.com/mcp-tool-shop-org/stillpoint/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT License" /></a>
   <a href="https://mcp-tool-shop-org.github.io/stillpoint/"><img src="https://img.shields.io/badge/Landing_Page-live-blue" alt="Landing Page" /></a>
 </p>
@@ -103,6 +104,14 @@ Filenames become display names: `my-rain.wav` → **My Rain**.
 | `AMBIENT_WAVS_PATH` | `./ambient-wavs` | Directory containing ambient WAV files |
 | `STILLPOINT_CUSTOM_PATH` | `<AMBIENT_WAVS_PATH>/../custom` | Directory for user-provided custom WAV files |
 | `PORT` | `3456` | Server port |
+
+## Release Process
+
+1. Bump version in `package.json` (root), `packages/server/package.json`, `packages/ui/package.json`, and `apps/desktop/package.json`
+2. Update `CHANGELOG.md` — move Unreleased items to a dated version header
+3. Run `npm test` to verify all tests pass
+4. Commit, tag `vX.Y.Z`, push
+5. Create a GitHub Release from the tag
 
 ## License
 
