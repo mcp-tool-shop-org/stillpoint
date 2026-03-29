@@ -33,8 +33,7 @@ jobs:
           node-version: 22
 
       - run: npm ci
-      - run: npx tsc --noEmit --project packages/server/tsconfig.json
+      - run: npm run build
       - run: npx tsc --noEmit --project packages/ui/tsconfig.json
       - run: npm test
       - run: npm audit --audit-level=high
-      - run: npm run build
