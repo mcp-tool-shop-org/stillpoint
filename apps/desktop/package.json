@@ -11,6 +11,6 @@
     "msix:assets": "node msix/gen-assets.mjs"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^2.0.0"
+    "@tauri-apps/cli": "^2.11.0"
   }
 }
