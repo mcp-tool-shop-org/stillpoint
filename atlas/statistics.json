@@ -1,0 +1,762 @@
+{
+  "authorship": {
+    "parts": [],
+    "places": []
+  },
+  "boundaries": [
+    {
+      "breakage": {
+        "coChangesOnly": [],
+        "collapsed": false,
+        "confidence": "low",
+        "importsAndCoChanges": [],
+        "importsOnly": []
+      },
+      "cohesion": null,
+      "cohesionDropped": false,
+      "confidence": "low",
+      "highWater": null,
+      "name": ".claude",
+      "qualifyingSourceCommits": 0,
+      "rebaseline": null
+    },
+    {
+      "breakage": {
+        "coChangesOnly": [],
+        "collapsed": false,
+        "confidence": "low",
+        "importsAndCoChanges": [],
+        "importsOnly": []
+      },
+      "cohesion": null,
+      "cohesionDropped": false,
+      "confidence": "low",
+      "highWater": null,
+      "name": ".github",
+      "qualifyingSourceCommits": 0,
+      "rebaseline": null
+    },
+    {
+      "breakage": {
+        "coChangesOnly": [],
+        "collapsed": false,
+        "confidence": "low",
+        "importsAndCoChanges": [],
+        "importsOnly": []
+      },
+      "cohesion": null,
+      "cohesionDropped": false,
+      "confidence": "low",
+      "highWater": null,
+      "name": "desktop",
+      "qualifyingSourceCommits": 0,
+      "rebaseline": null
+    },
+    {
+      "breakage": {
+        "coChangesOnly": [],
+        "collapsed": false,
+        "confidence": "low",
+        "importsAndCoChanges": [],
+        "importsOnly": []
+      },
+      "cohesion": null,
+      "cohesionDropped": false,
+      "confidence": "low",
+      "highWater": null,
+      "name": "root",
+      "qualifyingSourceCommits": 0,
+      "rebaseline": null
+    },
+    {
+      "breakage": {
+        "coChangesOnly": [
+          "ui"
+        ],
+        "collapsed": false,
+        "confidence": "low",
+        "importsAndCoChanges": [],
+        "importsOnly": []
+      },
+      "cohesion": 0.341155,
+      "cohesionDropped": false,
+      "confidence": "low",
+      "highWater": null,
+      "name": "server",
+      "qualifyingSourceCommits": 11,
+      "rebaseline": null
+    },
+    {
+      "breakage": {
+        "coChangesOnly": [],
+        "collapsed": false,
+        "confidence": "low",
+        "importsAndCoChanges": [],
+        "importsOnly": []
+      },
+      "cohesion": null,
+      "cohesionDropped": false,
+      "confidence": "low",
+      "highWater": null,
+      "name": "site",
+      "qualifyingSourceCommits": 1,
+      "rebaseline": null
+    },
+    {
+      "breakage": {
+        "coChangesOnly": [
+          "server"
+        ],
+        "collapsed": false,
+        "confidence": "low",
+        "importsAndCoChanges": [],
+        "importsOnly": []
+      },
+      "cohesion": 0.121329,
+      "cohesionDropped": false,
+      "confidence": "low",
+      "highWater": null,
+      "name": "ui",
+      "qualifyingSourceCommits": 8,
+      "rebaseline": null
+    }
+  ],
+  "churn": {
+    "definition": "commits is how many commits in the window touch the file, including merges and commits dropped from coupling. lines is added plus deleted in those commits.",
+    "files": [
+      {
+        "commits": 1,
+        "lines": 11,
+        "path": ".claude/launch.json"
+      },
+      {
+        "commits": 3,
+        "lines": 30,
+        "path": ".github/dependabot.yml"
+      },
+      {
+        "commits": 10,
+        "lines": 33,
+        "path": ".github/workflows/ci.yml"
+      },
+      {
+        "commits": 9,
+        "lines": 47,
+        "path": ".github/workflows/pages.yml"
+      },
+      {
+        "commits": 6,
+        "lines": 46,
+        "path": "CHANGELOG.md"
+      },
+      {
+        "commits": 2,
+        "lines": 138,
+        "path": "README.es.md"
+      },
+      {
+        "commits": 2,
+        "lines": 130,
+        "path": "README.fr.md"
+      },
+      {
+        "commits": 2,
+        "lines": 136,
+        "path": "README.hi.md"
+      },
+      {
+        "commits": 2,
+        "lines": 132,
+        "path": "README.it.md"
+      },
+      {
+        "commits": 2,
+        "lines": 138,
+        "path": "README.ja.md"
+      },
+      {
+        "commits": 6,
+        "lines": 54,
+        "path": "README.md"
+      },
+      {
+        "commits": 2,
+        "lines": 130,
+        "path": "README.pt-BR.md"
+      },
+      {
+        "commits": 2,
+        "lines": 140,
+        "path": "README.zh.md"
+      },
+      {
+        "commits": 1,
+        "lines": 49,
+        "path": "SCORECARD.md"
+      },
+      {
+        "commits": 1,
+        "lines": 80,
+        "path": "SHIP_GATE.md"
+      },
+      {
+        "commits": 1,
+        "lines": 34,
+        "path": "apps/desktop/README.es.md"
+      },
+      {
+        "commits": 1,
+        "lines": 34,
+        "path": "apps/desktop/README.fr.md"
+      },
+      {
+        "commits": 1,
+        "lines": 34,
+        "path": "apps/desktop/README.hi.md"
+      },
+      {
+        "commits": 1,
+        "lines": 34,
+        "path": "apps/desktop/README.it.md"
+      },
+      {
+        "commits": 1,
+        "lines": 34,
+        "path": "apps/desktop/README.ja.md"
+      },
+      {
+        "commits": 1,
+        "lines": 34,
+        "path": "apps/desktop/README.md"
+      },
+      {
+        "commits": 1,
+        "lines": 34,
+        "path": "apps/desktop/README.pt-BR.md"
+      },
+      {
+        "commits": 1,
+        "lines": 34,
+        "path": "apps/desktop/README.zh.md"
+      },
+      {
+        "commits": 1,
+        "lines": 5,
+        "path": "apps/desktop/msix/AppxManifest.xml"
+      },
+      {
+        "commits": 1,
+        "lines": 0,
+        "path": "apps/desktop/msix/Stillpoint.msix"
+      },
+      {
+        "commits": 1,
+        "lines": 62,
+        "path": "apps/desktop/msix/layout/AppxManifest.xml"
+      },
+      {
+        "commits": 1,
+        "lines": 0,
+        "path": "apps/desktop/msix/layout/Assets/Square150x150Logo.png"
+      },
+      {
+        "commits": 1,
+        "lines": 0,
+        "path": "apps/desktop/msix/layout/Assets/Square310x310Logo.png"
+      },
+      {
+        "commits": 1,
+        "lines": 0,
+        "path": "apps/desktop/msix/layout/Assets/Square44x44Logo.png"
+      },
+      {
+        "commits": 1,
+        "lines": 0,
+        "path": "apps/desktop/msix/layout/Assets/Square44x44Logo.targetsize-24_altform-unplated.png"
+      },
+      {
+        "commits": 1,
+        "lines": 0,
+        "path": "apps/desktop/msix/layout/Assets/Square44x44Logo.targetsize-256_altform-unplated.png"
+      },
+      {
+        "commits": 1,
+        "lines": 0,
+        "path": "apps/desktop/msix/layout/Assets/Square44x44Logo.targetsize-32_altform-unplated.png"
+      },
+      {
+        "commits": 1,
+        "lines": 0,
+        "path": "apps/desktop/msix/layout/Assets/Square44x44Logo.targetsize-48_altform-unplated.png"
+      },
+      {
+        "commits": 1,
+        "lines": 0,
+        "path": "apps/desktop/msix/layout/Assets/Square71x71Logo.png"
+      },
+      {
+        "commits": 1,
+        "lines": 0,
+        "path": "apps/desktop/msix/layout/Assets/StoreLogo.png"
+      },
+      {
+        "commits": 1,
+        "lines": 0,
+        "path": "apps/desktop/msix/layout/Assets/Wide310x150Logo.png"
+      },
+      {
+        "commits": 1,
+        "lines": 0,
+        "path": "apps/desktop/msix/layout/Stillpoint.exe"
+      },
+      {
+        "commits": 2,
+        "lines": 4,
+        "path": "apps/desktop/package.json"
+      },
+      {
+        "commits": 1,
+        "lines": 2,
+        "path": "apps/desktop/src-tauri/Cargo.toml"
+      },
+      {
+        "commits": 1,
+        "lines": 55,
+        "path": "apps/desktop/src-tauri/src/main.rs"
+      },
+      {
+        "commits": 1,
+        "lines": 6,
+        "path": "apps/desktop/src-tauri/tauri.conf.json"
+      },
+      {
+        "commits": 8,
+        "lines": 5262,
+        "path": "package-lock.json"
+      },
+      {
+        "commits": 3,
+        "lines": 7,
+        "path": "package.json"
+      },
+      {
+        "commits": 1,
+        "lines": 45,
+        "path": "packages/server/README.es.md"
+      },
+      {
+        "commits": 1,
+        "lines": 45,
+        "path": "packages/server/README.fr.md"
+      },
+      {
+        "commits": 1,
+        "lines": 45,
+        "path": "packages/server/README.hi.md"
+      },
+      {
+        "commits": 1,
+        "lines": 45,
+        "path": "packages/server/README.it.md"
+      },
+      {
+        "commits": 1,
+        "lines": 45,
+        "path": "packages/server/README.ja.md"
+      },
+      {
+        "commits": 1,
+        "lines": 45,
+        "path": "packages/server/README.md"
+      },
+      {
+        "commits": 1,
+        "lines": 45,
+        "path": "packages/server/README.pt-BR.md"
+      },
+      {
+        "commits": 1,
+        "lines": 45,
+        "path": "packages/server/README.zh.md"
+      },
+      {
+        "commits": 6,
+        "lines": 32,
+        "path": "packages/server/package.json"
+      },
+      {
+        "commits": 4,
+        "lines": 41,
+        "path": "packages/server/src/bin.ts"
+      },
+      {
+        "commits": 2,
+        "lines": 107,
+        "path": "packages/server/src/engine-manager.test.ts"
+      },
+      {
+        "commits": 7,
+        "lines": 40,
+        "path": "packages/server/src/engine-manager.ts"
+      },
+      {
+        "commits": 1,
+        "lines": 17,
+        "path": "packages/server/src/index.ts"
+      },
+      {
+        "commits": 1,
+        "lines": 89,
+        "path": "packages/server/src/preset-store.ts"
+      },
+      {
+        "commits": 4,
+        "lines": 327,
+        "path": "packages/server/src/presets.test.ts"
+      },
+      {
+        "commits": 6,
+        "lines": 155,
+        "path": "packages/server/src/presets.ts"
+      },
+      {
+        "commits": 7,
+        "lines": 1108,
+        "path": "packages/server/src/routes/api.test.ts"
+      },
+      {
+        "commits": 9,
+        "lines": 451,
+        "path": "packages/server/src/routes/api.ts"
+      },
+      {
+        "commits": 3,
+        "lines": 295,
+        "path": "packages/server/src/routes/events.test.ts"
+      },
+      {
+        "commits": 4,
+        "lines": 34,
+        "path": "packages/server/src/routes/events.ts"
+      },
+      {
+        "commits": 4,
+        "lines": 40,
+        "path": "packages/server/src/server.ts"
+      },
+      {
+        "commits": 4,
+        "lines": 170,
+        "path": "packages/server/src/state.test.ts"
+      },
+      {
+        "commits": 4,
+        "lines": 40,
+        "path": "packages/server/src/state.ts"
+      },
+      {
+        "commits": 3,
+        "lines": 43,
+        "path": "packages/server/src/version-alignment.test.ts"
+      },
+      {
+        "commits": 1,
+        "lines": 3,
+        "path": "packages/server/tsconfig.json"
+      },
+      {
+        "commits": 1,
+        "lines": 38,
+        "path": "packages/ui/README.es.md"
+      },
+      {
+        "commits": 1,
+        "lines": 38,
+        "path": "packages/ui/README.fr.md"
+      },
+      {
+        "commits": 1,
+        "lines": 38,
+        "path": "packages/ui/README.hi.md"
+      },
+      {
+        "commits": 1,
+        "lines": 38,
+        "path": "packages/ui/README.it.md"
+      },
+      {
+        "commits": 1,
+        "lines": 38,
+        "path": "packages/ui/README.ja.md"
+      },
+      {
+        "commits": 1,
+        "lines": 38,
+        "path": "packages/ui/README.md"
+      },
+      {
+        "commits": 1,
+        "lines": 38,
+        "path": "packages/ui/README.pt-BR.md"
+      },
+      {
+        "commits": 1,
+        "lines": 38,
+        "path": "packages/ui/README.zh.md"
+      },
+      {
+        "commits": 1,
+        "lines": 12,
+        "path": "packages/ui/index.html"
+      },
+      {
+        "commits": 5,
+        "lines": 19,
+        "path": "packages/ui/package.json"
+      },
+      {
+        "commits": 6,
+        "lines": 158,
+        "path": "packages/ui/src/App.tsx"
+      },
+      {
+        "commits": 6,
+        "lines": 516,
+        "path": "packages/ui/src/app.css"
+      },
+      {
+        "commits": 3,
+        "lines": 45,
+        "path": "packages/ui/src/components/ErrorBanner.tsx"
+      },
+      {
+        "commits": 4,
+        "lines": 50,
+        "path": "packages/ui/src/components/LayerStrip.tsx"
+      },
+      {
+        "commits": 2,
+        "lines": 11,
+        "path": "packages/ui/src/components/SoundPicker.tsx"
+      },
+      {
+        "commits": 6,
+        "lines": 209,
+        "path": "packages/ui/src/hooks/useRegulator.ts"
+      },
+      {
+        "commits": 4,
+        "lines": 42,
+        "path": "packages/ui/src/lib/api.ts"
+      },
+      {
+        "commits": 2,
+        "lines": 46,
+        "path": "packages/ui/src/main.tsx"
+      },
+      {
+        "commits": 1,
+        "lines": 1,
+        "path": "packages/ui/tsconfig.json"
+      },
+      {
+        "commits": 1,
+        "lines": 4,
+        "path": "site/astro.config.mjs"
+      },
+      {
+        "commits": 7,
+        "lines": 9033,
+        "path": "site/package-lock.json"
+      },
+      {
+        "commits": 3,
+        "lines": 20,
+        "path": "site/package.json"
+      },
+      {
+        "commits": 2,
+        "lines": 14,
+        "path": "site/src/content/docs/handbook/architecture.md"
+      },
+      {
+        "commits": 2,
+        "lines": 145,
+        "path": "site/src/content/docs/handbook/beginners.md"
+      },
+      {
+        "commits": 2,
+        "lines": 26,
+        "path": "site/src/content/docs/handbook/getting-started.md"
+      },
+      {
+        "commits": 3,
+        "lines": 21,
+        "path": "site/src/content/docs/handbook/index.md"
+      },
+      {
+        "commits": 3,
+        "lines": 231,
+        "path": "site/src/content/docs/handbook/reference.md"
+      },
+      {
+        "commits": 2,
+        "lines": 185,
+        "path": "site/src/content/docs/handbook/usage.md"
+      }
+    ]
+  },
+  "confidence": {
+    "level": "low",
+    "reason": "fewer than 20 source files reach 10 revisions in the window"
+  },
+  "generatedAt": "2026-09-24T08:37:30.625Z",
+  "generatedFrom": {
+    "commit": "26647adb400f0def524ecde5694cca44e4628090"
+  },
+  "pairs": [
+    {
+      "a": ".github/workflows/ci.yml",
+      "b": ".github/workflows/pages.yml",
+      "either": 10,
+      "shared": 6,
+      "strength": 0.6
+    },
+    {
+      "a": "CHANGELOG.md",
+      "b": "packages/ui/src/app.css",
+      "either": 8,
+      "shared": 4,
+      "strength": 0.5
+    },
+    {
+      "a": "packages/server/src/engine-manager.ts",
+      "b": "packages/server/src/routes/api.ts",
+      "either": 10,
+      "shared": 5,
+      "strength": 0.5
+    },
+    {
+      "a": "packages/server/src/presets.ts",
+      "b": "packages/server/src/routes/api.test.ts",
+      "either": 8,
+      "shared": 4,
+      "strength": 0.5
+    },
+    {
+      "a": "packages/server/src/presets.ts",
+      "b": "packages/ui/src/App.tsx",
+      "either": 6,
+      "shared": 5,
+      "strength": 0.833333
+    },
+    {
+      "a": "packages/server/src/routes/api.test.ts",
+      "b": "packages/server/src/routes/api.ts",
+      "either": 8,
+      "shared": 7,
+      "strength": 0.875
+    },
+    {
+      "a": "packages/server/src/routes/api.test.ts",
+      "b": "packages/ui/src/App.tsx",
+      "either": 8,
+      "shared": 5,
+      "strength": 0.625
+    },
+    {
+      "a": "packages/server/src/routes/api.test.ts",
+      "b": "packages/ui/src/app.css",
+      "either": 8,
+      "shared": 5,
+      "strength": 0.625
+    },
+    {
+      "a": "packages/server/src/routes/api.test.ts",
+      "b": "packages/ui/src/hooks/useRegulator.ts",
+      "either": 7,
+      "shared": 6,
+      "strength": 0.857143
+    },
+    {
+      "a": "packages/server/src/routes/api.ts",
+      "b": "packages/ui/src/App.tsx",
+      "either": 9,
+      "shared": 5,
+      "strength": 0.555556
+    },
+    {
+      "a": "packages/server/src/routes/api.ts",
+      "b": "packages/ui/src/app.css",
+      "either": 9,
+      "shared": 5,
+      "strength": 0.555556
+    },
+    {
+      "a": "packages/server/src/routes/api.ts",
+      "b": "packages/ui/src/hooks/useRegulator.ts",
+      "either": 8,
+      "shared": 6,
+      "strength": 0.75
+    },
+    {
+      "a": "packages/ui/src/App.tsx",
+      "b": "packages/ui/src/app.css",
+      "either": 8,
+      "shared": 4,
+      "strength": 0.5
+    },
+    {
+      "a": "packages/ui/src/App.tsx",
+      "b": "packages/ui/src/hooks/useRegulator.ts",
+      "either": 8,
+      "shared": 4,
+      "strength": 0.5
+    },
+    {
+      "a": "packages/ui/src/app.css",
+      "b": "packages/ui/src/hooks/useRegulator.ts",
+      "either": 8,
+      "shared": 4,
+      "strength": 0.5
+    }
+  ],
+  "parameters": {
+    "appliedChangesetLimit": 34,
+    "changeset": 50,
+    "changesetFraction": 0.25,
+    "cohesionDrop": 0.2,
+    "couplingPopulation": "source",
+    "fallenShared": 3,
+    "floor": "fallen",
+    "floorHeld": false,
+    "floorTrigger": "revision-depth",
+    "headDate": "2026-09-17T17:42:33-07:00",
+    "inScopeFiles": 136,
+    "pinnedStart": null,
+    "priorFloor": null,
+    "qualifyingCommits": 31,
+    "qualifyingMinimum": 30,
+    "revisions": 5,
+    "shared": 10,
+    "sharedFloorUsed": 3,
+    "since": "2026-03-22T00:42:33.000Z",
+    "sourceExtensions": [
+      ".js",
+      ".mjs",
+      ".cjs",
+      ".jsx",
+      ".ts",
+      ".tsx",
+      ".mts",
+      ".cts",
+      ".py"
+    ],
+    "sourceFileReach": 20,
+    "sourceFileRise": 25,
+    "sourceFilesReachingStrongFloor": 0,
+    "strength": 0.5,
+    "windowDays": 180
+  },
+  "strengthDefinition": "strength is the shared qualifying commits divided by either. either is the number of qualifying commits that touch either file."
+}

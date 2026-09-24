@@ -1,0 +1,30 @@
+summary: ""
+boundaries:
+  - name: .claude
+    globs:
+      - .claude/**
+    role: data
+  - name: .github
+    globs:
+      - .github/**
+    role: config
+  - name: desktop
+    globs:
+      - apps/desktop/**
+    role: config
+  - name: root
+    globs:
+      - "*"
+    role: config
+  - name: server
+    globs:
+      - packages/server/**
+    role: code
+  - name: site
+    globs:
+      - site/**
+    role: site
+  - name: ui
+    globs:
+      - packages/ui/**
+    role: code

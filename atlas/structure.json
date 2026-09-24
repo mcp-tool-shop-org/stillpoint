@@ -1,0 +1,1240 @@
+{
+  "boundaries": [
+    {
+      "dynamicReads": 0,
+      "dynamicSpawns": 0,
+      "dynamicSpawnsInTests": 0,
+      "dynamicWrites": 0,
+      "entryPoints": [],
+      "externals": 0,
+      "files": [
+        {
+          "hash": "9093fe16dae3ccd779bd2dd22a0a8ae4c48c10e76ded075961eb3815977afbfd",
+          "path": ".claude/launch.json"
+        }
+      ],
+      "globs": [
+        ".claude/**"
+      ],
+      "importConfidence": "full",
+      "name": ".claude",
+      "origin": "authored",
+      "role": "data",
+      "testedBy": 0,
+      "unresolvedSites": 0
+    },
+    {
+      "dynamicReads": 0,
+      "dynamicSpawns": 0,
+      "dynamicSpawnsInTests": 0,
+      "dynamicWrites": 0,
+      "entryPoints": [],
+      "externals": 0,
+      "files": [
+        {
+          "hash": "04d5f9741c9b4fd967a2cfe9174e62d09fee49d7ebe20cac45f176efeaa8ae0f",
+          "path": ".github/dependabot.yml"
+        },
+        {
+          "hash": "066c0a8c7f5faa812510643b89932efe1539de8121a11e5ceb82bcd27808a711",
+          "path": ".github/workflows/ci.yml"
+        },
+        {
+          "hash": "fe53558d0e26dc7b656f48e6d289785de1bcf5e116658d3973116ebfffef44c2",
+          "path": ".github/workflows/pages.yml"
+        }
+      ],
+      "globs": [
+        ".github/**"
+      ],
+      "importConfidence": "full",
+      "name": ".github",
+      "origin": "authored",
+      "role": "config",
+      "testedBy": 0,
+      "unresolvedSites": 0
+    },
+    {
+      "dynamicReads": 0,
+      "dynamicSpawns": 0,
+      "dynamicSpawnsInTests": 0,
+      "dynamicWrites": 0,
+      "entryPoints": [],
+      "externals": 0,
+      "files": [
+        {
+          "hash": "d3bc337517ee2a9988996b8fea0500928d87ad46be2def70cb7d81cd50b02c7b",
+          "path": "apps/desktop/README.es.md"
+        },
+        {
+          "hash": "f7cf7ad11efbe8016cdaf3bed71ac829071c25f65f1683d8921a38a8e38f565a",
+          "path": "apps/desktop/README.fr.md"
+        },
+        {
+          "hash": "7d32df6b6143a854fd66353b95dac66f123354d7fba581327ae7ac5c4326e1a0",
+          "path": "apps/desktop/README.hi.md"
+        },
+        {
+          "hash": "3d5b08d9d16ed89eaa0a1e00cd0c56d3f7feba87957710aca0e6a377ff29030c",
+          "path": "apps/desktop/README.it.md"
+        },
+        {
+          "hash": "a7a14f4f406b71437200c69473bcb45e35416e93195c8c534b0d7a9e01cd2365",
+          "path": "apps/desktop/README.ja.md"
+        },
+        {
+          "hash": "eecb138bab6b33cbcd5ed8f8e5a4a52ea601cf27677315d82a62105e505e9687",
+          "path": "apps/desktop/README.md"
+        },
+        {
+          "hash": "5e611af3434d653cd900d2350f457169d391481bc341edda835dd3dc64ea44ad",
+          "path": "apps/desktop/README.pt-BR.md"
+        },
+        {
+          "hash": "affccef43080c0e2af0b2db12e7db2107f5e341c55b33ac52723e596242572b5",
+          "path": "apps/desktop/README.zh.md"
+        },
+        {
+          "hash": "085505db1725176109bbc035fa5724e3cd55af76e93b0141ea09ba2e5fe3c278",
+          "path": "apps/desktop/msix/AppxManifest.xml"
+        },
+        {
+          "hash": "e327885d0eee1fc70150162ac9dbf23f5dc7bf0547cc83241e33f6ac51c29507",
+          "path": "apps/desktop/msix/Assets/Square150x150Logo.png"
+        },
+        {
+          "hash": "92d5e0318ad973d7d2762d96b92e2a0d3564394a515749d2b08e150878d71762",
+          "path": "apps/desktop/msix/Assets/Square310x310Logo.png"
+        },
+        {
+          "hash": "97226e8e751d72cc5d146699d6799ad095597c0b261b9dbd85cea5f35281116c",
+          "path": "apps/desktop/msix/Assets/Square44x44Logo.png"
+        },
+        {
+          "hash": "95db17227676ed997cc35c1278fcf75669d72b8626e762524e91983e01c938c6",
+          "path": "apps/desktop/msix/Assets/Square44x44Logo.targetsize-24_altform-unplated.png"
+        },
+        {
+          "hash": "d032c65c63c7cd4fd07209caf1e4d55d090556844bb41550f2820105e6d1f12d",
+          "path": "apps/desktop/msix/Assets/Square44x44Logo.targetsize-256_altform-unplated.png"
+        },
+        {
+          "hash": "d6db2fa297d0839bf92ac5fb8d5b9272a6169b92ed96256c370e5bf3465a2281",
+          "path": "apps/desktop/msix/Assets/Square44x44Logo.targetsize-32_altform-unplated.png"
+        },
+        {
+          "hash": "c95bd70eba4d28cd0285e7af7dfd68ab41c528665a42b5e50be3235e99dd0114",
+          "path": "apps/desktop/msix/Assets/Square44x44Logo.targetsize-48_altform-unplated.png"
+        },
+        {
+          "hash": "ec21f82b046d9c569eed6c815defd7482a7c14167d5cb75db502e179eeb57c1f",
+          "path": "apps/desktop/msix/Assets/Square71x71Logo.png"
+        },
+        {
+          "hash": "d8d002a406838318e2d4c52a277313fbcf045ec5e105a7abb45822156b321425",
+          "path": "apps/desktop/msix/Assets/StoreLogo.png"
+        },
+        {
+          "hash": "733d1e2c0f2abf482e6e6926fa404cef64e4da10502299fe53f762f7ca4bde33",
+          "path": "apps/desktop/msix/Assets/Wide310x150Logo.png"
+        },
+        {
+          "hash": "94288f2e950f1d3653070ce27bbe69ddee67080459683489604d19aba20b7855",
+          "path": "apps/desktop/msix/Stillpoint.msix"
+        },
+        {
+          "hash": "62c8d485aed4335b1cda05cea29cf534739c8d0e7f294301099ed95a3cc842de",
+          "path": "apps/desktop/msix/build-msix.ps1"
+        },
+        {
+          "hash": "0ddb709dc03ba7e2350ef64d00986cfbeae44e2f589a82d614de88aadafa0e82",
+          "path": "apps/desktop/msix/gen-assets.mjs"
+        },
+        {
+          "hash": "085505db1725176109bbc035fa5724e3cd55af76e93b0141ea09ba2e5fe3c278",
+          "path": "apps/desktop/msix/layout/AppxManifest.xml"
+        },
+        {
+          "hash": "e327885d0eee1fc70150162ac9dbf23f5dc7bf0547cc83241e33f6ac51c29507",
+          "path": "apps/desktop/msix/layout/Assets/Square150x150Logo.png"
+        },
+        {
+          "hash": "92d5e0318ad973d7d2762d96b92e2a0d3564394a515749d2b08e150878d71762",
+          "path": "apps/desktop/msix/layout/Assets/Square310x310Logo.png"
+        },
+        {
+          "hash": "97226e8e751d72cc5d146699d6799ad095597c0b261b9dbd85cea5f35281116c",
+          "path": "apps/desktop/msix/layout/Assets/Square44x44Logo.png"
+        },
+        {
+          "hash": "95db17227676ed997cc35c1278fcf75669d72b8626e762524e91983e01c938c6",
+          "path": "apps/desktop/msix/layout/Assets/Square44x44Logo.targetsize-24_altform-unplated.png"
+        },
+        {
+          "hash": "d032c65c63c7cd4fd07209caf1e4d55d090556844bb41550f2820105e6d1f12d",
+          "path": "apps/desktop/msix/layout/Assets/Square44x44Logo.targetsize-256_altform-unplated.png"
+        },
+        {
+          "hash": "d6db2fa297d0839bf92ac5fb8d5b9272a6169b92ed96256c370e5bf3465a2281",
+          "path": "apps/desktop/msix/layout/Assets/Square44x44Logo.targetsize-32_altform-unplated.png"
+        },
+        {
+          "hash": "c95bd70eba4d28cd0285e7af7dfd68ab41c528665a42b5e50be3235e99dd0114",
+          "path": "apps/desktop/msix/layout/Assets/Square44x44Logo.targetsize-48_altform-unplated.png"
+        },
+        {
+          "hash": "ec21f82b046d9c569eed6c815defd7482a7c14167d5cb75db502e179eeb57c1f",
+          "path": "apps/desktop/msix/layout/Assets/Square71x71Logo.png"
+        },
+        {
+          "hash": "d8d002a406838318e2d4c52a277313fbcf045ec5e105a7abb45822156b321425",
+          "path": "apps/desktop/msix/layout/Assets/StoreLogo.png"
+        },
+        {
+          "hash": "733d1e2c0f2abf482e6e6926fa404cef64e4da10502299fe53f762f7ca4bde33",
+          "path": "apps/desktop/msix/layout/Assets/Wide310x150Logo.png"
+        },
+        {
+          "hash": "37e622b7fe874c424099bf70658583b595c5197b42158a0e6f5ea8cb5782fcc3",
+          "path": "apps/desktop/msix/layout/Stillpoint.exe"
+        },
+        {
+          "hash": "2daabf60ad7e9e8375c91ec3d1079bf51dbcbc3203beed9b8b09f48708ce97c4",
+          "path": "apps/desktop/package.json"
+        },
+        {
+          "hash": "d1e9c7a2ca7bedbba9c6b01419d4419fc0824f540caf3536ac5991eae67b4704",
+          "path": "apps/desktop/src-tauri/Cargo.lock"
+        },
+        {
+          "hash": "ffc3a62987d529e7bc354b96b9a8010fe8137265cbd2e7ba57e2704a8b45ebae",
+          "path": "apps/desktop/src-tauri/Cargo.toml"
+        },
+        {
+          "hash": "7d6cdbc1f57d6524b848d02ade919e0099f603cca94dc9f4ed814b6e0cf0aaa4",
+          "path": "apps/desktop/src-tauri/build.rs"
+        },
+        {
+          "hash": "3f3b848204a36398444c1c13b0edd597d94c6a45b2bbfffe37319555c28ba327",
+          "path": "apps/desktop/src-tauri/gen-icons.mjs"
+        },
+        {
+          "hash": "070abaa7b138a953dfddebfa086b9d2ebee285ed60ca86d71fad425519eae958",
+          "path": "apps/desktop/src-tauri/gen/schemas/acl-manifests.json"
+        },
+        {
+          "hash": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "path": "apps/desktop/src-tauri/gen/schemas/capabilities.json"
+        },
+        {
+          "hash": "f771c14328be7eaecb4c3121183b2b84cbbd472745516312ecbef10ea65ec13b",
+          "path": "apps/desktop/src-tauri/gen/schemas/desktop-schema.json"
+        },
+        {
+          "hash": "f771c14328be7eaecb4c3121183b2b84cbbd472745516312ecbef10ea65ec13b",
+          "path": "apps/desktop/src-tauri/gen/schemas/windows-schema.json"
+        },
+        {
+          "hash": "c3032d563b115f63380286f1630ba15d22abcd5bbde282acd3b0c262fcebfa36",
+          "path": "apps/desktop/src-tauri/icons/128x128.png"
+        },
+        {
+          "hash": "d032c65c63c7cd4fd07209caf1e4d55d090556844bb41550f2820105e6d1f12d",
+          "path": "apps/desktop/src-tauri/icons/128x128@2x.png"
+        },
+        {
+          "hash": "d6db2fa297d0839bf92ac5fb8d5b9272a6169b92ed96256c370e5bf3465a2281",
+          "path": "apps/desktop/src-tauri/icons/32x32.png"
+        },
+        {
+          "hash": "acdfebcbdf10c2ac8ff59eb1720857ffd93c407b3d915dba05f2e64dda78860f",
+          "path": "apps/desktop/src-tauri/icons/icon.ico"
+        },
+        {
+          "hash": "3ff1d7a340898e5ea5241af3192188f59c47072abd8b36a08c176af34dec8bc2",
+          "path": "apps/desktop/src-tauri/icons/icon.png"
+        },
+        {
+          "hash": "e92568c11b9d8506968103f80732643f8780c264ad4329716053d769a923f835",
+          "path": "apps/desktop/src-tauri/src/main.rs"
+        },
+        {
+          "hash": "fa9e7c479bc545a5ff5bba10f8c3255adbf68e5e2cfeea8429c26169e9163156",
+          "path": "apps/desktop/src-tauri/tauri.conf.json"
+        }
+      ],
+      "globs": [
+        "apps/desktop/**"
+      ],
+      "importConfidence": "full",
+      "name": "desktop",
+      "origin": "mixed",
+      "role": "config",
+      "testedBy": 0,
+      "unresolvedSites": 0
+    },
+    {
+      "dynamicReads": 0,
+      "dynamicSpawns": 0,
+      "dynamicSpawnsInTests": 0,
+      "dynamicWrites": 0,
+      "entryPoints": [],
+      "externals": 0,
+      "files": [
+        {
+          "hash": "c9c8a18f98ec92b5f14022bd16d44f481fc01d6f69e1c3346751df67f1fc7a9d",
+          "path": ".env.example"
+        },
+        {
+          "hash": "22143ea6e97b6f991e101dce801abb21bd1a0e3be7370d1fef853b8674c7e184",
+          "path": ".gitignore"
+        },
+        {
+          "hash": "37389ef19fc40c0b4d4326bc0f5b3eb546f9095eed10cec7fcd590a51d00a161",
+          "path": "CHANGELOG.md"
+        },
+        {
+          "hash": "39bc074e6231f51513a9c7d04be098e526c6d45171a1907db563d258d6b5f2ab",
+          "path": "LICENSE"
+        },
+        {
+          "hash": "60ff353b539f14d99034bfb60319fe0f8953c3abb58e23491d978fc93b851c11",
+          "path": "README.es.md"
+        },
+        {
+          "hash": "260ca664e965d35336fe4ed22247d180e569f1770a7891e62d4f101367ee56e5",
+          "path": "README.fr.md"
+        },
+        {
+          "hash": "8d7fe448cdf881ea9cff2f6ec486bcb2a2488f6c9e00d300912851d73628c301",
+          "path": "README.hi.md"
+        },
+        {
+          "hash": "25dc80525e7df7f1333db6927ec91f4965c6f0de1e21cdfa483066be043d7217",
+          "path": "README.it.md"
+        },
+        {
+          "hash": "04f614ed3a8f928c8c242626c499583dfd09fc53b7b9df3fc4fb01b04282a706",
+          "path": "README.ja.md"
+        },
+        {
+          "hash": "a7cb44fb2635dc6b8f77b2864de90b4b77f00cc8d05d04bf6250deda550e3bba",
+          "path": "README.md"
+        },
+        {
+          "hash": "5594fd8980c30ad946c57053b5f9ffa02502e1265cd5d5cdea2cbeb3e5c49ca1",
+          "path": "README.pt-BR.md"
+        },
+        {
+          "hash": "0e9892f80bf397e498ef25d92e08feda1fd6a7fc7c76aa92d9d7563a5d0e1d43",
+          "path": "README.zh.md"
+        },
+        {
+          "hash": "3c97799787538a61aed96675d7e9a21bf189a77e9bd7afa414113c5aa7840dfc",
+          "path": "SCORECARD.md"
+        },
+        {
+          "hash": "9b76bab9b51a24a35cfc967753407c655ef7f38fea14bef753abcd886324fcef",
+          "path": "SECURITY.md"
+        },
+        {
+          "hash": "8333c32592957e984418dd5b333e43fc5826a37d3a6b68baab8406475f0efe8b",
+          "path": "SHIP_GATE.md"
+        },
+        {
+          "hash": "650f47f7f4a03ad5691cde7e4dd48fd75683747d65b458cebf7118ec2e7f2f69",
+          "path": "package-lock.json"
+        },
+        {
+          "hash": "a32c0d44f1a273e7780746beb3aa5ab12900bc0768bd8c099331a7beba28be62",
+          "path": "package.json"
+        },
+        {
+          "hash": "8036d848c00f6eded5f52c854cb8f953395a6b9f8e8a33fde02556e68beb5e67",
+          "path": "tsconfig.base.json"
+        }
+      ],
+      "globs": [
+        "*"
+      ],
+      "importConfidence": "full",
+      "name": "root",
+      "origin": "authored",
+      "role": "config",
+      "testedBy": 0,
+      "unresolvedSites": 0
+    },
+    {
+      "dynamicReads": 0,
+      "dynamicSpawns": 0,
+      "dynamicSpawnsInTests": 0,
+      "dynamicWrites": 0,
+      "entryPoints": [
+        "packages/server/src/index.ts"
+      ],
+      "externals": 0,
+      "files": [
+        {
+          "hash": "39bc074e6231f51513a9c7d04be098e526c6d45171a1907db563d258d6b5f2ab",
+          "path": "packages/server/LICENSE"
+        },
+        {
+          "hash": "9a7d75722724028fd0a0a192015e500421a18d36dcdea30f2c7bba368a5544d0",
+          "path": "packages/server/README.es.md"
+        },
+        {
+          "hash": "0a325d524a6d1fa9b28ba9ff562148e517534b6073fdbf969563d2a17416ccc8",
+          "path": "packages/server/README.fr.md"
+        },
+        {
+          "hash": "cc4c13813c27e7cc54d92d0e9718208d1167c746d879bedef3449e1413927ca1",
+          "path": "packages/server/README.hi.md"
+        },
+        {
+          "hash": "d8387b9dbc3690def87ac01c7cc29113de17f7db7653038f7cb0a6451e6df16a",
+          "path": "packages/server/README.it.md"
+        },
+        {
+          "hash": "3fdcb79e2d67a36d2a418a5869c020e839e26bc705d496d9cf91aa99fb16230f",
+          "path": "packages/server/README.ja.md"
+        },
+        {
+          "hash": "1f33b400c34b5dbd700f59ff7c3deab1b32e490308e57bafb6893dd5e7eeb383",
+          "path": "packages/server/README.md"
+        },
+        {
+          "hash": "d83800fb3ab913f8bc8684428271ff1a1448bf108deff0b02d1042d1eca994ac",
+          "path": "packages/server/README.pt-BR.md"
+        },
+        {
+          "hash": "cda72b3f37f2c353d620c762e9c4120e6439178f96efe924bacb30a17623dee4",
+          "path": "packages/server/README.zh.md"
+        },
+        {
+          "hash": "0ed2d9d9ee99fd6ec7fbf654af00bcd87fe9cfcaf2b0cd31ce90cc950321e371",
+          "path": "packages/server/package.json"
+        },
+        {
+          "hash": "517ea2a2af456ad25818305d857c58d1aab308b6f5d5e148399ed6f0a182d079",
+          "importsFiles": [
+            "packages/server/src/engine-manager.ts",
+            "packages/server/src/server.ts",
+            "packages/server/src/state.ts"
+          ],
+          "path": "packages/server/src/bin.ts"
+        },
+        {
+          "hash": "abd7387ef164882d5a084eb15cd0009a365bb920ca549e3c4f3ef7a7300a8e4d",
+          "importsFiles": [
+            "packages/server/src/engine-manager.ts",
+            "packages/server/src/state.ts"
+          ],
+          "path": "packages/server/src/engine-manager.test.ts"
+        },
+        {
+          "exports": [
+            "createEngineManager"
+          ],
+          "hash": "0b8491dee6865b6536829161fad8187a90f3ce8abfc092455279c9ada6a4fa70",
+          "importsFiles": [
+            "packages/server/src/state.ts"
+          ],
+          "path": "packages/server/src/engine-manager.ts"
+        },
+        {
+          "hash": "23ee2c2bbcc62b509e4334b89a122d1d1e9857c1600e4e7055342e9bcce94d6d",
+          "importsFiles": [
+            "packages/server/src/engine-manager.ts",
+            "packages/server/src/presets.ts",
+            "packages/server/src/server.ts",
+            "packages/server/src/state.ts"
+          ],
+          "path": "packages/server/src/index.ts"
+        },
+        {
+          "exports": [
+            "list",
+            "load",
+            "remove",
+            "save"
+          ],
+          "hash": "72a4b21f854cd4ca601c969411d13e0e9e1d4ea2da4677baeb3b5f38f742bce1",
+          "importsFiles": [
+            "packages/server/src/presets.ts",
+            "packages/server/src/state.ts"
+          ],
+          "path": "packages/server/src/preset-store.ts"
+        },
+        {
+          "hash": "aa30e99810628a9aece04442ec364f4c28c4cfa8c8b24fc58453d276dd164ae5",
+          "importsFiles": [
+            "packages/server/src/presets.ts"
+          ],
+          "path": "packages/server/src/presets.test.ts"
+        },
+        {
+          "exports": [
+            "buildCatalog",
+            "findSound",
+            "getCustomPath",
+            "getWavsPath",
+            "invalidateCatalog",
+            "scanCustomSounds",
+            "soundAssetRef"
+          ],
+          "hash": "bdfd490cc9e227f57356d26ca5188b56a1bf32c132c30f01f557f01c7e4051c8",
+          "path": "packages/server/src/presets.ts"
+        },
+        {
+          "hash": "654b67756427dd213932bccc42e867fcf1d2c2d9e2cd371376fc215fb02fabe4",
+          "importsFiles": [
+            "packages/server/src/server.ts",
+            "packages/server/src/state.ts"
+          ],
+          "path": "packages/server/src/routes/api.test.ts"
+        },
+        {
+          "exports": [
+            "apiRouter"
+          ],
+          "hash": "7be36a3c7ab1c6e798a0ce3f785796a869b08328a0f90f25acdc4967d5784cfd",
+          "importsFiles": [
+            "packages/server/src/preset-store.ts",
+            "packages/server/src/presets.ts",
+            "packages/server/src/state.ts"
+          ],
+          "path": "packages/server/src/routes/api.ts"
+        },
+        {
+          "hash": "edde15406593beb10fd8dd6dacadac095f2b5956ae92210d65392f6146bc33c5",
+          "importsFiles": [
+            "packages/server/src/server.ts",
+            "packages/server/src/state.ts"
+          ],
+          "path": "packages/server/src/routes/events.test.ts"
+        },
+        {
+          "exports": [
+            "eventsRouter"
+          ],
+          "hash": "bb9657d6cad9d58ff0d307a05f9ca0b8fe6e70d747343f4dc90e67e482df015f",
+          "importsFiles": [
+            "packages/server/src/state.ts"
+          ],
+          "path": "packages/server/src/routes/events.ts"
+        },
+        {
+          "exports": [
+            "createServer"
+          ],
+          "hash": "d07baa0664da301d84462ccb3cc79c784b90944163b7030435862c5ff42d4138",
+          "importsFiles": [
+            "packages/server/src/routes/api.ts",
+            "packages/server/src/routes/events.ts",
+            "packages/server/src/state.ts"
+          ],
+          "path": "packages/server/src/server.ts"
+        },
+        {
+          "hash": "fbfa9420ec3ac7904f36a3ad898dba0e8414d9f815f37dc8cd5929b062d64c81",
+          "importsFiles": [
+            "packages/server/src/state.ts"
+          ],
+          "path": "packages/server/src/state.test.ts"
+        },
+        {
+          "hash": "1fc1e04839fa7194be54e8c3d5e80946619c7e4149042a8c1a226ab4dd7daa74",
+          "path": "packages/server/src/state.ts"
+        },
+        {
+          "hash": "7c1ed702403a24990c697f55b163c02d25ca13e2d0dfb723fd57bcf7dd46bddf",
+          "path": "packages/server/src/version-alignment.test.ts"
+        },
+        {
+          "hash": "5fddfdad749ca4bae1ff7f602667ab301565ff745223395ad18015f5cc3244bb",
+          "path": "packages/server/tsconfig.json"
+        }
+      ],
+      "globs": [
+        "packages/server/**"
+      ],
+      "importConfidence": "full",
+      "name": "server",
+      "origin": "authored",
+      "outsideReads": 9,
+      "outsideWrites": 2,
+      "role": "code",
+      "testedBy": 5,
+      "unresolvedSites": 0
+    },
+    {
+      "dynamicReads": 0,
+      "dynamicSpawns": 0,
+      "dynamicSpawnsInTests": 0,
+      "dynamicWrites": 0,
+      "entryPoints": [],
+      "externals": 0,
+      "files": [
+        {
+          "hash": "168256d171d6ce7075e62a3b7a19d8ecbeb33d0c53ea61746a1439c2db07df87",
+          "path": "site/astro.config.mjs"
+        },
+        {
+          "hash": "0a929c9f4a5e1b5fa3055a9a192dc608399b5bb80dcc3ef0a20fa8446865f2be",
+          "path": "site/package-lock.json"
+        },
+        {
+          "hash": "53e27e42282a845e18ecb9962d35a9c25611b6e364705e0fe00fb3251b3a0792",
+          "path": "site/package.json"
+        },
+        {
+          "hash": "ec030f2e4bf6dc57eaca075d390c228b3212cf29db267e32ef92e110de1acdcc",
+          "path": "site/src/content.config.ts"
+        },
+        {
+          "hash": "33f0e8a8511ec03d7102894fda8827eb2db9acfd480d2c378dbaa2b45488abfd",
+          "path": "site/src/content/docs/handbook/architecture.md"
+        },
+        {
+          "hash": "6189d150d2581c780143965dece298fbb70995ad09e6122b26e21dc300fc55e0",
+          "path": "site/src/content/docs/handbook/beginners.md"
+        },
+        {
+          "hash": "d3dacba11965dc6b4c050454aeba8e717a818e3c31729448edb4e1e599a544a6",
+          "path": "site/src/content/docs/handbook/getting-started.md"
+        },
+        {
+          "hash": "9477f12463bf0a99ecc635c7f363f0f4dd7a18725c7befc1097e872eb57d899a",
+          "path": "site/src/content/docs/handbook/index.md"
+        },
+        {
+          "hash": "0573ab3dd47e6e2939e4690df846e1a7eb743a2fe649d2a2fa4b5854a2712119",
+          "path": "site/src/content/docs/handbook/reference.md"
+        },
+        {
+          "hash": "3941d92ff6659205f3dab39fa15c0e2243fb5bba85f6618b537f3cca86cf279f",
+          "path": "site/src/content/docs/handbook/usage.md"
+        },
+        {
+          "hash": "40018274aa190ba4b070491bd970b025c7f5add0389d513873e21636c8d1941e",
+          "path": "site/src/content/docs/privacy.md"
+        },
+        {
+          "hash": "a699ad78a6d27d6864ccfe4c3a4a01993aca28ecb4a3d20893f37db9f9b1a522",
+          "path": "site/src/pages/index.astro"
+        },
+        {
+          "hash": "4e8c0a66cc564c52d4f2452e8b5aa6bef101d317e175252b9d0bd9de2c535a80",
+          "path": "site/src/site-config.ts"
+        },
+        {
+          "hash": "20475ab6153b77f37f70127e6c8b5afb1e940f2debf693036ae8822d94a6e463",
+          "path": "site/src/styles/global.css"
+        },
+        {
+          "hash": "76f7b278c176520d7ad92f87c215aa6aa1ea325205c22e7359bf5a84631eb5c4",
+          "path": "site/src/styles/starlight-custom.css"
+        },
+        {
+          "hash": "61fc24492db9aef7ec38eb91cfeebaef96155014bb5f22648fd8ed2327c6cae2",
+          "path": "site/tsconfig.json"
+        }
+      ],
+      "globs": [
+        "site/**"
+      ],
+      "importConfidence": "full",
+      "name": "site",
+      "origin": "authored",
+      "role": "site",
+      "testedBy": 0,
+      "unresolvedSites": 0
+    },
+    {
+      "dynamicReads": 0,
+      "dynamicSpawns": 0,
+      "dynamicSpawnsInTests": 0,
+      "dynamicWrites": 0,
+      "entryPoints": [],
+      "externals": 0,
+      "files": [
+        {
+          "hash": "39bc074e6231f51513a9c7d04be098e526c6d45171a1907db563d258d6b5f2ab",
+          "path": "packages/ui/LICENSE"
+        },
+        {
+          "hash": "9a979b6c9cf83117b72736b0798903908f26dbb9e4f149fccdecb7f3328f0166",
+          "path": "packages/ui/README.es.md"
+        },
+        {
+          "hash": "1a1a77bde787e9af2f37bd41acc776bf20ad11ec191cf808529098adf9d31cde",
+          "path": "packages/ui/README.fr.md"
+        },
+        {
+          "hash": "4686d786e28b07c73158e8c733683fbc46cc8bc01aefb8c8244913bc62898654",
+          "path": "packages/ui/README.hi.md"
+        },
+        {
+          "hash": "59c02f2710f58a36ab4cc51092fc0d1e6e2d2959ca682454f2703251df590345",
+          "path": "packages/ui/README.it.md"
+        },
+        {
+          "hash": "d63a249d840169d8aae82d7b7fa05054323fd131760b2571c9ee67f1b62db646",
+          "path": "packages/ui/README.ja.md"
+        },
+        {
+          "hash": "fde7cb4c366823a79965bbe7432a8c50fce7b5e30ef57921684f940bdf68e652",
+          "path": "packages/ui/README.md"
+        },
+        {
+          "hash": "fe72f9e7a8064812f93d211e45dd155501c4783a9f59bcdff6fc51b9a38b6463",
+          "path": "packages/ui/README.pt-BR.md"
+        },
+        {
+          "hash": "b8ae6898df2db468eccc9614a4494b5f3944f6445c2512ab04b63a18816f5c7a",
+          "path": "packages/ui/README.zh.md"
+        },
+        {
+          "hash": "99374c004b6d6aeb093073a8383a9aa035eecdee5fea280f9c2da55b3bc408b5",
+          "path": "packages/ui/index.html"
+        },
+        {
+          "hash": "165ce5c6bf47743216b4002b2f029941cba49a71effc00e1390b3a5eff531372",
+          "path": "packages/ui/package.json"
+        },
+        {
+          "exports": [
+            "App"
+          ],
+          "hash": "c6c0ca51df2a3bb278897142b2786b9223102fbe74263428f41dcf06f63d6e3a",
+          "importsFiles": [
+            "packages/ui/src/app.css",
+            "packages/ui/src/components/DeviceSelect.tsx",
+            "packages/ui/src/components/ErrorBanner.tsx",
+            "packages/ui/src/components/LayerStrip.tsx",
+            "packages/ui/src/components/SoundPicker.tsx",
+            "packages/ui/src/hooks/useRegulator.ts"
+          ],
+          "path": "packages/ui/src/App.tsx"
+        },
+        {
+          "hash": "eca6de4a94a3a89a8a5014fe01baedb9d7ae7e0715ebfa533bb15f62bfe9c9b4",
+          "path": "packages/ui/src/app.css"
+        },
+        {
+          "exports": [
+            "DeviceSelect"
+          ],
+          "hash": "68646ebfa78a35930422c456480a549158215f2ebc080a566eda36d6a21d7e03",
+          "importsFiles": [
+            "packages/ui/src/lib/api.ts"
+          ],
+          "path": "packages/ui/src/components/DeviceSelect.tsx"
+        },
+        {
+          "exports": [
+            "ErrorBanner"
+          ],
+          "hash": "65ad1d493fdee669963a3c3cdef405b11177be6f1e176b465283436cf3ab23f1",
+          "path": "packages/ui/src/components/ErrorBanner.tsx"
+        },
+        {
+          "exports": [
+            "LayerStrip"
+          ],
+          "hash": "7a29ba410202e9e0170ddf561ecc6c093ada3529dff56d4528e4bb4b1e97cd41",
+          "importsFiles": [
+            "packages/ui/src/lib/api.ts"
+          ],
+          "path": "packages/ui/src/components/LayerStrip.tsx"
+        },
+        {
+          "exports": [
+            "SoundPicker"
+          ],
+          "hash": "0cedbb45a597a7005fd863fefea6dd1ec5b9883ade1a0a1dc3b2d0f483881b60",
+          "importsFiles": [
+            "packages/ui/src/lib/api.ts"
+          ],
+          "path": "packages/ui/src/components/SoundPicker.tsx"
+        },
+        {
+          "exports": [
+            "useRegulator"
+          ],
+          "hash": "cb6500241ab4926ec3bed58b75c5be54afa514312d35562d88868eba350bd5b7",
+          "importsFiles": [
+            "packages/ui/src/lib/api.ts"
+          ],
+          "path": "packages/ui/src/hooks/useRegulator.ts"
+        },
+        {
+          "hash": "c80b568bf9c628df91ec0c3d653dbebbdb386097a170a3592e7cc5f53f1bec4b",
+          "path": "packages/ui/src/lib/api.ts"
+        },
+        {
+          "hash": "19d32ecfa581ea9248aceff0452685ef0978bcddd1d5b49fa67b2dbfad39697a",
+          "importsFiles": [
+            "packages/ui/src/App.tsx"
+          ],
+          "path": "packages/ui/src/main.tsx"
+        },
+        {
+          "hash": "2f1d43f2e6a412532df3c12aa4ab3456763dba1bcc534a533556f9d85070a5f1",
+          "path": "packages/ui/tsconfig.json"
+        },
+        {
+          "hash": "8a8a1e034b9caf1b8cff1b38e76040a7c8220d61a5c34c3389c28f575152a4aa",
+          "path": "packages/ui/vite.config.ts"
+        }
+      ],
+      "globs": [
+        "packages/ui/**"
+      ],
+      "importConfidence": "full",
+      "name": "ui",
+      "origin": "authored",
+      "outsideReads": 3,
+      "role": "code",
+      "testedBy": 0,
+      "unresolvedSites": 0
+    }
+  ],
+  "doors": [
+    {
+      "checksCount": 1,
+      "commands": [
+        {
+          "job": "build",
+          "step": "Atlas check",
+          "text": "npx --yes @dogfood-lab/atlas@1.17.0 check"
+        },
+        {
+          "job": "build",
+          "step": "3",
+          "text": "npm ci"
+        },
+        {
+          "job": "build",
+          "step": "4",
+          "text": "npm run build --workspace=packages/ui"
+        },
+        {
+          "job": "build",
+          "step": "5",
+          "text": "npx tsc --noEmit --project packages/ui/tsconfig.json"
+        },
+        {
+          "job": "build",
+          "step": "6",
+          "text": "npm test"
+        },
+        {
+          "job": "build",
+          "step": "7",
+          "text": "npm audit --audit-level=high"
+        }
+      ],
+      "elsewhere": [],
+      "file": ".github/workflows/ci.yml",
+      "landings": [],
+      "mentions": [
+        {
+          "job": "build",
+          "path": "packages/ui/tsconfig.json"
+        }
+      ],
+      "name": "CI",
+      "permissions": [],
+      "pushes": false,
+      "reach": [
+        {
+          "boundary": "server",
+          "depth": 0,
+          "files": 13
+        },
+        {
+          "boundary": "ui",
+          "depth": 0,
+          "files": 9
+        }
+      ],
+      "readers": [],
+      "runs": [
+        {
+          "job": "build",
+          "matched": true,
+          "path": "packages/server/src/engine-manager.test.ts",
+          "runKind": "executes"
+        },
+        {
+          "job": "build",
+          "matched": true,
+          "path": "packages/server/src/presets.test.ts",
+          "runKind": "executes"
+        },
+        {
+          "job": "build",
+          "matched": true,
+          "path": "packages/server/src/routes/api.test.ts",
+          "runKind": "executes"
+        },
+        {
+          "job": "build",
+          "matched": true,
+          "path": "packages/server/src/routes/events.test.ts",
+          "runKind": "executes"
+        },
+        {
+          "job": "build",
+          "matched": true,
+          "path": "packages/server/src/state.test.ts",
+          "runKind": "executes"
+        },
+        {
+          "job": "build",
+          "matched": true,
+          "path": "packages/server/src/version-alignment.test.ts",
+          "runKind": "executes"
+        },
+        {
+          "directory": true,
+          "job": "build",
+          "matched": true,
+          "path": "packages/ui/src/",
+          "runKind": "checks",
+          "via": "tsc packages/ui/tsconfig.json"
+        }
+      ],
+      "runsCount": 7,
+      "secrets": [],
+      "sends": {
+        "deploysPages": false,
+        "dispatchesTo": [],
+        "opensIssues": false,
+        "opensIssuesOnFailure": false,
+        "opensPullRequests": false,
+        "publishes": false,
+        "publishesTo": [],
+        "releases": false
+      },
+      "stages": [],
+      "triggers": [
+        {
+          "event": "pull_request",
+          "paths": [
+            ".github/workflows/ci.yml",
+            "apps/**",
+            "atlas/**",
+            "package-lock.json",
+            "package.json",
+            "packages/**",
+            "site/**"
+          ]
+        },
+        {
+          "branches": [
+            "main"
+          ],
+          "event": "push",
+          "paths": [
+            ".github/workflows/ci.yml",
+            "apps/**",
+            "atlas/**",
+            "package-lock.json",
+            "package.json",
+            "packages/**",
+            "site/**"
+          ]
+        },
+        {
+          "event": "workflow_dispatch"
+        }
+      ],
+      "uses": [
+        "actions/checkout",
+        "actions/setup-node"
+      ],
+      "usesWorkflowToken": false
+    },
+    {
+      "checksCount": 0,
+      "commands": [
+        {
+          "job": "build",
+          "step": "Install site dependencies",
+          "text": "npm ci"
+        },
+        {
+          "job": "build",
+          "step": "Audit site dependencies",
+          "text": "npm audit --audit-level=high"
+        },
+        {
+          "job": "build",
+          "step": "Build site",
+          "text": "npm run build"
+        }
+      ],
+      "elsewhere": [],
+      "file": ".github/workflows/pages.yml",
+      "gated": [
+        {
+          "jobs": [
+            "deploy"
+          ],
+          "pushes": false,
+          "sends": [
+            "deploysPages"
+          ],
+          "stages": [],
+          "when": {
+            "event": "push"
+          }
+        }
+      ],
+      "landings": [],
+      "mentions": [],
+      "name": "Deploy site to GitHub Pages",
+      "permissions": [
+        "contents:read",
+        "id-token:write",
+        "pages:write"
+      ],
+      "pushes": false,
+      "reach": [
+        {
+          "boundary": "site",
+          "depth": 0,
+          "files": 3
+        }
+      ],
+      "readers": [],
+      "runs": [
+        {
+          "job": "build",
+          "matched": true,
+          "path": "site/astro.config.mjs",
+          "runKind": "executes",
+          "via": "astro build"
+        },
+        {
+          "directory": true,
+          "job": "build",
+          "matched": true,
+          "path": "site/src/",
+          "runKind": "executes",
+          "via": "astro build"
+        }
+      ],
+      "runsCount": 2,
+      "secrets": [],
+      "sends": {
+        "deploysPages": false,
+        "dispatchesTo": [],
+        "opensIssues": false,
+        "opensIssuesOnFailure": false,
+        "opensPullRequests": false,
+        "publishes": false,
+        "publishesTo": [],
+        "releases": false
+      },
+      "stages": [],
+      "triggers": [
+        {
+          "event": "pull_request",
+          "paths": [
+            ".github/workflows/pages.yml",
+            "site/**"
+          ]
+        },
+        {
+          "branches": [
+            "main"
+          ],
+          "event": "push",
+          "paths": [
+            ".github/workflows/pages.yml",
+            "site/**"
+          ]
+        },
+        {
+          "event": "workflow_dispatch"
+        }
+      ],
+      "uses": [
+        "actions/checkout",
+        "actions/deploy-pages",
+        "actions/setup-node",
+        "actions/upload-pages-artifact"
+      ],
+      "usesWorkflowToken": false
+    }
+  ],
+  "edges": [],
+  "generatedFrom": {
+    "commit": "26647adb400f0def524ecde5694cca44e4628090",
+    "tracked": 136
+  },
+  "landings": [
+    {
+      "readers": [
+        {
+          "by": "packages/server/src/version-alignment.test.ts",
+          "call": "readFileSync",
+          "confidence": "ast",
+          "fromTests": true
+        }
+      ],
+      "target": "CHANGELOG.md",
+      "writers": []
+    },
+    {
+      "readers": [
+        {
+          "by": "package-lock.json",
+          "call": "literal",
+          "confidence": "text"
+        }
+      ],
+      "target": "apps/desktop",
+      "writers": []
+    },
+    {
+      "readers": [],
+      "target": "apps/desktop/msix/Assets",
+      "writers": [
+        {
+          "by": "apps/desktop/msix/gen-assets.mjs",
+          "confidence": "ast"
+        }
+      ]
+    },
+    {
+      "readers": [
+        {
+          "by": "packages/server/src/version-alignment.test.ts",
+          "call": "readFileSync",
+          "confidence": "ast",
+          "fromTests": true
+        }
+      ],
+      "target": "apps/desktop/package.json",
+      "writers": []
+    },
+    {
+      "readers": [],
+      "target": "apps/desktop/src-tauri/icons",
+      "writers": [
+        {
+          "by": "apps/desktop/src-tauri/gen-icons.mjs",
+          "confidence": "ast"
+        }
+      ]
+    },
+    {
+      "readers": [],
+      "target": "apps/desktop/src-tauri/icons/icon.ico",
+      "writers": [
+        {
+          "by": "apps/desktop/src-tauri/gen-icons.mjs",
+          "confidence": "ast"
+        }
+      ]
+    },
+    {
+      "readers": [
+        {
+          "by": "packages/server/src/version-alignment.test.ts",
+          "call": "readFileSync",
+          "confidence": "ast",
+          "fromTests": true
+        }
+      ],
+      "target": "package.json",
+      "writers": []
+    },
+    {
+      "readers": [
+        {
+          "by": "package-lock.json",
+          "call": "literal",
+          "confidence": "text"
+        }
+      ],
+      "target": "packages/server",
+      "writers": []
+    },
+    {
+      "readers": [
+        {
+          "by": "packages/server/src/version-alignment.test.ts",
+          "call": "readFileSync",
+          "confidence": "ast",
+          "fromTests": true
+        }
+      ],
+      "target": "packages/server/package.json",
+      "writers": []
+    },
+    {
+      "readers": [
+        {
+          "by": "package-lock.json",
+          "call": "literal",
+          "confidence": "text"
+        }
+      ],
+      "target": "packages/ui",
+      "writers": []
+    },
+    {
+      "readers": [
+        {
+          "by": "packages/server/src/version-alignment.test.ts",
+          "call": "readFileSync",
+          "confidence": "ast",
+          "fromTests": true
+        }
+      ],
+      "target": "packages/ui/package.json",
+      "writers": []
+    },
+    {
+      "readers": [
+        {
+          "by": ".github/workflows/ci.yml"
+        }
+      ],
+      "target": "packages/ui/tsconfig.json",
+      "writers": []
+    },
+    {
+      "readers": [
+        {
+          "by": "site/astro.config.mjs",
+          "call": "content-collection",
+          "confidence": "ast"
+        }
+      ],
+      "target": "site/src/content/docs",
+      "writers": []
+    },
+    {
+      "readers": [
+        {
+          "by": "site/astro.config.mjs",
+          "call": "autogenerate",
+          "confidence": "ast"
+        }
+      ],
+      "target": "site/src/content/docs/handbook",
+      "writers": []
+    }
+  ],
+  "overlaps": [],
+  "submodules": [],
+  "symlinks": [],
+  "testFiles": 6,
+  "unassigned": []
+}
