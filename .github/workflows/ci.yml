@@ -47,7 +47,7 @@ jobs:
           cache: 'npm'
 
       - name: Atlas check
-        run: npx --yes @dogfood-lab/atlas@1.17.0 check
+        run: npx --yes @dogfood-lab/atlas@1.24.0 check
       - run: npm ci
       - run: npm run build --workspace=packages/ui
       - run: npx tsc --noEmit --project packages/ui/tsconfig.json

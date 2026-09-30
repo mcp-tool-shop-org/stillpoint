@@ -9,7 +9,7 @@
       "externals": 0,
       "files": [
         {
-          "hash": "9093fe16dae3ccd779bd2dd22a0a8ae4c48c10e76ded075961eb3815977afbfd",
+          "hash": "83dec04e4e46afbdb2acd180cc7adb147d6c5e1863cb6a33eccafe8ba56d3ef4",
           "path": ".claude/launch.json"
         }
       ],
@@ -32,15 +32,15 @@
       "externals": 0,
       "files": [
         {
-          "hash": "04d5f9741c9b4fd967a2cfe9174e62d09fee49d7ebe20cac45f176efeaa8ae0f",
+          "hash": "f8915e64558df31600c73ce5ebb1d9c31f8dbfd313666cf90c2bf84891cb8b66",
           "path": ".github/dependabot.yml"
         },
         {
-          "hash": "066c0a8c7f5faa812510643b89932efe1539de8121a11e5ceb82bcd27808a711",
+          "hash": "367cd3eb054e380c05ac8390475e86b745bbd90d4484600547dba9f8466d5182",
           "path": ".github/workflows/ci.yml"
         },
         {
-          "hash": "fe53558d0e26dc7b656f48e6d289785de1bcf5e116658d3973116ebfffef44c2",
+          "hash": "99214ad9e42dfdace53de46195d4f91570da10f031fb67c4ed81c8b6749eec8b",
           "path": ".github/workflows/pages.yml"
         }
       ],
@@ -59,43 +59,45 @@
       "dynamicSpawns": 0,
       "dynamicSpawnsInTests": 0,
       "dynamicWrites": 0,
-      "entryPoints": [],
+      "entryPoints": [
+        "apps/desktop/src-tauri/src/main.rs"
+      ],
       "externals": 0,
       "files": [
         {
-          "hash": "d3bc337517ee2a9988996b8fea0500928d87ad46be2def70cb7d81cd50b02c7b",
+          "hash": "71c09eb6e94b77b1805bdc7cba6b1eb8644b7905da33688631e8c9673bad7cf6",
           "path": "apps/desktop/README.es.md"
         },
         {
-          "hash": "f7cf7ad11efbe8016cdaf3bed71ac829071c25f65f1683d8921a38a8e38f565a",
+          "hash": "b97c84d10d5a22903c8ad7e89adf047a0b1da036a6554a3f2b382907e44622d3",
           "path": "apps/desktop/README.fr.md"
         },
         {
-          "hash": "7d32df6b6143a854fd66353b95dac66f123354d7fba581327ae7ac5c4326e1a0",
+          "hash": "a7cc2dccfdea9b0183e18ef28c97ddebe3d840a1f5effdf814340db4e1f5f1ff",
           "path": "apps/desktop/README.hi.md"
         },
         {
-          "hash": "3d5b08d9d16ed89eaa0a1e00cd0c56d3f7feba87957710aca0e6a377ff29030c",
+          "hash": "44a1372011326f6fffd191f57c01ef5b6d983e556e8902652262ce27d9e4b811",
           "path": "apps/desktop/README.it.md"
         },
         {
-          "hash": "a7a14f4f406b71437200c69473bcb45e35416e93195c8c534b0d7a9e01cd2365",
+          "hash": "3e9134c2e7b744b9b2d7aab687f652e7f518b62d46f2bed34221bd536d85b996",
           "path": "apps/desktop/README.ja.md"
         },
         {
-          "hash": "eecb138bab6b33cbcd5ed8f8e5a4a52ea601cf27677315d82a62105e505e9687",
+          "hash": "eb67e4a419bded20c1f5fdeb057e81d718dbe197e633a6afd1a765397fb833fe",
           "path": "apps/desktop/README.md"
         },
         {
-          "hash": "5e611af3434d653cd900d2350f457169d391481bc341edda835dd3dc64ea44ad",
+          "hash": "84f0548119653be13f4f22e6fe62d38f1a64f58b431578d95bca3891afcbf3a4",
           "path": "apps/desktop/README.pt-BR.md"
         },
         {
-          "hash": "affccef43080c0e2af0b2db12e7db2107f5e341c55b33ac52723e596242572b5",
+          "hash": "413c45ac6a68938cfed8b38c0d78ba8b9507e404cc731754ded0ed5e98b6a988",
           "path": "apps/desktop/README.zh.md"
         },
         {
-          "hash": "085505db1725176109bbc035fa5724e3cd55af76e93b0141ea09ba2e5fe3c278",
+          "hash": "f04260d4f5fd4870f5f1aa5d632767884034e3ff2662050d2c3e538852f3a038",
           "path": "apps/desktop/msix/AppxManifest.xml"
         },
         {
@@ -143,15 +145,15 @@
           "path": "apps/desktop/msix/Stillpoint.msix"
         },
         {
-          "hash": "62c8d485aed4335b1cda05cea29cf534739c8d0e7f294301099ed95a3cc842de",
+          "hash": "075d17d9083befb8aa5b823c7c3666a488e90b047f011cd238f6b6312c354423",
           "path": "apps/desktop/msix/build-msix.ps1"
         },
         {
-          "hash": "0ddb709dc03ba7e2350ef64d00986cfbeae44e2f589a82d614de88aadafa0e82",
+          "hash": "ebbd9d672118ffa73a6b5516116b322dc5f6de4ca911832c5cbe8a15b716cb1d",
           "path": "apps/desktop/msix/gen-assets.mjs"
         },
         {
-          "hash": "085505db1725176109bbc035fa5724e3cd55af76e93b0141ea09ba2e5fe3c278",
+          "hash": "f04260d4f5fd4870f5f1aa5d632767884034e3ff2662050d2c3e538852f3a038",
           "path": "apps/desktop/msix/layout/AppxManifest.xml"
         },
         {
@@ -199,23 +201,24 @@
           "path": "apps/desktop/msix/layout/Stillpoint.exe"
         },
         {
-          "hash": "2daabf60ad7e9e8375c91ec3d1079bf51dbcbc3203beed9b8b09f48708ce97c4",
+          "hash": "13a8ff2005099147db5859e9ef1c61f7a8c61f30b1d04684f06f651005b02c5d",
           "path": "apps/desktop/package.json"
         },
         {
-          "hash": "d1e9c7a2ca7bedbba9c6b01419d4419fc0824f540caf3536ac5991eae67b4704",
+          "hash": "04a9e06273307f35f6d69803a35b6cbccaf566391e2526b10f7374e9ccbf11e7",
           "path": "apps/desktop/src-tauri/Cargo.lock"
         },
         {
-          "hash": "ffc3a62987d529e7bc354b96b9a8010fe8137265cbd2e7ba57e2704a8b45ebae",
+          "hash": "046e3e8d94458ab1a189b1557d5f154d01d86f0443b1c4a6bceba1a147781bff",
           "path": "apps/desktop/src-tauri/Cargo.toml"
         },
         {
-          "hash": "7d6cdbc1f57d6524b848d02ade919e0099f603cca94dc9f4ed814b6e0cf0aaa4",
+          "buildScript": true,
+          "hash": "6aeeab41bc35efde4e3c2b644a6248f7fc06d24ae30b75c0d33491cbb0c1fa31",
           "path": "apps/desktop/src-tauri/build.rs"
         },
         {
-          "hash": "3f3b848204a36398444c1c13b0edd597d94c6a45b2bbfffe37319555c28ba327",
+          "hash": "6448f07b6ecfa5ca4f903a0b33de0329c8aa4240f0d125f487848a96f9bae210",
           "path": "apps/desktop/src-tauri/gen-icons.mjs"
         },
         {
@@ -227,11 +230,11 @@
           "path": "apps/desktop/src-tauri/gen/schemas/capabilities.json"
         },
         {
-          "hash": "f771c14328be7eaecb4c3121183b2b84cbbd472745516312ecbef10ea65ec13b",
+          "hash": "88cf23980f1479b57ee8dfd2206216770e0b943b50466b745f0e458c41946e60",
           "path": "apps/desktop/src-tauri/gen/schemas/desktop-schema.json"
         },
         {
-          "hash": "f771c14328be7eaecb4c3121183b2b84cbbd472745516312ecbef10ea65ec13b",
+          "hash": "88cf23980f1479b57ee8dfd2206216770e0b943b50466b745f0e458c41946e60",
           "path": "apps/desktop/src-tauri/gen/schemas/windows-schema.json"
         },
         {
@@ -255,13 +258,19 @@
           "path": "apps/desktop/src-tauri/icons/icon.png"
         },
         {
-          "hash": "e92568c11b9d8506968103f80732643f8780c264ad4329716053d769a923f835",
-          "path": "apps/desktop/src-tauri/src/main.rs"
+          "entry": "main",
+          "entryRule": 1,
+          "hash": "c3ebe69c4aad17ff60bdcca25f538003482429a69518aa67cf10012e35228be8",
+          "path": "apps/desktop/src-tauri/src/main.rs",
+          "sequences": []
         },
         {
-          "hash": "fa9e7c479bc545a5ff5bba10f8c3255adbf68e5e2cfeea8429c26169e9163156",
+          "hash": "90b4352c0cfa4465fd31ef97372bdb3f6b8c860770b7f1e82401ece844117288",
           "path": "apps/desktop/src-tauri/tauri.conf.json"
         }
+      ],
+      "frameworks": [
+        "tauri"
       ],
       "globs": [
         "apps/desktop/**"
@@ -282,75 +291,79 @@
       "externals": 0,
       "files": [
         {
-          "hash": "c9c8a18f98ec92b5f14022bd16d44f481fc01d6f69e1c3346751df67f1fc7a9d",
+          "hash": "0a1f837e0e9561f4d3070fecd9552cf967b8fa92c58b95eaeb2c856bac822262",
           "path": ".env.example"
         },
         {
-          "hash": "22143ea6e97b6f991e101dce801abb21bd1a0e3be7370d1fef853b8674c7e184",
+          "hash": "6919a292af78fe69b2d27df7b02bdbeede764130e01672296b36b3c393836dc2",
           "path": ".gitignore"
         },
         {
-          "hash": "37389ef19fc40c0b4d4326bc0f5b3eb546f9095eed10cec7fcd590a51d00a161",
+          "hash": "580bbfd4bffe9e2a0c0d7bfd1d085872599aefe83bd1365e02410dda3a50f59a",
           "path": "CHANGELOG.md"
         },
         {
-          "hash": "39bc074e6231f51513a9c7d04be098e526c6d45171a1907db563d258d6b5f2ab",
+          "hash": "eb4d87e8ad095f9c0cfc1c8bd13910b695bd39bd5e5972064f8b5027df6a3bdc",
           "path": "LICENSE"
         },
         {
-          "hash": "60ff353b539f14d99034bfb60319fe0f8953c3abb58e23491d978fc93b851c11",
+          "hash": "885b6c4180db6a6f4fd096d1747bfd473892b85263a943294f642c64f6ac81b4",
           "path": "README.es.md"
         },
         {
-          "hash": "260ca664e965d35336fe4ed22247d180e569f1770a7891e62d4f101367ee56e5",
+          "hash": "907900f43b50925ae66a6840b8c22428a2d1ff5746b190f0fd919888f7046965",
           "path": "README.fr.md"
         },
         {
-          "hash": "8d7fe448cdf881ea9cff2f6ec486bcb2a2488f6c9e00d300912851d73628c301",
+          "hash": "61c827a3f3c44fa765923bf83ebc8ce007f3578e7f50d76343783ae41fadd585",
           "path": "README.hi.md"
         },
         {
-          "hash": "25dc80525e7df7f1333db6927ec91f4965c6f0de1e21cdfa483066be043d7217",
+          "hash": "bc87ce8924239923986564aaed38fae8f3e2b0972fa22cfb465d268b968369ef",
           "path": "README.it.md"
         },
         {
-          "hash": "04f614ed3a8f928c8c242626c499583dfd09fc53b7b9df3fc4fb01b04282a706",
+          "hash": "ad5026d26566d47bc806f03ccc7fb73242d44510445024df8ff38c674ce1bdad",
           "path": "README.ja.md"
         },
         {
-          "hash": "a7cb44fb2635dc6b8f77b2864de90b4b77f00cc8d05d04bf6250deda550e3bba",
+          "hash": "99d92450a8e842dc6a0f1716abc455f96362e3cbc4da7ad438626e755d62cefa",
           "path": "README.md"
         },
         {
-          "hash": "5594fd8980c30ad946c57053b5f9ffa02502e1265cd5d5cdea2cbeb3e5c49ca1",
+          "hash": "c83cea09e14eaaff3755d3fc1449220ee22550c3520834168f7e4570734709c0",
           "path": "README.pt-BR.md"
         },
         {
-          "hash": "0e9892f80bf397e498ef25d92e08feda1fd6a7fc7c76aa92d9d7563a5d0e1d43",
+          "hash": "066efa8df1ba4e6e4176f21f689d774d7c1b79b57405d7c39a735ca6959ba7a9",
           "path": "README.zh.md"
         },
         {
-          "hash": "3c97799787538a61aed96675d7e9a21bf189a77e9bd7afa414113c5aa7840dfc",
+          "hash": "b00fe74cf255d8d6944fb5374a73f2502e777569e36e2d5f52656be9af010c32",
           "path": "SCORECARD.md"
         },
         {
-          "hash": "9b76bab9b51a24a35cfc967753407c655ef7f38fea14bef753abcd886324fcef",
+          "hash": "eda75ee2974d0c597347667599a7347c662d9e995e4aad5ad2d7cd6605f729cc",
           "path": "SECURITY.md"
         },
         {
-          "hash": "8333c32592957e984418dd5b333e43fc5826a37d3a6b68baab8406475f0efe8b",
+          "hash": "b246215c7dbeb6c5c56a9eaa451ae1a0c236488b81f2c1b3d5245c61cee8ecbe",
           "path": "SHIP_GATE.md"
         },
         {
-          "hash": "650f47f7f4a03ad5691cde7e4dd48fd75683747d65b458cebf7118ec2e7f2f69",
+          "hash": "59ca3f6a5be96b80fee73bebf2b778211208d17cd3fb82e2134608dff0729c76",
+          "path": "codecov.yml"
+        },
+        {
+          "hash": "ec5257cfec50b5f299eab623ac725a719467fa7e173cfed3e521ccee511df229",
           "path": "package-lock.json"
         },
         {
-          "hash": "a32c0d44f1a273e7780746beb3aa5ab12900bc0768bd8c099331a7beba28be62",
+          "hash": "7f420a88d581e3cfdc0e9dd3f9e470033020af3afada951846ef2e3dc48128f4",
           "path": "package.json"
         },
         {
-          "hash": "8036d848c00f6eded5f52c854cb8f953395a6b9f8e8a33fde02556e68beb5e67",
+          "hash": "10003d9cccadc800b08f5d79b90116cd54a351408ad96fb34e386868604b0965",
           "path": "tsconfig.base.json"
         }
       ],
@@ -375,47 +388,52 @@
       "externals": 0,
       "files": [
         {
-          "hash": "39bc074e6231f51513a9c7d04be098e526c6d45171a1907db563d258d6b5f2ab",
+          "hash": "eb4d87e8ad095f9c0cfc1c8bd13910b695bd39bd5e5972064f8b5027df6a3bdc",
           "path": "packages/server/LICENSE"
         },
         {
-          "hash": "9a7d75722724028fd0a0a192015e500421a18d36dcdea30f2c7bba368a5544d0",
+          "hash": "789bc725672349d4f2f46a705a13942f15e73843a4df0217f657759e41440303",
           "path": "packages/server/README.es.md"
         },
         {
-          "hash": "0a325d524a6d1fa9b28ba9ff562148e517534b6073fdbf969563d2a17416ccc8",
+          "hash": "40cbd90274878c4ae3dae92de8b80e0b41b18940d8065ec9d7160e6fd8547e69",
           "path": "packages/server/README.fr.md"
         },
         {
-          "hash": "cc4c13813c27e7cc54d92d0e9718208d1167c746d879bedef3449e1413927ca1",
+          "hash": "635f0232c0722f5a6a52bece182707838488204eb43618c3242d397c25dc96a3",
           "path": "packages/server/README.hi.md"
         },
         {
-          "hash": "d8387b9dbc3690def87ac01c7cc29113de17f7db7653038f7cb0a6451e6df16a",
+          "hash": "00a150fe726b7c44d02567a24d376bf6af8fd096e93550c39141f7a97929946d",
           "path": "packages/server/README.it.md"
         },
         {
-          "hash": "3fdcb79e2d67a36d2a418a5869c020e839e26bc705d496d9cf91aa99fb16230f",
+          "hash": "6b160546200b2042216cdbc26cdb385000bc62c68bde96dae09b8a06babe103e",
           "path": "packages/server/README.ja.md"
         },
         {
-          "hash": "1f33b400c34b5dbd700f59ff7c3deab1b32e490308e57bafb6893dd5e7eeb383",
+          "hash": "68b19fe859676b9a2cc0f9f3c5e801d230cf255ee0554f9c64f88a7d9875e7a7",
           "path": "packages/server/README.md"
         },
         {
-          "hash": "d83800fb3ab913f8bc8684428271ff1a1448bf108deff0b02d1042d1eca994ac",
+          "hash": "b1e12006ce0698ebbf59d8677a78d2ad2a9cf2f24d61c33bc4dbebbc1546373c",
           "path": "packages/server/README.pt-BR.md"
         },
         {
-          "hash": "cda72b3f37f2c353d620c762e9c4120e6439178f96efe924bacb30a17623dee4",
+          "hash": "68a5ab94f14ac3b2498971114620d4042f7ece66a239b516ae27cc92f4b43f90",
           "path": "packages/server/README.zh.md"
         },
         {
-          "hash": "0ed2d9d9ee99fd6ec7fbf654af00bcd87fe9cfcaf2b0cd31ce90cc950321e371",
+          "hash": "a3a3a8e8473cffd0b414f5ad0e398a0b0544881803cdcd9375002d2eaa45732f",
           "path": "packages/server/package.json"
         },
         {
-          "hash": "517ea2a2af456ad25818305d857c58d1aab308b6f5d5e148399ed6f0a182d079",
+          "hash": "b9010219027a9736d658f06dadbfe215720f943934bede4d0e7945e846940603",
+          "importOrder": [
+            "packages/server/src/server.ts",
+            "packages/server/src/engine-manager.ts",
+            "packages/server/src/state.ts"
+          ],
           "importsFiles": [
             "packages/server/src/engine-manager.ts",
             "packages/server/src/server.ts",
@@ -424,32 +442,51 @@
           "path": "packages/server/src/bin.ts"
         },
         {
-          "hash": "abd7387ef164882d5a084eb15cd0009a365bb920ca549e3c4f3ef7a7300a8e4d",
+          "hash": "9c1b12e0ca30a5b1851382e62d8d69eecb8775497f01ae6f6f6fd9c70e80a44e",
+          "importOrder": [
+            "packages/server/src/state.ts",
+            "packages/server/src/engine-manager.ts"
+          ],
           "importsFiles": [
             "packages/server/src/engine-manager.ts",
             "packages/server/src/state.ts"
           ],
-          "path": "packages/server/src/engine-manager.test.ts"
+          "path": "packages/server/src/engine-manager.test.ts",
+          "testFramework": "node --test"
         },
         {
           "exports": [
             "createEngineManager"
           ],
-          "hash": "0b8491dee6865b6536829161fad8187a90f3ce8abfc092455279c9ada6a4fa70",
+          "failurePaths": [
+            {
+              "in": "createEngineManager",
+              "kind": "catch",
+              "line": 73
+            }
+          ],
+          "hash": "e812e24375d8c1dd28bd1285f6886b9adb22cff77610db5f83148898c2a708ec",
           "importsFiles": [
             "packages/server/src/state.ts"
           ],
           "path": "packages/server/src/engine-manager.ts"
         },
         {
-          "hash": "23ee2c2bbcc62b509e4334b89a122d1d1e9857c1600e4e7055342e9bcce94d6d",
+          "hash": "fef5b0cc471d40ea04f41504ab5b163197abc612d58eb7b07b14eab9c2676a84",
+          "importOrder": [
+            "packages/server/src/server.ts",
+            "packages/server/src/engine-manager.ts",
+            "packages/server/src/state.ts",
+            "packages/server/src/presets.ts"
+          ],
           "importsFiles": [
             "packages/server/src/engine-manager.ts",
             "packages/server/src/presets.ts",
             "packages/server/src/server.ts",
             "packages/server/src/state.ts"
           ],
-          "path": "packages/server/src/index.ts"
+          "path": "packages/server/src/index.ts",
+          "reexportsOnly": true
         },
         {
           "exports": [
@@ -458,7 +495,28 @@
             "remove",
             "save"
           ],
-          "hash": "72a4b21f854cd4ca601c969411d13e0e9e1d4ea2da4677baeb3b5f38f742bce1",
+          "failurePaths": [
+            {
+              "in": "readAll",
+              "kind": "catch",
+              "line": 37
+            },
+            {
+              "in": "writeAll",
+              "kind": "catch",
+              "line": 51
+            },
+            {
+              "in": "writeAll",
+              "kind": "throw",
+              "line": 53
+            }
+          ],
+          "hash": "c21b29f0d610a70083b9300d7aded285294da6bc39faea168a60961accf4c87f",
+          "importOrder": [
+            "packages/server/src/state.ts",
+            "packages/server/src/presets.ts"
+          ],
           "importsFiles": [
             "packages/server/src/presets.ts",
             "packages/server/src/state.ts"
@@ -466,11 +524,12 @@
           "path": "packages/server/src/preset-store.ts"
         },
         {
-          "hash": "aa30e99810628a9aece04442ec364f4c28c4cfa8c8b24fc58453d276dd164ae5",
+          "hash": "ca683270574cddf8ffa8888f6692645cf85466d68d742f212be07ea10595a506",
           "importsFiles": [
             "packages/server/src/presets.ts"
           ],
-          "path": "packages/server/src/presets.test.ts"
+          "path": "packages/server/src/presets.test.ts",
+          "testFramework": "node --test"
         },
         {
           "exports": [
@@ -482,22 +541,137 @@
             "scanCustomSounds",
             "soundAssetRef"
           ],
-          "hash": "bdfd490cc9e227f57356d26ca5188b56a1bf32c132c30f01f557f01c7e4051c8",
+          "failurePaths": [
+            {
+              "in": "loadCustomMeta",
+              "kind": "catch",
+              "line": 146
+            },
+            {
+              "in": "scanCustomSounds",
+              "kind": "catch",
+              "line": 181
+            },
+            {
+              "in": "soundAssetRef",
+              "kind": "throw",
+              "line": 192
+            }
+          ],
+          "hash": "4dd63e5ca564b8db0284468af3f7fbe50ec11d19d18ae162ba6e1c9559402d91",
           "path": "packages/server/src/presets.ts"
         },
         {
-          "hash": "654b67756427dd213932bccc42e867fcf1d2c2d9e2cd371376fc215fb02fabe4",
+          "entry": "startServer",
+          "entryRule": 1,
+          "hash": "9ccd38ba5971f200a889a2e4d1abb55ce04fbc513142c5a314e5e34a51961fdd",
           "importsFiles": [
             "packages/server/src/server.ts",
             "packages/server/src/state.ts"
           ],
-          "path": "packages/server/src/routes/api.test.ts"
+          "path": "packages/server/src/routes/api.test.ts",
+          "sequences": [
+            {
+              "calls": [
+                {
+                  "inner": [
+                    {
+                      "line": 46,
+                      "name": "apiRouter",
+                      "target": {
+                        "file": "packages/server/src/routes/api.ts"
+                      }
+                    },
+                    {
+                      "line": 47,
+                      "name": "eventsRouter",
+                      "target": {
+                        "file": "packages/server/src/routes/events.ts"
+                      }
+                    }
+                  ],
+                  "line": 29,
+                  "name": "createServer",
+                  "target": {
+                    "file": "packages/server/src/server.ts"
+                  }
+                }
+              ],
+              "exported": false,
+              "invokedAtTopLevel": true,
+              "isDefaultExport": false,
+              "name": "startServer"
+            }
+          ],
+          "testFramework": "node --test"
         },
         {
           "exports": [
             "apiRouter"
           ],
-          "hash": "7be36a3c7ab1c6e798a0ce3f785796a869b08328a0f90f25acdc4967d5784cfd",
+          "failurePaths": [
+            {
+              "in": "apiRouter",
+              "kind": "catch",
+              "line": 64
+            },
+            {
+              "in": "apiRouter",
+              "kind": "catch",
+              "line": 105
+            },
+            {
+              "in": "apiRouter",
+              "kind": "catch",
+              "line": 195
+            },
+            {
+              "in": "apiRouter",
+              "kind": "catch",
+              "line": 239
+            },
+            {
+              "in": "apiRouter",
+              "kind": "catch",
+              "line": 246
+            },
+            {
+              "in": "apiRouter",
+              "kind": "catch",
+              "line": 255
+            },
+            {
+              "in": "apiRouter",
+              "kind": "catch",
+              "line": 300
+            },
+            {
+              "in": "apiRouter",
+              "kind": "catch",
+              "line": 397
+            },
+            {
+              "in": "apiRouter",
+              "kind": "catch",
+              "line": 414
+            },
+            {
+              "in": "apiRouter",
+              "kind": "catch",
+              "line": 448
+            },
+            {
+              "in": "apiRouter",
+              "kind": "catch",
+              "line": 468
+            }
+          ],
+          "hash": "7e3ed7f44438fe49d3893f0789fa933d8b0df79df26f02f3fa910921d715c303",
+          "importOrder": [
+            "packages/server/src/state.ts",
+            "packages/server/src/presets.ts",
+            "packages/server/src/preset-store.ts"
+          ],
           "importsFiles": [
             "packages/server/src/preset-store.ts",
             "packages/server/src/presets.ts",
@@ -506,52 +680,123 @@
           "path": "packages/server/src/routes/api.ts"
         },
         {
-          "hash": "edde15406593beb10fd8dd6dacadac095f2b5956ae92210d65392f6146bc33c5",
+          "entry": "startServer",
+          "entryRule": 1,
+          "hash": "14b5ad9cb7e1074364f7440d8a9d619b67fc2e2947c391f5437fc554588d58ca",
           "importsFiles": [
             "packages/server/src/server.ts",
             "packages/server/src/state.ts"
           ],
-          "path": "packages/server/src/routes/events.test.ts"
+          "path": "packages/server/src/routes/events.test.ts",
+          "sequences": [
+            {
+              "calls": [
+                {
+                  "inner": [
+                    {
+                      "line": 46,
+                      "name": "apiRouter",
+                      "target": {
+                        "file": "packages/server/src/routes/api.ts"
+                      }
+                    },
+                    {
+                      "line": 47,
+                      "name": "eventsRouter",
+                      "target": {
+                        "file": "packages/server/src/routes/events.ts"
+                      }
+                    }
+                  ],
+                  "line": 24,
+                  "name": "createServer",
+                  "target": {
+                    "file": "packages/server/src/server.ts"
+                  }
+                }
+              ],
+              "exported": false,
+              "invokedAtTopLevel": true,
+              "isDefaultExport": false,
+              "name": "startServer"
+            }
+          ],
+          "testFramework": "node --test"
         },
         {
           "exports": [
             "eventsRouter"
           ],
-          "hash": "bb9657d6cad9d58ff0d307a05f9ca0b8fe6e70d747343f4dc90e67e482df015f",
+          "failurePaths": [
+            {
+              "in": "onChange",
+              "kind": "catch",
+              "line": 30
+            }
+          ],
+          "hash": "dbb0b4849df3cff44fda2ead45923474574d2306d9da6430ab0620eebb31d61f",
           "importsFiles": [
             "packages/server/src/state.ts"
           ],
           "path": "packages/server/src/routes/events.ts"
         },
         {
+          "entry": "createServer",
+          "entryRule": 4,
           "exports": [
             "createServer"
           ],
-          "hash": "d07baa0664da301d84462ccb3cc79c784b90944163b7030435862c5ff42d4138",
+          "hash": "e5f591117c2f1970fd22c1c049aa9bcaa09501ddeee2129232e1147faea02a14",
           "importsFiles": [
             "packages/server/src/routes/api.ts",
             "packages/server/src/routes/events.ts",
             "packages/server/src/state.ts"
           ],
-          "path": "packages/server/src/server.ts"
+          "path": "packages/server/src/server.ts",
+          "sequences": [
+            {
+              "calls": [
+                {
+                  "line": 46,
+                  "name": "apiRouter",
+                  "target": {
+                    "file": "packages/server/src/routes/api.ts"
+                  }
+                },
+                {
+                  "line": 47,
+                  "name": "eventsRouter",
+                  "target": {
+                    "file": "packages/server/src/routes/events.ts"
+                  }
+                }
+              ],
+              "exported": true,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "createServer"
+            }
+          ]
         },
         {
-          "hash": "fbfa9420ec3ac7904f36a3ad898dba0e8414d9f815f37dc8cd5929b062d64c81",
+          "hash": "1577f7d1757365ded491ee7ce77cfe8732375eeecf591753b65cbdbf930bc19a",
           "importsFiles": [
             "packages/server/src/state.ts"
           ],
-          "path": "packages/server/src/state.test.ts"
+          "path": "packages/server/src/state.test.ts",
+          "testFramework": "node --test"
         },
         {
-          "hash": "1fc1e04839fa7194be54e8c3d5e80946619c7e4149042a8c1a226ab4dd7daa74",
+          "hash": "36fe7924b151dcff10982dccfc7c5a6a08b7508c15ee12ccfe36add5ce732626",
           "path": "packages/server/src/state.ts"
         },
         {
-          "hash": "7c1ed702403a24990c697f55b163c02d25ca13e2d0dfb723fd57bcf7dd46bddf",
-          "path": "packages/server/src/version-alignment.test.ts"
+          "hash": "ae7218a8a690b52aa7556843d676d2dd86ebc9976c9f1087898fd3584eee5b24",
+          "path": "packages/server/src/version-alignment.test.ts",
+          "testFramework": "node --test"
         },
         {
-          "hash": "5fddfdad749ca4bae1ff7f602667ab301565ff745223395ad18015f5cc3244bb",
+          "hash": "596bad4ac43d2846d46b97c32e27ca7f13e0f94848916880b98e822446b4a263",
           "path": "packages/server/tsconfig.json"
         }
       ],
@@ -561,9 +806,21 @@
       "importConfidence": "full",
       "name": "server",
       "origin": "authored",
+      "outsidePlaces": [
+        {
+          "reads": 9,
+          "where": [
+            "caller"
+          ],
+          "writes": 2
+        }
+      ],
       "outsideReads": 9,
       "outsideWrites": 2,
       "role": "code",
+      "testRunners": [
+        "node --test"
+      ],
       "testedBy": 5,
       "unresolvedSites": 0
     },
@@ -576,67 +833,77 @@
       "externals": 0,
       "files": [
         {
-          "hash": "168256d171d6ce7075e62a3b7a19d8ecbeb33d0c53ea61746a1439c2db07df87",
+          "hash": "303c4294c2477eb072e1888a94fc65f92d64eb7a8afb04e94af676af026de738",
           "path": "site/astro.config.mjs"
         },
         {
-          "hash": "0a929c9f4a5e1b5fa3055a9a192dc608399b5bb80dcc3ef0a20fa8446865f2be",
+          "hash": "11e41ec628a2b1874af6f515967326a3bff83d82a69ac3c440f0307992762e03",
           "path": "site/package-lock.json"
         },
         {
-          "hash": "53e27e42282a845e18ecb9962d35a9c25611b6e364705e0fe00fb3251b3a0792",
+          "hash": "568e71b4552dfad2802fec0234e374970ed8e6e1349074dfc79c0958131cb1b2",
           "path": "site/package.json"
         },
         {
-          "hash": "ec030f2e4bf6dc57eaca075d390c228b3212cf29db267e32ef92e110de1acdcc",
+          "constantOnly": true,
+          "hash": "ee756dfba4122d2acc94a39b2555d9f200fff56a87a8c0b10f9cd01df26a8b62",
           "path": "site/src/content.config.ts"
         },
         {
-          "hash": "33f0e8a8511ec03d7102894fda8827eb2db9acfd480d2c378dbaa2b45488abfd",
+          "hash": "039c0336642ca35c4ae5b052aa5de6c4efd82e8782bc6ff52d2735e7f6391ad5",
           "path": "site/src/content/docs/handbook/architecture.md"
         },
         {
-          "hash": "6189d150d2581c780143965dece298fbb70995ad09e6122b26e21dc300fc55e0",
+          "hash": "3f6eeef35f101f6ce912e1861b53ea0591d4455e1ffad081bd9e5e937a40eb0d",
           "path": "site/src/content/docs/handbook/beginners.md"
         },
         {
-          "hash": "d3dacba11965dc6b4c050454aeba8e717a818e3c31729448edb4e1e599a544a6",
+          "hash": "579d402d083d5da41115973d4e51b67e4e9443814b8b3f6ac692db538359b885",
           "path": "site/src/content/docs/handbook/getting-started.md"
         },
         {
-          "hash": "9477f12463bf0a99ecc635c7f363f0f4dd7a18725c7befc1097e872eb57d899a",
+          "hash": "c091517a69e86a1c2ba12db3d41980adef9277cbb8208460c33d78b2bb02b218",
           "path": "site/src/content/docs/handbook/index.md"
         },
         {
-          "hash": "0573ab3dd47e6e2939e4690df846e1a7eb743a2fe649d2a2fa4b5854a2712119",
+          "hash": "92d86025ee2decc0dae176adf2f81f08403e3b578df5d21788508b57f9f1ab0e",
           "path": "site/src/content/docs/handbook/reference.md"
         },
         {
-          "hash": "3941d92ff6659205f3dab39fa15c0e2243fb5bba85f6618b537f3cca86cf279f",
+          "hash": "16a0e48d892ebb023e8cd6638352565cc89a86277524530bcb9e6af7078d1389",
           "path": "site/src/content/docs/handbook/usage.md"
         },
         {
-          "hash": "40018274aa190ba4b070491bd970b025c7f5add0389d513873e21636c8d1941e",
+          "hash": "9445be3def9bd7660443aac67acc9344a92fc81023e2297ebd0fc239f313dac3",
           "path": "site/src/content/docs/privacy.md"
         },
         {
-          "hash": "a699ad78a6d27d6864ccfe4c3a4a01993aca28ecb4a3d20893f37db9f9b1a522",
+          "hash": "391533713539035d3c92282579d43de0f137067867fdb502d7eaea3c74601d2a",
+          "importOrder": [
+            "site/src/styles/global.css",
+            "site/src/site-config.ts"
+          ],
+          "importsFiles": [
+            "site/src/site-config.ts",
+            "site/src/styles/global.css"
+          ],
           "path": "site/src/pages/index.astro"
         },
         {
-          "hash": "4e8c0a66cc564c52d4f2452e8b5aa6bef101d317e175252b9d0bd9de2c535a80",
+          "constantOnly": true,
+          "hash": "d7aa52b496623413743ee0a2ed3a7c754431e144ebb4bb0ca31856ef33b393d0",
           "path": "site/src/site-config.ts"
         },
         {
-          "hash": "20475ab6153b77f37f70127e6c8b5afb1e940f2debf693036ae8822d94a6e463",
+          "hash": "020ce7a18e9400e5334f7897e39854370300d7ff5e07649450edb49b7508afeb",
           "path": "site/src/styles/global.css"
         },
         {
-          "hash": "76f7b278c176520d7ad92f87c215aa6aa1ea325205c22e7359bf5a84631eb5c4",
+          "hash": "d8c7346286db73d7fc5f33a15bd5bb84446700caa706c871b4ac38845ee45547",
           "path": "site/src/styles/starlight-custom.css"
         },
         {
-          "hash": "61fc24492db9aef7ec38eb91cfeebaef96155014bb5f22648fd8ed2327c6cae2",
+          "hash": "b5b0a5b04a14cddd7713c5e1c82e86c79c17c2f86b170e26e9b170b3d5e01cd9",
           "path": "site/tsconfig.json"
         }
       ],
@@ -659,54 +926,62 @@
       "externals": 0,
       "files": [
         {
-          "hash": "39bc074e6231f51513a9c7d04be098e526c6d45171a1907db563d258d6b5f2ab",
+          "hash": "eb4d87e8ad095f9c0cfc1c8bd13910b695bd39bd5e5972064f8b5027df6a3bdc",
           "path": "packages/ui/LICENSE"
         },
         {
-          "hash": "9a979b6c9cf83117b72736b0798903908f26dbb9e4f149fccdecb7f3328f0166",
+          "hash": "74f7d5e578ebacfb0c87487db85730c853164e6595c2940a9409f776b2fefee8",
           "path": "packages/ui/README.es.md"
         },
         {
-          "hash": "1a1a77bde787e9af2f37bd41acc776bf20ad11ec191cf808529098adf9d31cde",
+          "hash": "928986873abe66e49857413007e687c31586091fd941037fe4cf772ff1af224a",
           "path": "packages/ui/README.fr.md"
         },
         {
-          "hash": "4686d786e28b07c73158e8c733683fbc46cc8bc01aefb8c8244913bc62898654",
+          "hash": "111a7b3569448e933c07f3fee7f486230a7ac509df84a0da2df98e2c0dc2ee8c",
           "path": "packages/ui/README.hi.md"
         },
         {
-          "hash": "59c02f2710f58a36ab4cc51092fc0d1e6e2d2959ca682454f2703251df590345",
+          "hash": "b51232e1732b6aafa005d636a15916622d5e5798cec9887e68ad82beda06cb3a",
           "path": "packages/ui/README.it.md"
         },
         {
-          "hash": "d63a249d840169d8aae82d7b7fa05054323fd131760b2571c9ee67f1b62db646",
+          "hash": "f01832ee5a6a5859aea26775c7505955fd07b38dfc20d64428b9bdf5f6179a38",
           "path": "packages/ui/README.ja.md"
         },
         {
-          "hash": "fde7cb4c366823a79965bbe7432a8c50fce7b5e30ef57921684f940bdf68e652",
+          "hash": "6fdaba6ea583d90dc3cba0630e6b99423793088fb3d4478b77b8d0715332e6fd",
           "path": "packages/ui/README.md"
         },
         {
-          "hash": "fe72f9e7a8064812f93d211e45dd155501c4783a9f59bcdff6fc51b9a38b6463",
+          "hash": "90d0ea08429a96281f6549b70e9202cec03b077d65b2361a90cb5369d62c411c",
           "path": "packages/ui/README.pt-BR.md"
         },
         {
-          "hash": "b8ae6898df2db468eccc9614a4494b5f3944f6445c2512ab04b63a18816f5c7a",
+          "hash": "e89a30e02795c797761cb69f7a414fd94bbabefb0cb5eb35967a3d9eb5009410",
           "path": "packages/ui/README.zh.md"
         },
         {
-          "hash": "99374c004b6d6aeb093073a8383a9aa035eecdee5fea280f9c2da55b3bc408b5",
+          "hash": "92e9c7d91182c31c83f12b18f0730a95e94ef1b4c0ea9f3405a45b4a531cc1da",
           "path": "packages/ui/index.html"
         },
         {
-          "hash": "165ce5c6bf47743216b4002b2f029941cba49a71effc00e1390b3a5eff531372",
+          "hash": "d6a436832eeb495687d24242f4db4cb6314ff2b2670c58c94b70bfe46a970010",
           "path": "packages/ui/package.json"
         },
         {
           "exports": [
             "App"
           ],
-          "hash": "c6c0ca51df2a3bb278897142b2786b9223102fbe74263428f41dcf06f63d6e3a",
+          "hash": "8db6ca629fec2f5327bd79fbb7eae434c3d861254be5229ba665e3f1cf34b3c6",
+          "importOrder": [
+            "packages/ui/src/hooks/useRegulator.ts",
+            "packages/ui/src/components/SoundPicker.tsx",
+            "packages/ui/src/components/LayerStrip.tsx",
+            "packages/ui/src/components/DeviceSelect.tsx",
+            "packages/ui/src/components/ErrorBanner.tsx",
+            "packages/ui/src/app.css"
+          ],
           "importsFiles": [
             "packages/ui/src/app.css",
             "packages/ui/src/components/DeviceSelect.tsx",
@@ -718,14 +993,14 @@
           "path": "packages/ui/src/App.tsx"
         },
         {
-          "hash": "eca6de4a94a3a89a8a5014fe01baedb9d7ae7e0715ebfa533bb15f62bfe9c9b4",
+          "hash": "54a72b80d865ebc52b84e070e680b96e45ff32a4c4258538cfdc696401c7be83",
           "path": "packages/ui/src/app.css"
         },
         {
           "exports": [
             "DeviceSelect"
           ],
-          "hash": "68646ebfa78a35930422c456480a549158215f2ebc080a566eda36d6a21d7e03",
+          "hash": "e4c88210b49e807b2a2cf323e0c127596ac55657e8db37fa2c9e263aae86d755",
           "importsFiles": [
             "packages/ui/src/lib/api.ts"
           ],
@@ -735,14 +1010,14 @@
           "exports": [
             "ErrorBanner"
           ],
-          "hash": "65ad1d493fdee669963a3c3cdef405b11177be6f1e176b465283436cf3ab23f1",
+          "hash": "b388370ad91ee541e5f1807b49d85bb764181692a179969d2d260133bf06d89a",
           "path": "packages/ui/src/components/ErrorBanner.tsx"
         },
         {
           "exports": [
             "LayerStrip"
           ],
-          "hash": "7a29ba410202e9e0170ddf561ecc6c093ada3529dff56d4528e4bb4b1e97cd41",
+          "hash": "9488a1bc54169fe9529e318ca40ee5ce760855a856519076d60c83ac38fdc78e",
           "importsFiles": [
             "packages/ui/src/lib/api.ts"
           ],
@@ -752,7 +1027,7 @@
           "exports": [
             "SoundPicker"
           ],
-          "hash": "0cedbb45a597a7005fd863fefea6dd1ec5b9883ade1a0a1dc3b2d0f483881b60",
+          "hash": "95437a55cb450d2f8c6f2eea1a7a3f69ff95c9c8c6090103fc6dc479ae22c10e",
           "importsFiles": [
             "packages/ui/src/lib/api.ts"
           ],
@@ -762,29 +1037,109 @@
           "exports": [
             "useRegulator"
           ],
-          "hash": "cb6500241ab4926ec3bed58b75c5be54afa514312d35562d88868eba350bd5b7",
+          "failurePaths": [
+            {
+              "in": "es.onmessage",
+              "kind": "catch",
+              "line": 49
+            },
+            {
+              "in": "useRegulator",
+              "kind": "catch",
+              "line": 111
+            },
+            {
+              "in": "useRegulator",
+              "kind": "catch",
+              "line": 119
+            },
+            {
+              "in": "useRegulator",
+              "kind": "catch",
+              "line": 165
+            },
+            {
+              "in": "useRegulator",
+              "kind": "catch",
+              "line": 175
+            },
+            {
+              "in": "useRegulator",
+              "kind": "catch",
+              "line": 220
+            },
+            {
+              "in": "useRegulator",
+              "kind": "catch",
+              "line": 228
+            },
+            {
+              "in": "useRegulator",
+              "kind": "catch",
+              "line": 237
+            },
+            {
+              "in": "useRegulator",
+              "kind": "catch",
+              "line": 245
+            },
+            {
+              "in": "useRegulator",
+              "kind": "catch",
+              "line": 253
+            }
+          ],
+          "hash": "67c3bb9f4b8a4685a754f6e4ec5e25d3b86d6faba5c881a62a83ad627d0a5c38",
           "importsFiles": [
             "packages/ui/src/lib/api.ts"
           ],
           "path": "packages/ui/src/hooks/useRegulator.ts"
         },
         {
-          "hash": "c80b568bf9c628df91ec0c3d653dbebbdb386097a170a3592e7cc5f53f1bec4b",
+          "failurePaths": [
+            {
+              "in": "post",
+              "kind": "throw",
+              "line": 55
+            },
+            {
+              "in": "get",
+              "kind": "throw",
+              "line": 62
+            },
+            {
+              "in": "getSounds",
+              "kind": "throw",
+              "line": 69
+            },
+            {
+              "in": "getDevices",
+              "kind": "throw",
+              "line": 74
+            }
+          ],
+          "hash": "f1c6c4e4b51dee0b92291084340ed9b2064bda4de5881ef8df865548d756538f",
           "path": "packages/ui/src/lib/api.ts"
         },
         {
-          "hash": "19d32ecfa581ea9248aceff0452685ef0978bcddd1d5b49fa67b2dbfad39697a",
+          "failurePaths": [
+            {
+              "kind": "throw",
+              "line": 41
+            }
+          ],
+          "hash": "7bc1e57b4fe2f142409dcbd0f553ecc562720985c561385897bbd2bedd5b5ed1",
           "importsFiles": [
             "packages/ui/src/App.tsx"
           ],
           "path": "packages/ui/src/main.tsx"
         },
         {
-          "hash": "2f1d43f2e6a412532df3c12aa4ab3456763dba1bcc534a533556f9d85070a5f1",
+          "hash": "b8b2327280fe4d80e062c9819fe8c249ef2268e8098806754063a48bcc95784b",
           "path": "packages/ui/tsconfig.json"
         },
         {
-          "hash": "8a8a1e034b9caf1b8cff1b38e76040a7c8220d61a5c34c3389c28f575152a4aa",
+          "hash": "4726480065b6e7655a03c0b58ca31d4cc3abdca0b04b38d3abff6efd68a7ec23",
           "path": "packages/ui/vite.config.ts"
         }
       ],
@@ -794,6 +1149,15 @@
       "importConfidence": "full",
       "name": "ui",
       "origin": "authored",
+      "outsidePlaces": [
+        {
+          "reads": 3,
+          "where": [
+            "caller"
+          ],
+          "writes": 0
+        }
+      ],
       "outsideReads": 3,
       "role": "code",
       "testedBy": 0,
@@ -802,41 +1166,114 @@
   ],
   "doors": [
     {
-      "checksCount": 1,
+      "checksCount": 0,
       "commands": [
         {
+          "dir": "",
           "job": "build",
-          "step": "Atlas check",
-          "text": "npx --yes @dogfood-lab/atlas@1.17.0 check"
+          "programs": [
+            "npx"
+          ],
+          "step": "Atlas check"
         },
         {
+          "dir": "",
           "job": "build",
-          "step": "3",
-          "text": "npm ci"
+          "programs": [
+            "npm"
+          ],
+          "step": "3"
         },
         {
+          "dir": "",
           "job": "build",
-          "step": "4",
-          "text": "npm run build --workspace=packages/ui"
+          "programs": [
+            "npm"
+          ],
+          "step": "4"
         },
         {
+          "dir": "",
           "job": "build",
-          "step": "5",
-          "text": "npx tsc --noEmit --project packages/ui/tsconfig.json"
+          "programs": [
+            "npx"
+          ],
+          "step": "5"
         },
         {
+          "dir": "",
           "job": "build",
-          "step": "6",
-          "text": "npm test"
+          "programs": [
+            "npm"
+          ],
+          "step": "6"
         },
         {
+          "dir": "",
           "job": "build",
-          "step": "7",
-          "text": "npm audit --audit-level=high"
+          "programs": [
+            "npx"
+          ],
+          "step": "Coverage report for Codecov"
+        },
+        {
+          "dir": "",
+          "job": "build",
+          "programs": [
+            "npm"
+          ],
+          "step": "10"
         }
       ],
       "elsewhere": [],
       "file": ".github/workflows/ci.yml",
+      "jobs": [
+        {
+          "basis": "declared",
+          "name": "build",
+          "runsOn": [
+            {
+              "labels": [
+                "ubuntu-latest"
+              ],
+              "platform": {
+                "cpu": "x64",
+                "libc": "glibc",
+                "os": "linux"
+              }
+            }
+          ],
+          "setup": [
+            {
+              "ranges": [
+                {
+                  "from": "22",
+                  "range": ">=22.0.0 <23.0.0-0"
+                }
+              ],
+              "step": "1",
+              "uses": "actions/setup-node",
+              "version": "22"
+            }
+          ]
+        },
+        {
+          "basis": "declared",
+          "name": "codecov",
+          "runsOn": [
+            {
+              "labels": [
+                "ubuntu-latest"
+              ],
+              "platform": {
+                "cpu": "x64",
+                "libc": "glibc",
+                "os": "linux"
+              }
+            }
+          ]
+        }
+      ],
       "landings": [],
       "mentions": [
         {
@@ -845,56 +1282,33 @@
         }
       ],
       "name": "CI",
-      "permissions": [],
+      "permissions": [
+        "contents:read",
+        "id-token:write"
+      ],
       "pushes": false,
       "reach": [
         {
           "boundary": "server",
           "depth": 0,
-          "files": 13
+          "files": 8
         },
         {
           "boundary": "ui",
           "depth": 0,
-          "files": 9
+          "files": 10
         }
       ],
       "readers": [],
       "runs": [
         {
           "job": "build",
-          "matched": true,
-          "path": "packages/server/src/engine-manager.test.ts",
-          "runKind": "executes"
-        },
-        {
-          "job": "build",
-          "matched": true,
-          "path": "packages/server/src/presets.test.ts",
-          "runKind": "executes"
-        },
-        {
-          "job": "build",
-          "matched": true,
           "path": "packages/server/src/routes/api.test.ts",
           "runKind": "executes"
         },
         {
           "job": "build",
-          "matched": true,
           "path": "packages/server/src/routes/events.test.ts",
-          "runKind": "executes"
-        },
-        {
-          "job": "build",
-          "matched": true,
-          "path": "packages/server/src/state.test.ts",
-          "runKind": "executes"
-        },
-        {
-          "job": "build",
-          "matched": true,
-          "path": "packages/server/src/version-alignment.test.ts",
           "runKind": "executes"
         },
         {
@@ -902,11 +1316,18 @@
           "job": "build",
           "matched": true,
           "path": "packages/ui/src/",
-          "runKind": "checks",
+          "runKind": "executes",
           "via": "tsc packages/ui/tsconfig.json"
+        },
+        {
+          "job": "build",
+          "matched": true,
+          "path": "packages/ui/vite.config.ts",
+          "runKind": "executes",
+          "via": "vite build"
         }
       ],
-      "runsCount": 7,
+      "runsCount": 4,
       "secrets": [],
       "sends": {
         "deploysPages": false,
@@ -918,7 +1339,31 @@
         "publishesTo": [],
         "releases": false
       },
+      "shellMissed": [
+        {
+          "base": "packages/server/src/",
+          "files": 4,
+          "platform": "linux",
+          "tests": true,
+          "twoStars": true
+        }
+      ],
       "stages": [],
+      "tests": [
+        {
+          "coverage": true,
+          "dir": "packages/server",
+          "files": 2,
+          "job": "build",
+          "junit": true,
+          "runner": "node --test",
+          "step": "6",
+          "through": [
+            "npm test",
+            "npm test (packages/server)"
+          ]
+        }
+      ],
       "triggers": [
         {
           "event": "pull_request",
@@ -926,6 +1371,7 @@
             ".github/workflows/ci.yml",
             "apps/**",
             "atlas/**",
+            "codecov.yml",
             "package-lock.json",
             "package.json",
             "packages/**",
@@ -941,6 +1387,7 @@
             ".github/workflows/ci.yml",
             "apps/**",
             "atlas/**",
+            "codecov.yml",
             "package-lock.json",
             "package.json",
             "packages/**",
@@ -953,7 +1400,10 @@
       ],
       "uses": [
         "actions/checkout",
-        "actions/setup-node"
+        "actions/download-artifact",
+        "actions/setup-node",
+        "actions/upload-artifact",
+        "codecov/codecov-action"
       ],
       "usesWorkflowToken": false
     },
@@ -961,19 +1411,28 @@
       "checksCount": 0,
       "commands": [
         {
+          "dir": "site",
           "job": "build",
-          "step": "Install site dependencies",
-          "text": "npm ci"
+          "programs": [
+            "npm"
+          ],
+          "step": "Install site dependencies"
         },
         {
+          "dir": "site",
           "job": "build",
-          "step": "Audit site dependencies",
-          "text": "npm audit --audit-level=high"
+          "programs": [
+            "npm"
+          ],
+          "step": "Audit site dependencies"
         },
         {
+          "dir": "site",
           "job": "build",
-          "step": "Build site",
-          "text": "npm run build"
+          "programs": [
+            "npm"
+          ],
+          "step": "Build site"
         }
       ],
       "elsewhere": [],
@@ -993,6 +1452,56 @@
           }
         }
       ],
+      "jobs": [
+        {
+          "basis": "declared",
+          "name": "build",
+          "runsOn": [
+            {
+              "labels": [
+                "ubuntu-latest"
+              ],
+              "platform": {
+                "cpu": "x64",
+                "libc": "glibc",
+                "os": "linux"
+              }
+            }
+          ],
+          "setup": [
+            {
+              "ranges": [
+                {
+                  "from": "22",
+                  "range": ">=22.0.0 <23.0.0-0"
+                }
+              ],
+              "step": "1",
+              "uses": "actions/setup-node",
+              "version": "22"
+            }
+          ]
+        },
+        {
+          "basis": "declared",
+          "environment": {
+            "name": "github-pages"
+          },
+          "name": "deploy",
+          "runsOn": [
+            {
+              "labels": [
+                "ubuntu-latest"
+              ],
+              "platform": {
+                "cpu": "x64",
+                "libc": "glibc",
+                "os": "linux"
+              }
+            }
+          ]
+        }
+      ],
       "landings": [],
       "mentions": [],
       "name": "Deploy site to GitHub Pages",
@@ -1006,7 +1515,7 @@
         {
           "boundary": "site",
           "depth": 0,
-          "files": 3
+          "files": 5
         }
       ],
       "readers": [],
@@ -1069,12 +1578,64 @@
         "actions/upload-pages-artifact"
       ],
       "usesWorkflowToken": false
+    },
+    {
+      "app": "desktop",
+      "checksCount": 0,
+      "commands": [],
+      "elsewhere": [],
+      "file": "apps/desktop/src-tauri/Cargo.toml",
+      "kind": "command",
+      "landings": [],
+      "mentions": [],
+      "name": "stillpoint",
+      "permissions": [],
+      "pushes": false,
+      "reach": [
+        {
+          "boundary": "desktop",
+          "depth": 0,
+          "files": 1
+        }
+      ],
+      "readers": [],
+      "runs": [
+        {
+          "path": "apps/desktop/src-tauri/src/main.rs",
+          "runKind": "executes"
+        }
+      ],
+      "runsCount": 1,
+      "secrets": [],
+      "sends": {
+        "deploysPages": false,
+        "dispatchesTo": [],
+        "opensIssues": false,
+        "opensIssuesOnFailure": false,
+        "opensPullRequests": false,
+        "publishes": false,
+        "publishesTo": [],
+        "releases": false
+      },
+      "stages": [],
+      "triggers": [],
+      "unshipped": true,
+      "uses": [],
+      "usesWorkflowToken": false
     }
   ],
-  "edges": [],
+  "edges": [
+    {
+      "from": "ui",
+      "kind": "http",
+      "routes": 13,
+      "to": "server"
+    }
+  ],
+  "engine": "1.24.0",
   "generatedFrom": {
-    "commit": "26647adb400f0def524ecde5694cca44e4628090",
-    "tracked": 136
+    "commit": "6054b1b1dfdb91de994b7f227c3baff47388ae48",
+    "tracked": 137
   },
   "landings": [
     {
@@ -1101,7 +1662,24 @@
       "writers": []
     },
     {
-      "readers": [],
+      "readers": [
+        {
+          "by": "apps/desktop/msix/build-msix.ps1",
+          "call": "Copy-Item",
+          "confidence": "text"
+        }
+      ],
+      "target": "apps/desktop/msix/AppxManifest.xml",
+      "writers": []
+    },
+    {
+      "readers": [
+        {
+          "by": "apps/desktop/msix/build-msix.ps1",
+          "call": "Copy-Item",
+          "confidence": "text"
+        }
+      ],
       "target": "apps/desktop/msix/Assets",
       "writers": [
         {
@@ -1109,6 +1687,169 @@
           "confidence": "ast"
         }
       ]
+    },
+    {
+      "readers": [
+        {
+          "by": "apps/desktop/msix/AppxManifest.xml",
+          "call": "configuration",
+          "confidence": "config"
+        }
+      ],
+      "target": "apps/desktop/msix/Assets/Square150x150Logo.png",
+      "writers": []
+    },
+    {
+      "readers": [
+        {
+          "by": "apps/desktop/msix/AppxManifest.xml",
+          "call": "configuration",
+          "confidence": "config"
+        }
+      ],
+      "target": "apps/desktop/msix/Assets/Square310x310Logo.png",
+      "writers": []
+    },
+    {
+      "readers": [
+        {
+          "by": "apps/desktop/msix/AppxManifest.xml",
+          "call": "configuration",
+          "confidence": "config"
+        }
+      ],
+      "target": "apps/desktop/msix/Assets/Square44x44Logo.png",
+      "writers": []
+    },
+    {
+      "readers": [
+        {
+          "by": "apps/desktop/msix/AppxManifest.xml",
+          "call": "configuration",
+          "confidence": "config"
+        }
+      ],
+      "target": "apps/desktop/msix/Assets/Square71x71Logo.png",
+      "writers": []
+    },
+    {
+      "readers": [
+        {
+          "by": "apps/desktop/msix/AppxManifest.xml",
+          "call": "configuration",
+          "confidence": "config"
+        }
+      ],
+      "target": "apps/desktop/msix/Assets/StoreLogo.png",
+      "writers": []
+    },
+    {
+      "readers": [
+        {
+          "by": "apps/desktop/msix/AppxManifest.xml",
+          "call": "configuration",
+          "confidence": "config"
+        }
+      ],
+      "target": "apps/desktop/msix/Assets/Wide310x150Logo.png",
+      "writers": []
+    },
+    {
+      "readers": [],
+      "target": "apps/desktop/msix/layout",
+      "writers": [
+        {
+          "by": "apps/desktop/msix/build-msix.ps1",
+          "confidence": "text"
+        }
+      ]
+    },
+    {
+      "readers": [],
+      "target": "apps/desktop/msix/layout/Assets",
+      "writers": [
+        {
+          "by": "apps/desktop/msix/build-msix.ps1",
+          "confidence": "text"
+        }
+      ]
+    },
+    {
+      "readers": [
+        {
+          "by": "apps/desktop/msix/layout/AppxManifest.xml",
+          "call": "configuration",
+          "confidence": "config"
+        }
+      ],
+      "target": "apps/desktop/msix/layout/Assets/Square150x150Logo.png",
+      "writers": []
+    },
+    {
+      "readers": [
+        {
+          "by": "apps/desktop/msix/layout/AppxManifest.xml",
+          "call": "configuration",
+          "confidence": "config"
+        }
+      ],
+      "target": "apps/desktop/msix/layout/Assets/Square310x310Logo.png",
+      "writers": []
+    },
+    {
+      "readers": [
+        {
+          "by": "apps/desktop/msix/layout/AppxManifest.xml",
+          "call": "configuration",
+          "confidence": "config"
+        }
+      ],
+      "target": "apps/desktop/msix/layout/Assets/Square44x44Logo.png",
+      "writers": []
+    },
+    {
+      "readers": [
+        {
+          "by": "apps/desktop/msix/layout/AppxManifest.xml",
+          "call": "configuration",
+          "confidence": "config"
+        }
+      ],
+      "target": "apps/desktop/msix/layout/Assets/Square71x71Logo.png",
+      "writers": []
+    },
+    {
+      "readers": [
+        {
+          "by": "apps/desktop/msix/layout/AppxManifest.xml",
+          "call": "configuration",
+          "confidence": "config"
+        }
+      ],
+      "target": "apps/desktop/msix/layout/Assets/StoreLogo.png",
+      "writers": []
+    },
+    {
+      "readers": [
+        {
+          "by": "apps/desktop/msix/layout/AppxManifest.xml",
+          "call": "configuration",
+          "confidence": "config"
+        }
+      ],
+      "target": "apps/desktop/msix/layout/Assets/Wide310x150Logo.png",
+      "writers": []
+    },
+    {
+      "readers": [
+        {
+          "by": "apps/desktop/msix/layout/AppxManifest.xml",
+          "call": "configuration",
+          "confidence": "config"
+        }
+      ],
+      "target": "apps/desktop/msix/layout/Stillpoint.exe",
+      "writers": []
     },
     {
       "readers": [
@@ -1124,6 +1865,16 @@
     },
     {
       "readers": [],
+      "target": "apps/desktop/src-tauri/gen/schemas",
+      "writers": [
+        {
+          "by": "apps/desktop/src-tauri/build.rs",
+          "confidence": "ast"
+        }
+      ]
+    },
+    {
+      "readers": [],
       "target": "apps/desktop/src-tauri/icons",
       "writers": [
         {
@@ -1133,7 +1884,35 @@
       ]
     },
     {
-      "readers": [],
+      "readers": [
+        {
+          "by": "apps/desktop/src-tauri/tauri.conf.json",
+          "call": "configuration",
+          "confidence": "config"
+        }
+      ],
+      "target": "apps/desktop/src-tauri/icons/128x128.png",
+      "writers": []
+    },
+    {
+      "readers": [
+        {
+          "by": "apps/desktop/src-tauri/tauri.conf.json",
+          "call": "configuration",
+          "confidence": "config"
+        }
+      ],
+      "target": "apps/desktop/src-tauri/icons/32x32.png",
+      "writers": []
+    },
+    {
+      "readers": [
+        {
+          "by": "apps/desktop/src-tauri/tauri.conf.json",
+          "call": "configuration",
+          "confidence": "config"
+        }
+      ],
       "target": "apps/desktop/src-tauri/icons/icon.ico",
       "writers": [
         {
@@ -1203,7 +1982,8 @@
     {
       "readers": [
         {
-          "by": ".github/workflows/ci.yml"
+          "by": ".github/workflows/ci.yml",
+          "confidence": "config"
         }
       ],
       "target": "packages/ui/tsconfig.json",
@@ -1236,5 +2016,16 @@
   "submodules": [],
   "symlinks": [],
   "testFiles": 6,
-  "unassigned": []
+  "testsNotRun": [
+    "packages/server/src/engine-manager.test.ts",
+    "packages/server/src/presets.test.ts",
+    "packages/server/src/state.test.ts",
+    "packages/server/src/version-alignment.test.ts"
+  ],
+  "unassigned": [],
+  "workspaces": [
+    "apps/desktop",
+    "packages/server",
+    "packages/ui"
+  ]
 }
