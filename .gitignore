@@ -7,3 +7,8 @@ site/.astro/
 site/dist/
 site/node_modules/
 .polyglot-cache.json
+
+# MSIX build outputs (written by apps/desktop/msix/build-msix.ps1)
+apps/desktop/msix/layout/
+apps/desktop/msix/*.msix
+apps/desktop/msix/*.pfx
