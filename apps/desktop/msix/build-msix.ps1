@@ -36,6 +36,27 @@ if (-not $SdkBin) {
 $MakeAppx = $SdkBin.FullName
 Write-Host "Using: $MakeAppx" -ForegroundColor Cyan
 
+# Keep the build machine's paths out of the binary. rustc embeds absolute source
+# paths (panic locations, debug info), and those carry the home directory of
+# whoever ran the build. --remap-path-prefix rewrites them at compile time, so the
+# shipped exe is the same on every machine. Remaps are applied in order and the
+# last matching one wins, so the broad home prefix comes first and the more
+# specific repo root and cargo home after it.
+# CARGO_ENCODED_RUSTFLAGS (flags joined by 0x1f) instead of RUSTFLAGS: a home
+# directory with a space in it would split a RUSTFLAGS entry in two. Cargo reads
+# the encoded variable first and ignores RUSTFLAGS when it is set, so any flags
+# already in RUSTFLAGS are carried over rather than dropped.
+$Remaps = @("$env:USERPROFILE=~", "$Root=stillpoint")
+if ($env:CARGO_HOME) { $Remaps += "$env:CARGO_HOME=~/.cargo" }
+$RemapFlags = $Remaps | ForEach-Object { "--remap-path-prefix=$_" }
+$ExistingFlags = @()
+if ($env:CARGO_ENCODED_RUSTFLAGS) {
+  $ExistingFlags = $env:CARGO_ENCODED_RUSTFLAGS -split [char]0x1f
+} elseif ($env:RUSTFLAGS) {
+  $ExistingFlags = $env:RUSTFLAGS -split '\s+' | Where-Object { $_ }
+}
+$env:CARGO_ENCODED_RUSTFLAGS = (@($ExistingFlags) + @($RemapFlags)) -join [char]0x1f
+
 # Tauri build output location
 $TauriBuildDir = Join-Path $DesktopDir "src-tauri\target\release"
 $TauriExe = Join-Path $TauriBuildDir "Stillpoint.exe"
