@@ -133,8 +133,83 @@
         "path": ".github/workflows/pages.yml"
       },
       {
-        "commits": 4,
-        "lines": 272,
+        "commits": 2,
+        "lines": 10,
+        "path": ".gitignore"
+      },
+      {
+        "commits": 2,
+        "lines": 0,
+        "path": "apps/desktop/msix/Stillpoint.msix"
+      },
+      {
+        "commits": 2,
+        "lines": 42,
+        "path": "apps/desktop/msix/build-msix.ps1"
+      },
+      {
+        "commits": 2,
+        "lines": 124,
+        "path": "apps/desktop/msix/layout/AppxManifest.xml"
+      },
+      {
+        "commits": 2,
+        "lines": 0,
+        "path": "apps/desktop/msix/layout/Assets/Square150x150Logo.png"
+      },
+      {
+        "commits": 2,
+        "lines": 0,
+        "path": "apps/desktop/msix/layout/Assets/Square310x310Logo.png"
+      },
+      {
+        "commits": 2,
+        "lines": 0,
+        "path": "apps/desktop/msix/layout/Assets/Square44x44Logo.png"
+      },
+      {
+        "commits": 2,
+        "lines": 0,
+        "path": "apps/desktop/msix/layout/Assets/Square44x44Logo.targetsize-24_altform-unplated.png"
+      },
+      {
+        "commits": 2,
+        "lines": 0,
+        "path": "apps/desktop/msix/layout/Assets/Square44x44Logo.targetsize-256_altform-unplated.png"
+      },
+      {
+        "commits": 2,
+        "lines": 0,
+        "path": "apps/desktop/msix/layout/Assets/Square44x44Logo.targetsize-32_altform-unplated.png"
+      },
+      {
+        "commits": 2,
+        "lines": 0,
+        "path": "apps/desktop/msix/layout/Assets/Square44x44Logo.targetsize-48_altform-unplated.png"
+      },
+      {
+        "commits": 2,
+        "lines": 0,
+        "path": "apps/desktop/msix/layout/Assets/Square71x71Logo.png"
+      },
+      {
+        "commits": 2,
+        "lines": 0,
+        "path": "apps/desktop/msix/layout/Assets/StoreLogo.png"
+      },
+      {
+        "commits": 2,
+        "lines": 0,
+        "path": "apps/desktop/msix/layout/Assets/Wide310x150Logo.png"
+      },
+      {
+        "commits": 2,
+        "lines": 0,
+        "path": "apps/desktop/msix/layout/Stillpoint.exe"
+      },
+      {
+        "commits": 6,
+        "lines": 304,
         "path": "atlas/README.md"
       },
       {
@@ -143,18 +218,18 @@
         "path": "atlas/boundaries.yaml"
       },
       {
-        "commits": 4,
-        "lines": 1040,
+        "commits": 6,
+        "lines": 1220,
         "path": "atlas/page.json"
       },
       {
-        "commits": 4,
-        "lines": 2744,
+        "commits": 6,
+        "lines": 2812,
         "path": "atlas/statistics.json"
       },
       {
-        "commits": 4,
-        "lines": 4762,
+        "commits": 6,
+        "lines": 5076,
         "path": "atlas/structure.json"
       },
       {
@@ -198,9 +273,9 @@
     "level": "low",
     "reason": "fewer than 30 qualifying commits in the window, and fewer than 25 source files reach 10 revisions"
   },
-  "generatedAt": "2026-10-01T01:44:25.182Z",
+  "generatedAt": "2026-10-01T02:13:56.529Z",
   "generatedFrom": {
-    "commit": "df37a1acb48be03abac4f4906349d91cc1755873"
+    "commit": "95417cd40addae05d873e0efbc7feeb074304231"
   },
   "pairs": [],
   "parameters": {
@@ -213,16 +288,16 @@
     "floor": "fallen",
     "floorHeld": false,
     "floorTrigger": "both",
-    "headDate": "2026-09-30T13:47:43-07:00",
+    "headDate": "2026-09-30T18:56:03-07:00",
     "inScopeFiles": 129,
     "pinnedStart": null,
     "priorFloor": "fallen",
-    "qualifyingCommits": 10,
+    "qualifyingCommits": 11,
     "qualifyingMinimum": 30,
     "revisions": 5,
     "shared": 10,
     "sharedFloorUsed": 3,
-    "since": "2026-04-03T20:47:43.000Z",
+    "since": "2026-04-04T01:56:03.000Z",
     "sourceExtensions": [
       ".js",
       ".mjs",
