@@ -36,7 +36,7 @@
           "path": ".github/dependabot.yml"
         },
         {
-          "hash": "367cd3eb054e380c05ac8390475e86b745bbd90d4484600547dba9f8466d5182",
+          "hash": "dad58cebdfa40aa55e4ee991663d58a22a228dfffd9d87c4ead8afe36aa91451",
           "path": ".github/workflows/ci.yml"
         },
         {
@@ -1314,17 +1314,7 @@
       ],
       "triggers": [
         {
-          "event": "pull_request",
-          "paths": [
-            ".github/workflows/ci.yml",
-            "apps/**",
-            "atlas/**",
-            "codecov.yml",
-            "package-lock.json",
-            "package.json",
-            "packages/**",
-            "site/**"
-          ]
+          "event": "pull_request"
         },
         {
           "branches": [
@@ -1582,7 +1572,7 @@
   ],
   "engine": "1.24.0",
   "generatedFrom": {
-    "commit": "df37a1acb48be03abac4f4906349d91cc1755873",
+    "commit": "95417cd40addae05d873e0efbc7feeb074304231",
     "tracked": 124
   },
   "landings": [
