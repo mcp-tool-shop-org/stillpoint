@@ -1,15 +1,14 @@
 # stillpoint: how it works
 
-Mapped at 2026-10-01 from commit 95417cd by Atlas 1.24.0.
+Mapped at 2026-11-11 from commit c629ce3 by Atlas 1.26.0.
 
 ## What this is
 
 7 parts, mostly TypeScript (26 files), CSS (3), JavaScript (3), Rust (2), Astro (1), HTML (1) and PowerShell (1). Work enters through 3 doors; the busiest is CI, which reaches 2 parts. It deploys a site to GitHub Pages. stillpoint is a desktop app built from apps/desktop/src-tauri (nothing ships it).
 
-## What changed since 2026-10-01 (df37a1a)
+## What changed since 2026-10-01 (95417cd)
 
-- CI's pull request trigger no longer names `.github/workflows/ci.yml`, `apps/**`, `atlas/**`, `codecov.yml`, `package-lock.json`, `package.json`, `packages/**` and `site/**`.
-- 1 file changed content, across 1 part.
+Nothing structural changed since 2026-10-01; 4 files changed content.
 
 ## What comes in
 
@@ -69,9 +68,11 @@ People write .claude/, .github/, the repository root and site/. Nothing in this 
 
 ## Where to start
 
-.github/workflows/ci.yml → packages/server/src/server.ts → packages/server/src/routes/api.ts → packages/server/src/routes/events.ts
+.github/workflows/ci.yml → packages/server/src/server.ts → packages/server/src/routes/api.ts → packages/server/src/preset-store.ts → packages/server/src/state.ts
 
 Read those in order to follow one pull request end to end.
+
+Beside the path, packages/server/src/server.ts also calls packages/server/src/routes/events.ts.
 
 ## What this map cannot see
 
