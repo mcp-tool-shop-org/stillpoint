@@ -36,7 +36,7 @@
           "path": ".github/dependabot.yml"
         },
         {
-          "hash": "dad58cebdfa40aa55e4ee991663d58a22a228dfffd9d87c4ead8afe36aa91451",
+          "hash": "ce6edc982dafb77f919506e175a7a6c1fa175ae3037f325411abaa4e236385a2",
           "path": ".github/workflows/ci.yml"
         },
         {
@@ -153,7 +153,7 @@
           "path": "apps/desktop/package.json"
         },
         {
-          "hash": "04a9e06273307f35f6d69803a35b6cbccaf566391e2526b10f7374e9ccbf11e7",
+          "hash": "1870c941985b9f8193c008e0e5395fc2a2ba512db653b024e4a2eee23caf77c9",
           "path": "apps/desktop/src-tauri/Cargo.lock"
         },
         {
@@ -303,7 +303,7 @@
           "path": "codecov.yml"
         },
         {
-          "hash": "ec5257cfec50b5f299eab623ac725a719467fa7e173cfed3e521ccee511df229",
+          "hash": "aa73b50fe6d57271dae1c7e8c6f9a66449b5e3f7e19f8b27347b7ed78c55938d",
           "path": "package-lock.json"
         },
         {
@@ -785,7 +785,7 @@
           "path": "site/astro.config.mjs"
         },
         {
-          "hash": "11e41ec628a2b1874af6f515967326a3bff83d82a69ac3c440f0307992762e03",
+          "hash": "c3a87e312daea2951c89bfa95a82f07baf8a80ef0cc88830ac2ffbb0d5f8c63c",
           "path": "site/package-lock.json"
         },
         {
@@ -1570,9 +1570,9 @@
       "to": "server"
     }
   ],
-  "engine": "1.24.0",
+  "engine": "1.26.0",
   "generatedFrom": {
-    "commit": "95417cd40addae05d873e0efbc7feeb074304231",
+    "commit": "f48cddc2963dd77518f8ffb8ea280daf61fe112f",
     "tracked": 124
   },
   "landings": [
